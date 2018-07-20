@@ -1,0 +1,45 @@
+html, body {
+  background: #eee;
+}
+
+.has-text-centered {
+  text-align: center;
+}
+
+.login-page {
+  background: url(../img/login-bg.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.navbar {
+  height: 72px;
+
+  .navbar-brand {
+    background: #3f515a;
+    width: 300px;
+  }
+
+  .navbar-menu {
+    margin: 0 20px;
+  }
+}
+
+.sidebar {
+  background: #34444b;
+  height: calc(100vh - 72px);
+  width: 300px;
+}
+
+/*
+ * Animations
+ */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 500ms ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}

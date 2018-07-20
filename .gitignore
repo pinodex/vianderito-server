@@ -1,0 +1,17 @@
+/node_modules
+/public/assets
+/public/storage
+/public/hot
+/public/mix.js
+/public/mix.*.js
+/public/mix-manifest.json
+/storage/*.key
+/vendor
+/.idea
+/.sass-cache
+Homestead.json
+Homestead.yaml
+.env
+composer.lock
+package-lock.json
+npm-debug.*

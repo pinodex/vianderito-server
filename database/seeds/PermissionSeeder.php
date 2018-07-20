@@ -1,0 +1,56 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class PermissionSeeder extends Seeder
+{
+    protected $data = [
+        [
+            'name' => 'account',
+            'items' => [
+                'browse_accounts' => ['Browse Accounts', 'Allow browsing of accounts'],
+                'create_account' => ['Create Account', 'Allow creation of account'],
+                'delete_account' => ['Delete Account', 'Allow deletion account'],
+                'edit_account' => ['Edit Account', 'Allow editing of account']
+            ]
+        ],
+
+        [
+            'name' => 'group',
+            'items' => [
+                'browse_groups' => ['Browse Groups', 'Allow browsing of groups'],
+                'create_group' => ['Create Group', 'Allow creation of group'],
+                'delete_group' => ['Delete Group', 'Allow deletion group'],
+                'edit_group' => ['Edit Group', 'Allow editing of group']
+            ]
+        ]
+    ];
+
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $data = [];
+        $time = $GLOBALS['time'];
+
+        // Flatten data
+        foreach ($this->data as $group) {
+            foreach ($group['items'] as $id => $entry) {
+                $data[] = [
+                    'id'            => $id,
+                    'name'          => $entry[0],
+                    'category'      => $group['name'],
+                    'description'   => $entry[1],
+                    'created_at'    => $time,
+                    'updated_at'    => $time
+                ];
+            }
+        }
+
+        DB::table('permissions')->insert($data);
+    }
+}

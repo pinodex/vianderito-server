@@ -1,0 +1,14 @@
+/*! bulma.io v0.4.0 | MIT License | github.com/jgthms/bulma */
+@charset "utf-8";
+
+$primary:       #4289a5;
+$info:          #54a3d3;
+
+@import "~bulma/sass/utilities/_all";
+@import "~bulma/sass/base/_all";
+@import "~bulma/sass/elements/_all";
+@import "~bulma/sass/components/_all";
+@import "~bulma/sass/grid/_all";
+@import "~bulma/sass/layout/_all";
+
+@import "~buefy/src/scss/buefy"
