@@ -1,9 +1,20 @@
+$navbar-height:             52px;
+$navbar-height-extended:    72px;
+
 html, body {
   background: #eee;
+  font-size: 14px;
 }
 
 .has-text-centered {
   text-align: center;
+}
+
+.icon {
+  svg {
+    fill: none;
+    stroke-width: unset;
+  }
 }
 
 .login-page {
@@ -13,22 +24,108 @@ html, body {
 }
 
 .navbar {
-  height: 72px;
+  height: $navbar-height;
 
-  .navbar-brand {
-    background: #3f515a;
-    width: 300px;
+  .navbar-burger {
+    height: $navbar-height;
   }
+}
 
-  .navbar-menu {
-    margin: 0 20px;
+@media (min-width: 1088px) {
+  .navbar {
+    height: $navbar-height-extended;
+
+    .navbar-brand {
+      display: none;
+    }
+
+    .navbar-menu {
+      margin: 0 20px;
+    }
   }
 }
 
 .sidebar {
   background: #34444b;
-  height: calc(100vh - 72px);
+  
+  position: fixed;
+  top: 0;
+
+  height: 100vh;
   width: 300px;
+
+  z-index: 40;
+
+  @media (max-width: 1087px) {
+    display: none;
+  }
+
+  .navbar-brand {
+    background: #3f515a;
+    height: $navbar-height-extended;
+  }
+
+  .search {
+    .field {
+      padding: 10px;
+    }
+
+    .input {
+      background: transparent;
+      box-shadow: none;
+      border: none;
+
+      padding-left: 2.67em;
+
+      color: #fff;
+
+      &::placeholder {
+        color: #3f515a;
+      }
+
+      &:focus ~ .icon {
+        color: #fff;
+      }
+    }
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+  }
+
+  .navbar-item {
+    color: #9cb1ba;
+
+    padding: 15px 20px;
+
+    .icon {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      background-color: #2a363c;
+      color: #fff;
+    }
+
+    &.is-active,
+    &.is-active:not(:hover) {
+      background-color: #263136;
+      color: #fff;
+    }
+  }
+}
+
+.ui-container {
+  display: flex;
+  margin-top: $navbar-height;
+
+  @media (min-width: 1088px) {
+    margin-top: $navbar-height-extended;
+
+    .router-view {
+      margin-left: 300px;
+    }
+  }
 }
 
 /*

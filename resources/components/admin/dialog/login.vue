@@ -81,6 +81,7 @@
         this.$http.post(location.href, this.credentials)
           .then(response => {
             this.isLoggedIn = true
+            this.hasError = false
 
             location.reload()
           })

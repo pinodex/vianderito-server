@@ -2,6 +2,7 @@ import Vue from 'vue'
 import ProgressBar from 'vue-progressbar'
 import Buefy from 'buefy'
 import Axios from 'axios'
+import feather from 'feather-icons'
 
 import store from './store'
 import router from './router'
@@ -30,6 +31,10 @@ const app = new Vue({
     return {
       account: window.__ACCOUNT__ || null
     }
+  },
+
+  mounted () {
+    feather.replace()
   },
 
   methods: {
