@@ -128,6 +128,27 @@ html, body {
   }
 }
 
+.panel {
+  .panel-heading {
+    background: #333;
+    font-weight: 400;
+    font-size: 1rem;
+    padding: 1rem;
+    color: #eee;
+
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  .panel-block {
+    background: #fff;
+
+    & > form {
+      width: 100%;
+    }
+  }
+}
+
 .modal .modal-content {
   background: #fff;
   border-radius: 3px;

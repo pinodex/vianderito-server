@@ -167,7 +167,7 @@
       },
 
       editModel (model) {
-        this.$root.$emit('accounts.edit', model)
+        this.$root.$emit('accounts:edit', model)
       },
 
       deleteModel (model) {
