@@ -10,16 +10,19 @@
           <input class="input" type="text" placeholder="Type to search">
 
           <span class="icon is-small is-left">
-            <i data-feather="search"></i>
+            <i class="fas fa-search"></i>
           </span>
         </p>
       </div>
     </div>
 
     <div class="navbar-menu">
-      <router-link class="navbar-item" v-for="item in items" :to="item.route">
+      <router-link class="navbar-item" v-for="(item, i) in items"
+        :class="{ 'is-active': item.route.name == $route.name }"
+        :to="item.route"
+        :key="i">
         <span class="icon">
-          <i :data-feather="item.icon"></i>
+          <i :class="item.icon"></i>
         </span> {{ item.text }}
       </router-link>
     </div>

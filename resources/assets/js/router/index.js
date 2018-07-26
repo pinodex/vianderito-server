@@ -1,23 +1,24 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const components = {
-
-}
-
 Vue.use(Router)
 
 const router = new Router({
+  base: 'admin',
   mode: 'history',
-  
+
   routes: [
-  /*
     {
       path: '/',
       name: 'index',
-      component: components.Index
+      component: () => import('@admin/pages/index')
     },
-    */
+
+    {
+      path: '/accounts',
+      name: 'accounts',
+      component: () => import('@admin/pages/accounts/index')
+    },
   ]
 })
 

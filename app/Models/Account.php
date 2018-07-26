@@ -30,6 +30,10 @@ class Account extends Authenticatable
         'username'
     ];
 
+    public $with = [
+        'group'
+    ];
+
     public $appends = [
         'name',
         'picture'

@@ -19,12 +19,9 @@ trait Avatar
         $image = asset('/assets/img/default-avatar.png');
         $thumb = asset('/assets/img/default-avatar-thumb.png');
 
-        if ($this->avatar_picture) {
-            $image = asset('/storage/' . $this->avatar_picture);
-        }
-
-        if ($this->avatar_thumbnail) {
-            $thumb = asset('/storage/' . $this->avatar_thumbnail);
+        if ($this->avatar_id) {
+            $image = asset("/storage/avatars/{$this->avatar_id}.picture.jpg");
+            $thumb = asset("/storage/avatars/{$this->avatar_id}.thumb.jpg");
         }
 
         return [
@@ -50,8 +47,7 @@ trait Avatar
 
         $this->deletePicture();
 
-        $this->attributes['avatar_picture'] = $pictureTarget;
-        $this->attributes['avatar_thumbnail'] = $thumbTarget;
+        $this->attributes['avatar_id'] = $uuid;
     }
 
     /**
@@ -60,8 +56,8 @@ trait Avatar
     public function deletePicture()
     {
         Storage::disk('public')->delete([
-            $this->avatar_picture,
-            $this->avatar_thumbnail
+            "avatars/{$this->avatar_id}.picture.jpg",
+            "avatars/{$this->avatar_id}.thumb.jpg"
         ]);
     }
 }

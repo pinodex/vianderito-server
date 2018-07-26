@@ -19,6 +19,12 @@ let config = {
   output: {
     chunkFilename: 'assets/js/chunks/[name].js',
     publicPath: '/'
+  },
+
+  resolve: {
+    alias: {
+      "@admin": path.resolve(__dirname, "resources/components/admin")
+    }
   }
 }
 
@@ -29,15 +35,16 @@ if (mix.inProduction()) {
 mix
   .sass('resources/assets/sass/app.scss',                    'public/assets/css')
   .sass('resources/assets/sass/bulma.scss',                   'public/assets/css')
+  .sass('resources/assets/sass/fonts.scss',                   'public/assets/css')
 
   .js('resources/assets/js/app.js',                           'public/assets/js')
   
   .copy('resources/assets/img',                               'public/assets/img')
   .copy('resources/assets/icon',                              'public/assets/icon')
+  .copy('node_modules/@fortawesome/fontawesome-free/webfonts','public/assets/webfonts')
 
   .extract([
-    'vue', 'vue-router', 'vuex', 'vue-progressbar',
-    'axios', 'at-ui', 'buefy'
+    'vue', 'vue-router', 'vuex', 'vue-progressbar', 'axios', 'buefy', 'format-unicorn'
   ])
 
   .disableNotifications()

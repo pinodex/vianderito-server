@@ -14,8 +14,8 @@
 
     <div class="navbar-menu" :class="{ 'is-active': isMenuActive }">
       <div class="navbar-start">
-        <router-link class="navbar-item" v-for="item in items" :to="item.route">
-{{ item.text }}
+        <router-link class="navbar-item" v-for="(item, i) in items" :to="item.route" :key="i">
+          {{ item.text }}
         </router-link>
       </div>
 
@@ -45,6 +45,10 @@
       return {
         isMenuActive: false
       }
+    },
+
+    mounted () {
+      this.$root.$on('router:start', () => this.isMenuActive = false)
     },
 
     methods: {

@@ -1,8 +1,8 @@
-const ENDPOINT_GET = '/dashboard/identity/users/index.json',
-      ENDPOINT_ALL = '/dashboard/identity/users/all.json',
-      ENDPOINT_FETCH = '/dashboard/identity/users/{id}',
-      ENDPOINT_CREATE = '/dashboard/identity/users/create',
-      ENDPOINT_SEARCH = '/dashboard/identity/users/search'
+const ENDPOINT_GET = '/papi/admin/accounts',
+      ENDPOINT_FETCH = '/papi/admin/accounts/{id}',
+      ENDPOINT_AVATAR = '/papi/admin/accounts/{id}/avatar',
+      ENDPOINT_CREATE = '/papi/admin/accounts/create',
+      ENDPOINT_SEARCH = '/papi/admin/accounts/search'
 
 export default class {
 
@@ -32,6 +32,16 @@ export default class {
     let url = ENDPOINT_FETCH.formatUnicorn({ id })
     
     return this.$http.delete(url)
+  }
+
+  setAvatar (id, file) {
+    let url = ENDPOINT_AVATAR.formatUnicorn({ id }),
+        options = { headers: { 'Content-Type': 'multipart/form-data' }},
+        data = new FormData()
+
+        data.append('file', file)
+
+    return this.$http.post(url, data, options)
   }
 
 }

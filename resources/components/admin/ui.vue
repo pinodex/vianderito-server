@@ -1,82 +1,37 @@
 <template>
   <div>
-    <Navbar :items="nav"></Navbar>
-    <Sidebar :items="nav"></Sidebar>
+    <vue-progress-bar></vue-progress-bar>
+    
+    <navbar :items="nav"></navbar>
+    <sidebar :items="nav"></sidebar>
 
     <div class="ui-container">
       <div class="router-view">
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
-        <p class="title">dwenfifweflkwnflwef</p>
+        <router-view></router-view>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import Navbar from './elements/Navbar'
-  import Sidebar from './elements/Sidebar'
+  import navbar from '@admin/elements/navbar'
+  import sidebar from '@admin/elements/sidebar'
 
   export default {
-    components: { Navbar, Sidebar },
+    components: { navbar, sidebar },
 
     data () {
       return {
         nav: [
           {
-            route: { to: '/' },
-            icon: 'home',
+            route: { name: 'index' },
+            icon: 'fa fa-home',
             text: 'Home'
           },
 
           {
-            route: { to: '/' },
-            icon: 'users',
+            route: { name: 'accounts' },
+            icon: 'fa fa-users',
             text: 'Accounts'
           }
         ]
