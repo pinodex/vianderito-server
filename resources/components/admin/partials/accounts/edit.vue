@@ -72,7 +72,7 @@
             return response
           })
           .then(response => {
-            this.$root.$emit('model:saved', this.model)
+            this.$root.$emit('accounts:saved', this.model)
 
             this.$parent.close()
             

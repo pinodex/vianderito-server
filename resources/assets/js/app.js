@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import ProgressBar from 'vue-progressbar'
+import Filters from 'vue2-filters'
 import Buefy from 'buefy'
 import Axios from 'axios'
 
@@ -19,6 +20,8 @@ Vue.use(ProgressBar, {
   failedColor: 'red',
   height: '2px'
 })
+
+Vue.use(Filters)
 
 Vue.prototype.$http = Axios.create({
   baseURL: window.API_BASE

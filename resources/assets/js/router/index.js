@@ -19,6 +19,12 @@ const router = new Router({
       name: 'accounts',
       component: () => import('@admin/pages/accounts/index')
     },
+
+    {
+      path: '/groups',
+      name: 'groups',
+      component: () => import('@admin/pages/groups/index')
+    },
   ]
 })
 

@@ -4,7 +4,7 @@
       <label class="label">First name</label>
       
       <div class="control">
-        <input class="input" type="text" v-model="query.first_name" />
+        <input class="input" type="text" v-model="query.first_name" autocomplete="given-name" />
       </div>
     </div>
 
@@ -12,7 +12,7 @@
       <label class="label">Middle name</label>
       
       <div class="control">
-        <input class="input" type="text" v-model="query.middle_name" />
+        <input class="input" type="text" v-model="query.middle_name" autocomplete="additional-name" />
       </div>
     </div>
 
@@ -20,7 +20,7 @@
       <label class="label">Last name</label>
       
       <div class="control">
-        <input class="input" type="text" v-model="query.last_name" />
+        <input class="input" type="text" v-model="query.last_name" autocomplete="family-name" />
       </div>
     </div>
 
@@ -28,7 +28,7 @@
       <label class="label">Username</label>
       
       <div class="control">
-        <input class="input" type="text" v-model="query.username" />
+        <input class="input" type="text" v-model="query.username" autocomplete="username" />
       </div>
     </div>
 
@@ -52,7 +52,7 @@
       </div>
 
       <div class="control">
-        <button type="submit" class="button is-primary">
+        <button type="submit" class="button is-info">
           <span class="icon is-small">
             <i class="fa fa-search"></i>
           </span>
@@ -68,9 +68,15 @@
   export default {
     inject: ['$group'],
 
+    props: {
+      query: {
+        type: Object,
+        default: {}
+      }
+    },
+
     data () {
       return {
-        query: {},
         groups: [],
         groupsLoading: true
       }
@@ -84,13 +90,11 @@
 
     methods: {
       clear () {
-        this.query = {}
-
-        this.search()
+        this.$root.$emit('accounts:query:clear')
       },
 
       search () {
-        this.$root.$emit('model:query', this.query)
+        this.$root.$emit('accounts:query', this.query)
       }
     }
   }  

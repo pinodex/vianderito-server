@@ -19,6 +19,10 @@ class Group extends Model
         'name'
     ];
 
+    public $appends = [
+        'accounts_count'
+    ];
+
     public $with = [
         'permissions'
     ];
@@ -42,5 +46,15 @@ class Group extends Model
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'groups_permissions');
+    }
+
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
+
+    public function getAccountsCountAttribute()
+    {
+        return $this->accounts()->getQuery()->count();
     }
 }

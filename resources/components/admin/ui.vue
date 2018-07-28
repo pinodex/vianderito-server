@@ -31,8 +31,14 @@
 
           {
             route: { name: 'accounts' },
-            icon: 'fa fa-users',
+            icon: 'fa fa-user',
             text: 'Accounts'
+          },
+
+          {
+            route: { name: 'groups' },
+            icon: 'fa fa-users',
+            text: 'Groups'
           }
         ]
       }

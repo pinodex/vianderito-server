@@ -11,34 +11,17 @@
 
     <template slot-scope="props">
       <b-table-column field="name" label="Name" sortable>
-        <article class="media is-vcentered">
-          <figure class="media-left">
-            <p class="image is-48x48">
-              <img :src="props.row.picture.thumb" />
-            </p>
-          </figure>
-
-          <div class="media-content">
-            <div class="content">
-              <p class="is-marginless">
-                <strong>{{ props.row.name }}</strong><br />
-                <small>@{{ props.row.username}}</small>
-              </p>
-            </div>
-          </div>
-        </article>
+        {{ props.row.name }}
       </b-table-column>
       
-      <b-table-column field="group" label="Group" sortable>
-        {{ props.row.group ? props.row.group.name : 'N/A' }}
-      </b-table-column>
-      
-      <b-table-column field="last_login_at" label="Last login at" sortable>
-        {{ props.row.last_login_at ? props.row.last_login_at : 'None recorded' }}
+      <b-table-column field="members" label="Members">
+        <router-link :to="{ name: 'accounts', query: { group_id: props.row.id } }">
+          {{ props.row.accounts_count }} {{ props.row.accounts_count | pluralize('member') }}
+        </router-link>
       </b-table-column>
       
       <b-table-column class="is-fit">
-        <div class="dropdown is-hoverable is-right" v-if="$root.account.id != props.row.id">
+        <div class="dropdown is-hoverable is-right">
           <div class="dropdown-trigger">
             <button class="button is-outlined is-small">
               <span class="icon is-small">
@@ -49,16 +32,6 @@
 
           <div class="dropdown-menu">
             <div class="dropdown-content">
-              <a href="#" class="dropdown-item"
-                @click.prevent="redirectToProfile(props.row)">
-                
-                <span class="icon is-small">
-                  <i class="fas fa-eye"></i>
-                </span>
-
-                <span>View Profile</span>
-              </a>
-
               <a href="#" class="dropdown-item"
                 @click.prevent="editModel(props.row)"
                 v-if="$root.can('edit_account')">
@@ -92,7 +65,7 @@
   let deferPageChange = false
 
   export default {
-    inject: ['$account'],
+    inject: ['$group'],
 
     props: {
       query: {
@@ -112,23 +85,21 @@
     mounted () {
       this.refresh()
 
-      this.$root.$on('accounts:saved', model => this.refresh())
+      this.$root.$on('groups:saved', model => this.refresh())
 
-      this.$root.$on('accounts:query', () => this.refresh())
+      this.$root.$on('groups:query', () => this.refresh())
     },
 
     beforeDestroy () {
-      this.$root.$off('accounts:saved')
-      this.$root.$off('accounts:query')
+      this.$root.$off('groups:saved')
+      this.$root.$off('groups:query')
     },
 
     methods: {
       refresh () {
         this.isLoading = true
 
-        this.query.with = 'group'
-
-        this.$account.get(this.query)
+        this.$group.get(this.query)
           .then(response => {
             this._haltPageChangeEvent()
 
@@ -143,10 +114,6 @@
           })
       },
 
-      redirectToProfile (row) {
-        window.location = this.$account.getModelUrl(row.id)
-      },
-
       onPageChange (page) {
         if (deferPageChange) {
           return
@@ -156,7 +123,7 @@
 
         this.isLoading = true
 
-        this.$account.get(query)
+        this.$group.get(query)
           .then(response => {
             this.result = response.data
           })
@@ -166,7 +133,7 @@
       },
 
       editModel (model) {
-        this.$root.$emit('accounts:edit', model)
+        this.$root.$emit('groups:edit', model)
       },
 
       deleteModel (model) {
@@ -180,7 +147,7 @@
               this.result.data.splice(index, 1)
             }
 
-            this.$account.delete(model.id)
+            this.$group.delete(model.id)
               .then(response => {
                 this.$toast.open({
                   message: `${model.name} has been deleted`,

@@ -29,6 +29,13 @@ Route::group([
         Route::group(['as' => 'groups.', 'prefix' => 'groups'], function () {
             Route::get('/', 'GroupController@index');
             Route::get('/all', 'GroupController@all');
+
+            Route::patch('/{model}', 'GroupController@edit');
+            Route::delete('/{model}', 'GroupController@delete');
+            
+            Route::post('/{model}/avatar', 'GroupController@avatar');
+
+            Route::post('/create', 'GroupController@create');
         });
     }
 );

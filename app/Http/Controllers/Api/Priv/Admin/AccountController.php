@@ -9,6 +9,12 @@ use App\Models\Account as Model;
 
 class AccountController extends Controller
 {
+    /**
+     * Index json page
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
     public function index(Request $request)
     {
         $query = $request->only(
@@ -26,6 +32,12 @@ class AccountController extends Controller
         return $result;
     }
 
+    /**
+     * Create model action
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
     public function create(SaveModel $request)
     {
         $data = $request->only(
@@ -44,6 +56,13 @@ class AccountController extends Controller
         return $model;
     }
 
+    /**
+     * Model edit action
+     * 
+     * @param  Request $request Request object
+     * @param  Model $model   Model model
+     * @return mixed
+     */
     public function edit(SaveModel $request, Model $model)
     {
         $data = $request->only(
@@ -56,6 +75,13 @@ class AccountController extends Controller
         return $model;
     }
 
+    /**
+     * Avatar model action
+     * 
+     * @param  Request $request Request object
+     * @param  Model $model Model model
+     * @return mixed
+     */
     public function avatar(Request $request, Model $model)
     {
         $file = $request->file('file');
@@ -67,6 +93,13 @@ class AccountController extends Controller
         return response('', 204);
     }
 
+    /**
+     * Delete model action
+     * 
+     * @param  Request $request Request object
+     * @param  Model $model Model model
+     * @return mixed
+     */
     public function delete(Request $request, Model $model)
     {
         if ($model->id == $this->admin->user()->id) {

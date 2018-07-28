@@ -5,7 +5,7 @@
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <h1 class="title">Accounts</h1>
+              <h1 class="title">Groups</h1>
             </div>
           </div>
 
@@ -18,7 +18,7 @@
                       <i class="fa fa-plus"></i>
                     </span>
                     
-                    <span>Create Account</span>
+                    <span>Create Group</span>
                   </button>
                 </p>
               </div>
@@ -26,7 +26,7 @@
           </div>
         </div>
 
-        <accounts :query="query"></accounts>
+        <groups :query="query"></groups>
       </div>
 
       <div class="column">
@@ -46,9 +46,9 @@
       </div>
     </div>
 
-    <b-modal :active.sync="modal.create" :width="640">
+    <b-modal :active.sync="modal.create" :width="400">
       <div class="modal-box">
-        <h1 class="modal-header">Create Account</h1>
+        <h1 class="modal-header">Create Group</h1>
 
         <div class="modal-body">
           <create></create>
@@ -56,9 +56,9 @@
       </div>
     </b-modal>
 
-    <b-modal :active.sync="modal.edit" :width="640">
+    <b-modal :active.sync="modal.edit" :width="400">
       <div class="modal-box">
-        <h1 class="modal-header">Edit Account</h1>
+        <h1 class="modal-header">Edit Group</h1>
 
         <div class="modal-body">
           <edit :model="mountedModel"></edit>
@@ -69,13 +69,13 @@
 </template>
 
 <script>
-  import accounts from '@admin/partials/accounts/index'
-  import search from '@admin/partials/accounts/search'
-  import create from '@admin/partials/accounts/create'
-  import edit from '@admin/partials/accounts/edit'
+  import groups from '@admin/partials/groups/index'
+  import search from '@admin/partials/groups/search'
+  import create from '@admin/partials/groups/create'
+  import edit from '@admin/partials/groups/edit'
 
   export default {
-    components: { accounts, search, create, edit },
+    components: { groups, search, create, edit },
 
     data () {
       return {
@@ -94,14 +94,14 @@
     },
 
     mounted () {
-      this.$root.$on('accounts:query:clear', () => {
+      this.$root.$on('groups:query:clear', () => {
         this.query = {}
 
         setTimeout(() => 
-          this.$root.$emit('accounts:query'), 1)
+          this.$root.$emit('groups:query'), 1)
       })
 
-      this.$root.$on('accounts:edit', model => {
+      this.$root.$on('groups:edit', model => {
         this.modal.edit = true
 
         this.mountedModel = model
@@ -109,8 +109,8 @@
     },
 
     beforeDestroy () {
-      this.$root.$off('accounts:query:clear')
-      this.$root.$off('accounts:edit')
+      this.$root.$off('groups:query:clear')
+      this.$root.$off('groups:edit')
     }
   }
 </script>

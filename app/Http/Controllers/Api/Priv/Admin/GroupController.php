@@ -4,10 +4,17 @@ namespace App\Http\Controllers\Api\Priv\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SaveGroup as SaveModel;
 use App\Models\Group as Model;
 
 class GroupController extends Controller
 {
+    /**
+     * Index json page
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
     public function index(Request $request)
     {
         $query = $request->only(
@@ -25,8 +32,80 @@ class GroupController extends Controller
         return $result;
     }
 
+    /**
+     * Get all model in JSON
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
     public function all()
     {
         return Model::all();
+    }
+
+    /**
+     * Create model action
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
+    public function create(SaveModel $request)
+    {
+        $data = $request->only(['name']);
+
+        Model::create($data);
+
+        return response('', 204);
+    }
+
+    /**
+     * Model edit action
+     * 
+     * @param  Request $request Request object
+     * @param  Model $model   Model model
+     * @return mixed
+     */
+    public function edit(SaveModel $request, Model $model)
+    {
+        $data = $request->only(['name']);
+
+        $model->fill($data);
+        $model->save();
+
+        return $model;
+    }
+
+    /**
+     * Model permission action
+     * 
+     * @param  Request $request Request object
+     * @param  Model   $model   Model object
+     * @return mixed
+     */
+    public function permissions(Request $request, Model $model)
+    {
+        $ids = $request->input('ids');
+
+        $model->permissions()->sync($ids);
+
+        return response('', 204);
+    }
+
+    /**
+     * Delete model action
+     * 
+     * @param  Request $request Request object
+     * @param  Model $model Model model
+     * @return mixed
+     */
+    public function delete(Request $request, Model $model)
+    {
+        if ($model->id == $this->admin->user()->group->id) {
+            abort(422, 'You cannot delete your own group');
+        }
+
+        $model->delete();
+
+        return response('', 204);
     }
 }
