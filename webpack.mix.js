@@ -44,7 +44,8 @@ mix
   .copy('node_modules/@fortawesome/fontawesome-free/webfonts','public/assets/webfonts')
 
   .extract([
-    'vue', 'vue-router', 'vuex', 'vue-progressbar', 'vue2-filters', 'axios', 'buefy', 'format-unicorn'
+    'vue', 'vue-router', 'vuex', 'vue-progressbar', 'vue2-filters', 'vue-moment',
+    'axios', 'buefy', 'format-unicorn'
   ])
 
   .disableNotifications()

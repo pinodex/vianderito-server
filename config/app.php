@@ -165,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         TwigBridge\ServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -229,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Twig' => TwigBridge\Facade\Twig::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
 
     ],
 

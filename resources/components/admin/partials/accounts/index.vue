@@ -6,12 +6,14 @@
     :per-page="result.per_page"
     :loading="isLoading"
     :mobile-cards="false"
+    :hoverable="true"
 
     @page-change="onPageChange">
 
     <template slot-scope="props">
       <b-table-column field="name" label="Name" sortable>
-        <article class="media is-vcentered">
+        <router-link class="media is-vcentered"
+          :to="{ name: 'accounts.view', params: { id: props.row.id }}">
           <figure class="media-left">
             <p class="image is-48x48">
               <img :src="props.row.picture.thumb" />
@@ -26,7 +28,7 @@
               </p>
             </div>
           </div>
-        </article>
+        </router-link>
       </b-table-column>
       
       <b-table-column field="group" label="Group" sortable>
@@ -49,16 +51,6 @@
 
           <div class="dropdown-menu">
             <div class="dropdown-content">
-              <a href="#" class="dropdown-item"
-                @click.prevent="redirectToProfile(props.row)">
-                
-                <span class="icon is-small">
-                  <i class="fas fa-eye"></i>
-                </span>
-
-                <span>View Profile</span>
-              </a>
-
               <a href="#" class="dropdown-item"
                 @click.prevent="editModel(props.row)"
                 v-if="$root.can('edit_account')">

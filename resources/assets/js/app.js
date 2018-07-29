@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import ProgressBar from 'vue-progressbar'
+import Moment from 'vue-moment'
 import Filters from 'vue2-filters'
 import Buefy from 'buefy'
 import Axios from 'axios'
@@ -21,6 +22,8 @@ Vue.use(ProgressBar, {
   failedColor: 'red',
   height: '2px'
 })
+
+Vue.use(Moment)
 
 Vue.use(Filters)
 

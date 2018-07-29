@@ -1,9 +1,19 @@
 $navbar-height:             52px;
 $navbar-height-extended:    72px;
+$primary:                   #4289a5;
 
 html, body {
   background: #eee;
   font-size: 14px;
+}
+
+a {
+  color: $primary;
+}
+
+.pagination-link.is-current {
+  background-color: $primary;
+  border-color: $primary;
 }
 
 .is-clipped {
@@ -16,6 +26,14 @@ html, body {
 
 .has-contents-below {
   margin-bottom: 1em;
+}
+
+.main-container {
+  padding: 1.5rem;
+}
+
+.media.is-vcentered {
+  align-items: center;
 }
 
 .login-page {
@@ -119,7 +137,7 @@ html, body {
 .router-view {
   margin-top: $navbar-height;
 
-  .ui-container {
+  .ui-container:not(.is-fullwidth) {
     max-width: 1280px;
     margin: 0 auto;
   }

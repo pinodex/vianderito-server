@@ -14,7 +14,7 @@ class AccountController extends Controller
         parent::__construct();
 
         $this->acl([
-            'browse_accounts'   => ['index'],
+            'browse_accounts'   => ['index', 'view'],
             'create_account'    => ['create'],
             'edit_account'      => ['edit', 'avatar'],
             'delete_account'    => ['delete']
@@ -66,6 +66,30 @@ class AccountController extends Controller
         $model->generated_password = $password;
 
         return $model;
+    }
+
+    /**
+     * Model view action
+     * 
+     * @param  Request $request Request object
+     * @param  Model   $model   Model model
+     * @return mixed
+     */
+    public function view(Request $request, Model $model)
+    {
+        return $model;
+    }
+
+    /**
+     * Logs account action
+     * 
+     * @param  Request $request Request object
+     * @param  Model $model Model Model object
+     * @return mixed
+     */
+    public function logs(Request $request, Model $model)
+    {
+        return $model->logs()->paginate(20);
     }
 
     /**

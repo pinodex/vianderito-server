@@ -1,6 +1,7 @@
 const ENDPOINT_GET = '/admin/accounts',
       ENDPOINT_FETCH = '/admin/accounts/{id}',
       ENDPOINT_AVATAR = '/admin/accounts/{id}/avatar',
+      ENDPOINT_LOGS = '/admin/accounts/{id}/logs',
       ENDPOINT_CREATE = '/admin/accounts/create',
       ENDPOINT_SEARCH = '/admin/accounts/search'
 
@@ -12,6 +13,12 @@ export default class {
 
   get (params) {
     return this.$http.get(ENDPOINT_GET, { params })
+  }
+
+  fetch (id, params) {
+    let url = ENDPOINT_FETCH.formatUnicorn({ id })
+
+    return this.$http.get(url, { params })
   }
 
   search (params) {
@@ -32,6 +39,12 @@ export default class {
     let url = ENDPOINT_FETCH.formatUnicorn({ id })
     
     return this.$http.delete(url)
+  }
+
+  getLogs (id, params = {}) {
+    let url = ENDPOINT_LOGS.formatUnicorn({ id })
+
+    return this.$http.get(url, { params })
   }
 
   setAvatar (id, file) {

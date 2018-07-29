@@ -21,10 +21,12 @@ Route::group([
             Route::group(['as' => 'accounts.', 'prefix' => 'accounts'], function () {
                 Route::get('/', 'AccountController@index');
 
+                Route::get('/{model}', 'AccountController@view');
                 Route::patch('/{model}', 'AccountController@edit');
                 Route::delete('/{model}', 'AccountController@delete');
                 
                 Route::post('/{model}/avatar', 'AccountController@avatar');
+                Route::get('/{model}/logs', 'AccountController@logs');
 
                 Route::post('/create', 'AccountController@create');
             });

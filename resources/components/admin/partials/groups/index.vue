@@ -6,6 +6,7 @@
     :per-page="result.per_page"
     :loading="isLoading"
     :mobile-cards="false"
+    :hoverable="true"
 
     @page-change="onPageChange">
 

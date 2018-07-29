@@ -8,7 +8,7 @@
           :custom-is-checked="isChecked"
           :loading="isLoading">
 
-          <template scope="props">
+          <template slot-scope="props">
             <b-table-column label="Name">
               {{ props.row.name }}
             </b-table-column>

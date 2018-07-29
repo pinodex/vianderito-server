@@ -7,7 +7,7 @@
       <sidebar :items="nav"></sidebar>
 
       <div class="router-view">
-        <div class="ui-container">
+        <div class="ui-container" :class="{ 'is-fullwidth': isUiFullWidth }">
           <router-view></router-view>
         </div>
       </div>
@@ -90,6 +90,12 @@
             text: 'Groups'
           }
         ]
+      }
+    },
+
+    computed: {
+      isUiFullWidth () {
+        return ['accounts.view'].indexOf(this.$route.name) != -1
       }
     },
 
