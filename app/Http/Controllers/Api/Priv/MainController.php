@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 
 class MainController extends Controller
 {
+    /**
+     * View user session data
+     * 
+     * @return array
+     */
     public function session()
     {
         $auth = [

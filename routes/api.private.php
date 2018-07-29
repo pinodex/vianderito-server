@@ -13,6 +13,8 @@ Route::group([
         Route::post('/login', 'MainController@login');
         Route::post('/logout', 'MainController@logout');
 
+        Route::get('/permissions', 'MainController@permissions');
+
         Route::group(['middleware' => 'auth:admin'], function () {
             Route::get('/', 'MainController@index');
 
@@ -35,8 +37,13 @@ Route::group([
                 Route::delete('/{model}', 'GroupController@delete');
                 
                 Route::post('/{model}/avatar', 'GroupController@avatar');
+                Route::put('/{model}/permissions', 'GroupController@permissions');
 
                 Route::post('/create', 'GroupController@create');
+            });
+
+            Route::group(['as' => 'permissions.', 'prefix' => 'permissions'], function () {
+                Route::get('/all', 'PermissionController@all');
             });
         });
     }

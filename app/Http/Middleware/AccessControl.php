@@ -16,7 +16,7 @@ class AccessControl
      */
     public function handle($request, Closure $next, $args)
     {
-        $guard = Auth::guard('dashboard');
+        $guard = Auth::guard('admin');
 
         if (!$guard->check()) {
             abort(401);

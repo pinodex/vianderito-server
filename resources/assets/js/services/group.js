@@ -2,7 +2,8 @@ const ENDPOINT_GET = '/admin/groups',
       ENDPOINT_ALL = '/admin/groups/all',
       ENDPOINT_FETCH = '/admin/groups/{id}',
       ENDPOINT_CREATE = '/admin/groups/create',
-      ENDPOINT_SEARCH = '/admin/groups/search'
+      ENDPOINT_SEARCH = '/admin/groups/search',
+      ENDPOINT_PERMISSIONS = '/admin/groups/{id}/permissions'
 
 export default class {
 
@@ -36,6 +37,12 @@ export default class {
     let url = ENDPOINT_FETCH.formatUnicorn({ id })
     
     return this.$http.delete(url)
+  }
+
+  setPermissions (id, ids = []) {
+    let url = ENDPOINT_PERMISSIONS.formatUnicorn({ id })
+
+    return this.$http.put(url, { ids })
   }
 
 }

@@ -9,6 +9,18 @@ use App\Models\Account as Model;
 
 class AccountController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->acl([
+            'browse_accounts'   => ['index'],
+            'create_account'    => ['create'],
+            'edit_account'      => ['edit', 'avatar'],
+            'delete_account'    => ['delete']
+        ]);
+    }
+
     /**
      * Index json page
      * 

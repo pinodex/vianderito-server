@@ -44,6 +44,17 @@
               </a>
 
               <a href="#" class="dropdown-item"
+                @click.prevent="editModelPermissions(props.row)"
+                v-if="$root.can('edit_group')">
+                
+                <span class="icon is-small">
+                  <i class="fa fa-lock"></i>
+                </span>
+
+                <span>Permissions</span>
+              </a>
+
+              <a href="#" class="dropdown-item"
                 @click.prevent="deleteModel(props.row)"
                 v-if="$root.can('delete_group')">
                 
@@ -134,6 +145,10 @@
 
       editModel (model) {
         this.$root.$emit('groups:edit', model)
+      },
+
+      editModelPermissions (model) {
+        this.$root.$emit('groups:edit_permissions', model)
       },
 
       deleteModel (model) {

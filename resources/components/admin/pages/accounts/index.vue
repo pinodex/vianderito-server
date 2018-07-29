@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="columns">
-      <div class="column is-9">
+      <div class="column">
         <div class="level">
           <div class="level-left">
             <div class="level-item">
@@ -13,7 +13,9 @@
             <div class="level-item">
               <div class="field is-grouped">
                 <p class="control">
-                  <button class="button is-primary is-rounded" @click="modal.create = true">
+                  <button class="button is-primary is-rounded"
+                    @click="modal.create = true"
+                    v-if="$root.can('create_account')">
                     <span class="icon">
                       <i class="fa fa-plus"></i>
                     </span>
@@ -29,7 +31,7 @@
         <accounts :query="query"></accounts>
       </div>
 
-      <div class="column">
+      <div class="column is-3" v-if="$root.can('browse_accounts')">
          <div class="panel">
           <div class="panel-heading">
             <span class="icon is-small">

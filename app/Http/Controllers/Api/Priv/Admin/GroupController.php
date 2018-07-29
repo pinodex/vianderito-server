@@ -9,6 +9,18 @@ use App\Models\Group as Model;
 
 class GroupController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->acl([
+            'browse_groups'   => ['index', 'all'],
+            'create_group'    => ['create'],
+            'edit_group'      => ['edit', 'permissions'],
+            'delete_group'    => ['delete']
+        ]);
+    }
+
     /**
      * Index json page
      * 

@@ -42,4 +42,14 @@ class MainController extends Controller
 
         return response('', 204);
     }
+
+    /**
+     * Get permissions allowed in a auth session
+     * 
+     * @return array
+     */
+    public function permissions()
+    {
+        return $this->admin->user()->group->permissions;
+    }
 }

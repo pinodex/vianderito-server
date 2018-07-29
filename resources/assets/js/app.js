@@ -8,6 +8,7 @@ import store from './store'
 import router from './router'
 import services from './services'
 
+import './group-by'
 import '../../components/admin'
 
 Vue.use(Buefy, {
@@ -43,7 +44,12 @@ const app = new Vue({
   mounted () {
     if (this.account) {
       setInterval(() => this.checkSession(), 5000)
+
+      this.$on('router:start', () => this.checkPermissions())
     }
+
+    this.$on('session:evaluate_permissions', () =>
+     this.checkPermissions())
   },
 
   methods: {
@@ -62,6 +68,15 @@ const app = new Vue({
 
           if (response.data.admin.id != this.account.id) {
             this.$emit('session:fail', 'id_mismatch')
+          }
+        })
+    },
+
+    checkPermissions () {
+      this.$http.get('/admin/permissions')
+        .then(response => {
+          if (this.account.group) {
+            this.account.group.permissions = response.data
           }
         })
     },
