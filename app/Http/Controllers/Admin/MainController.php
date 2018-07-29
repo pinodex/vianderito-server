@@ -15,35 +15,23 @@ class MainController extends Controller
         parent::__construct();
     }
 
+     /**
+     * Index page
+     * 
+     * @return mixed
+     */
     public function index(Request $request)
     {
         return view('admin.index');
     }
 
     /**
-     * Login action
+     * Login page
      * 
-     * @param  Request $request [description]
-     * @return [type]           [description]
+     * @return mixed
      */
     public function login(Request $request)
     {
-        if ($request->method() == 'POST') {
-            $credentials = $request->only(['id', 'password']);
-
-            $login = $this->admin->attempt($credentials);
-
-            if ($login) {
-                $this->admin->user()->log('account:login');
-
-                return response('', 204);
-            }
-
-            return response([
-                'error' => 'Invalid username and/or password'
-            ], 403);
-        }
-
         return view('admin.login');
     }
 }

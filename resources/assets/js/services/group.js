@@ -1,8 +1,8 @@
-const ENDPOINT_GET = '/papi/admin/groups',
-      ENDPOINT_ALL = '/papi/admin/groups/all',
-      ENDPOINT_FETCH = '/papi/admin/groups/{id}',
-      ENDPOINT_CREATE = '/papi/admin/groups/create',
-      ENDPOINT_SEARCH = '/papi/admin/groups/search'
+const ENDPOINT_GET = '/admin/groups',
+      ENDPOINT_ALL = '/admin/groups/all',
+      ENDPOINT_FETCH = '/admin/groups/{id}',
+      ENDPOINT_CREATE = '/admin/groups/create',
+      ENDPOINT_SEARCH = '/admin/groups/search'
 
 export default class {
 

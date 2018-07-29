@@ -24,7 +24,7 @@ Vue.use(ProgressBar, {
 Vue.use(Filters)
 
 Vue.prototype.$http = Axios.create({
-  baseURL: window.API_BASE
+  baseURL: '/papi/'
 })
 
 const app = new Vue({
@@ -40,9 +40,30 @@ const app = new Vue({
     }
   },
 
+  mounted () {
+    if (this.account) {
+      setInterval(() => this.checkSession(), 5000)
+    }
+  },
+
   methods: {
     setPageTitle (title) {
       document.title = `${title} - Vianderito`
+    },
+
+    checkSession () {
+      this.$http.get('/session')
+        .then(response => {
+          if (!response.data.admin) {
+            this.$emit('session:fail', 'not_logged_in')
+
+            return
+          }
+
+          if (response.data.admin.id != this.account.id) {
+            this.$emit('session:fail', 'id_mismatch')
+          }
+        })
     },
 
     can (permission) {

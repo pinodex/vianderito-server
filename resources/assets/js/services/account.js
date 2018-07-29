@@ -1,8 +1,8 @@
-const ENDPOINT_GET = '/papi/admin/accounts',
-      ENDPOINT_FETCH = '/papi/admin/accounts/{id}',
-      ENDPOINT_AVATAR = '/papi/admin/accounts/{id}/avatar',
-      ENDPOINT_CREATE = '/papi/admin/accounts/create',
-      ENDPOINT_SEARCH = '/papi/admin/accounts/search'
+const ENDPOINT_GET = '/admin/accounts',
+      ENDPOINT_FETCH = '/admin/accounts/{id}',
+      ENDPOINT_AVATAR = '/admin/accounts/{id}/avatar',
+      ENDPOINT_CREATE = '/admin/accounts/create',
+      ENDPOINT_SEARCH = '/admin/accounts/search'
 
 export default class {
 

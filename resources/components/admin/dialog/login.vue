@@ -61,6 +61,8 @@
 
 <script>
   export default {
+    inject: ['$auth'],
+
     data () {
       return {
         credentials: {
@@ -78,7 +80,7 @@
       login () {
         this.isLoading = true
 
-        this.$http.post(location.href, this.credentials)
+        this.$auth.login(this.credentials)
           .then(response => {
             this.isLoggedIn = true
             this.hasError = false

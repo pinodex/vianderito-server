@@ -20,13 +20,13 @@
       </div>
 
       <div class="navbar-end">
-        <a href="#" class="navbar-item has-dropdown is-hoverable account">
+        <div class="navbar-item has-dropdown is-hoverable account">
           <div class="navbar-link">{{ $root.account.name }}</div>
 
           <div class="navbar-dropdown">
-            <div class="navbar-item">Logout</div>
+            <a href="#" class="navbar-item" @click.prevent="logout()">Logout</a>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </nav>
@@ -34,6 +34,8 @@
 
 <script>
   export default {
+    inject: ['$auth'],
+
     props: {
       items: {
         type: Array,
@@ -54,6 +56,23 @@
     methods: {
       toggleMenu () {
         this.isMenuActive = !this.isMenuActive
+      },
+
+      logout () {
+        this.isMenuActive = false
+
+        this.$dialog.confirm({
+          message: 'Are you sure you want to logout?',
+          onConfirm: () => {
+            const loadingComponent = this.$loading.open()
+
+            this.$auth.logout()
+              .then(response => {
+                this.$root.$emit('logout:done', response.data)
+              })
+              .finally(() => location.href = '/admin/')
+          }
+        })
       }
     }
   }  
