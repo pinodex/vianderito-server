@@ -116,19 +116,17 @@ html, body {
   }
 }
 
-.ui-container {
+.router-view {
   margin-top: $navbar-height;
 
-  .router-view {
-    padding: 1rem;
+  .ui-container {
+    max-width: 1280px;
+    margin: 0 auto;
   }
-
+  
   @media (min-width: 1088px) {
     margin-top: $navbar-height-extended;
-
-    .router-view {
-      margin-left: 300px;
-    }
+    margin-left: 300px;
   }
 }
 

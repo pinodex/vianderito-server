@@ -6,8 +6,8 @@
       <navbar :items="nav"></navbar>
       <sidebar :items="nav"></sidebar>
 
-      <div class="ui-container">
-        <div class="router-view">
+      <div class="router-view">
+        <div class="ui-container">
           <router-view></router-view>
         </div>
       </div>
