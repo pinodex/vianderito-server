@@ -65,7 +65,11 @@ class GroupController extends Controller
     {
         $data = $request->only(['name']);
 
-        Model::create($data);
+        $model = Model::create($data);
+
+        $this->admin->user()->log('groups:create', [
+            'name' => $model->name
+        ]);
 
         return response('', 204);
     }
@@ -84,6 +88,10 @@ class GroupController extends Controller
         $model->fill($data);
         $model->save();
 
+        $this->admin->user()->log('groups:edit', [
+            'name' => $model->name
+        ]);
+
         return $model;
     }
 
@@ -99,6 +107,10 @@ class GroupController extends Controller
         $ids = $request->input('ids');
 
         $model->permissions()->sync($ids);
+
+        $this->admin->user()->log('groups:set_permissions', [
+            'name' => $model->name
+        ]);
 
         return response('', 204);
     }
@@ -117,6 +129,10 @@ class GroupController extends Controller
         }
 
         $model->delete();
+
+        $this->admin->user()->log('groups:delete', [
+            'name' => $model->name
+        ]);
 
         return response('', 204);
     }

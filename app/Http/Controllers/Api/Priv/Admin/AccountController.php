@@ -65,6 +65,10 @@ class AccountController extends Controller
 
         $model->generated_password = $password;
 
+        $this->admin->user()->log('accounts:create', [
+            'name' => $model->name
+        ]);
+
         return $model;
     }
 
@@ -108,6 +112,10 @@ class AccountController extends Controller
         $model->fill($data);
         $model->save();
 
+        $this->admin->user()->log('accounts:edit', [
+            'name' => $model->name
+        ]);
+
         return $model;
     }
 
@@ -125,6 +133,10 @@ class AccountController extends Controller
         $model->picture = $file;
 
         $model->save();
+
+        $this->admin->user()->log('accounts:set_avatar', [
+            'name' => $model->name
+        ]);
 
         return response('', 204);
     }
@@ -144,6 +156,10 @@ class AccountController extends Controller
 
         $model->delete();
         $model->deletePicture();
+
+        $this->admin->user()->log('accounts:delete', [
+            'name' => $model->name
+        ]);
 
         return response('', 204);
     }
