@@ -34,7 +34,7 @@
             <div class="dropdown-content">
               <a href="#" class="dropdown-item"
                 @click.prevent="editModel(props.row)"
-                v-if="$root.can('edit_account')">
+                v-if="$root.can('edit_group')">
                 
                 <span class="icon is-small">
                   <i class="fa fa-edit"></i>
@@ -45,7 +45,7 @@
 
               <a href="#" class="dropdown-item"
                 @click.prevent="deleteModel(props.row)"
-                v-if="$root.can('delete_account')">
+                v-if="$root.can('delete_group')">
                 
                 <span class="icon is-small">
                   <i class="fa fa-trash"></i>
