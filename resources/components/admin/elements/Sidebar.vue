@@ -18,9 +18,9 @@
 
     <div class="navbar-menu">
       <router-link class="navbar-item" v-for="(item, i) in items"
-        :class="{ 'is-active': item.route.name == $route.name }"
-        :to="item.route"
-        :key="i">
+          :class="{ 'is-active': isNavItemActive(item.route.name) }"
+          :to="item.route"
+          :key="i">
         <span class="icon">
           <i :class="item.icon"></i>
         </span> {{ item.text }}
@@ -36,6 +36,16 @@
         type: Array,
         default: []
       }
+    },
+
+    methods: {
+      isNavItemActive (name) {
+        if (!this.$route.name) {
+          return false
+        }
+
+        return this.$route.name.indexOf(name) != -1
+      }
     }
-  }  
+  }
 </script>

@@ -14,7 +14,10 @@
 
     <div class="navbar-menu" :class="{ 'is-active': isMenuActive }">
       <div class="navbar-start">
-        <router-link class="navbar-item" v-for="(item, i) in items" :to="item.route" :key="i">
+        <router-link class="navbar-item" v-for="(item, i) in items"
+            :class="{ 'is-active': isNavItemActive(item.route.name) }"
+            :to="item.route"
+            :key="i">
           {{ item.text }}
         </router-link>
       </div>
@@ -56,6 +59,14 @@
     methods: {
       toggleMenu () {
         this.isMenuActive = !this.isMenuActive
+      },
+
+       isNavItemActive (name) {
+        if (!this.$route.name) {
+          return false
+        }
+
+        return this.$route.name.indexOf(name) != -1
       },
 
       logout () {
