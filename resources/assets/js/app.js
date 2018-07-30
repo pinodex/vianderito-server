@@ -40,7 +40,8 @@ const app = new Vue({
 
   data () {
     return {
-      account: window.__ACCOUNT__ || null
+      account: window.__ACCOUNT__ || null,
+      haltSessionCheck: false
     }
   },
 
@@ -61,16 +62,24 @@ const app = new Vue({
     },
 
     checkSession () {
+      if (this.haltSessionCheck) {
+        return
+      }
+
       this.$http.get('/session')
         .then(response => {
           if (!response.data.admin) {
             this.$emit('session:fail', 'not_logged_in')
+
+            this.haltSessionCheck = true
 
             return
           }
 
           if (response.data.admin.id != this.account.id) {
             this.$emit('session:fail', 'id_mismatch')
+
+            this.haltSessionCheck = true
           }
         })
     },
