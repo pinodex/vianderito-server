@@ -31,6 +31,12 @@ const router = new Router({
       name: 'groups',
       component: () => import('@admin/pages/groups/index')
     },
+
+    {
+      path: '/categories',
+      name: 'categories',
+      component: () => import('@admin/pages/categories/index')
+    },
   ]
 })
 

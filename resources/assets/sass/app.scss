@@ -36,6 +36,10 @@ a {
   align-items: center;
 }
 
+.zk-table {
+  font-size: 14px !important;
+}
+
 .login-page {
   background: url(../img/login-bg.jpg);
   background-size: cover;
@@ -195,7 +199,7 @@ a {
 }
 
 .table .is-fit {
-  width: 0px;
+  width: 1%;
 }
 
 /*

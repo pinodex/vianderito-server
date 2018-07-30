@@ -5,27 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Scopes\OrderByCreateScope;
-use App\Traits\Search;
 use Webpatser\Uuid\Uuid;
+use App\Traits\Search;
 
-class Group extends Model
+class Category extends Model
 {
     use SoftDeletes,
         Search;
 
     public $incrementing = false;
-    
+
     public $fillable = [
+        'parent_id',
         'name',
         'description'
     ];
 
-    public $appends = [
-        'accounts_count'
-    ];
-
-    public $with = [
-        'permissions'
+    protected $dates = [
+        'deleted_at'
     ];
 
     /**
@@ -44,18 +41,13 @@ class Group extends Model
         });
     }
 
-    public function permissions()
+    public function categories()
     {
-        return $this->belongsToMany(Permission::class, 'groups_permissions');
+        return $this->subcategories()->with('categories');
     }
 
-    public function accounts()
+    public function subcategories()
     {
-        return $this->hasMany(Account::class);
-    }
-
-    public function getAccountsCountAttribute()
-    {
-        return $this->accounts()->getQuery()->count();
+        return $this->hasMany(Category::class, 'parent_id');
     }
 }

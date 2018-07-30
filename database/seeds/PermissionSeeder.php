@@ -24,6 +24,16 @@ class PermissionSeeder extends Seeder
                 'delete_group' => ['Delete Group', 'Allow deletion group'],
                 'edit_group' => ['Edit Group', 'Allow editing of group']
             ]
+        ],
+
+        [
+            'name' => 'category',
+            'items' => [
+                'browse_categories' => ['Browse Categories', 'Allow browsing of categories'],
+                'create_category' => ['Create Category', 'Allow creation of category'],
+                'delete_category' => ['Delete Category', 'Allow deletion category'],
+                'edit_category' => ['Edit Category', 'Allow editing of category']
+            ]
         ]
     ];
 

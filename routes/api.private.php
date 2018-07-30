@@ -47,6 +47,16 @@ Route::group([
             Route::group(['as' => 'permissions.', 'prefix' => 'permissions'], function () {
                 Route::get('/all', 'PermissionController@all');
             });
+
+            Route::group(['as' => 'categories.', 'prefix' => 'categories'], function () {
+                Route::get('/', 'CategoryController@index');
+                Route::get('/all', 'CategoryController@all');
+
+                Route::patch('/{model}', 'CategoryController@edit');
+                Route::delete('/{model}', 'CategoryController@delete');
+
+                Route::post('/create', 'CategoryController@create');
+            });
         });
     }
 );

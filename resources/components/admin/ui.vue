@@ -88,6 +88,12 @@
             route: { name: 'groups' },
             icon: 'fa fa-users',
             text: 'Groups'
+          },
+
+          {
+            route: { name: 'categories' },
+            icon: 'fa fa-layer-group',
+            text: 'Categories'
           }
         ]
       }
