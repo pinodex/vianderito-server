@@ -10,7 +10,9 @@
     @page-change="onPageChange">
 
     <template slot-scope="props">
-      <b-table-column field="name" label="Name" sortable>
+      <b-table-column field="name" label="Name" sortable
+        class="name"
+        :class="{ 'is-children' : props.row.parent_id != null }">
         {{ props.row.name }}
       </b-table-column>
       
@@ -53,6 +55,16 @@
     </template>
   </b-table>
 </template>
+
+<style type="scss" scoped>
+  .is-children {
+    padding-left: 30px;
+  }
+
+  .name:not(.is-children) {
+    font-weight: bold;
+  }
+</style>
 
 <script>
   let deferPageChange = false
