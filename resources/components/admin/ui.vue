@@ -94,6 +94,12 @@
             route: { name: 'categories' },
             icon: 'fa fa-layer-group',
             text: 'Categories'
+          },
+
+          {
+            route: { name: 'manufacturers' },
+            icon: 'fa fa-industry',
+            text: 'Manufacturers'
           }
         ]
       }

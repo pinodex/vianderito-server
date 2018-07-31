@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Api\Priv\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SaveCategory as SaveModel;
-use App\Models\Category as Model;
+use App\Http\Requests\SaveManufacturer as SaveModel;
+use App\Models\Manufacturer as Model;
 
-class CategoryController extends Controller
+class ManufacturerController extends Controller
 {
     public function __construct()
     {
         parent::__construct();
 
         $this->acl([
-            'browse_categories'   => ['index', 'all'],
-            'create_category'     => ['create'],
-            'edit_category'       => ['edit'],
-            'delete_category'     => ['delete']
+            'browse_manufacturers'  => ['index', 'all'],
+            'create_manufacturer'   => ['create'],
+            'edit_manufacturer'     => ['edit'],
+            'delete_manufacturer'   => ['delete']
         ]);
     }
 
@@ -39,7 +39,7 @@ class CategoryController extends Controller
             $models->with(explode(',', $relations));
         }
 
-        // $models->where('parent_id', null)->with('categories');
+        // $models->where('parent_id', null)->with('manufacturers');
 
         $result = $models->paginate(20);
 
@@ -65,11 +65,11 @@ class CategoryController extends Controller
      */
     public function create(SaveModel $request)
     {
-        $data = $request->only(['name', 'description']);
+        $data = $request->only(['name', 'code']);
 
         $model = Model::create($data);
 
-        $this->admin->user()->log('categories:create', [
+        $this->admin->user()->log('manufacturers:create', [
             'name' => $model->name
         ]);
 
@@ -85,12 +85,12 @@ class CategoryController extends Controller
      */
     public function edit(SaveModel $request, Model $model)
     {
-        $data = $request->only(['name', 'description']);
+        $data = $request->only(['name', 'code']);
 
         $model->fill($data);
         $model->save();
 
-        $this->admin->user()->log('categories:edit', [
+        $this->admin->user()->log('manufacturers:edit', [
             'name' => $model->name
         ]);
 
@@ -108,7 +108,7 @@ class CategoryController extends Controller
     {
         $model->delete();
 
-        $this->admin->user()->log('categories:delete', [
+        $this->admin->user()->log('manufacturers:delete', [
             'name' => $model->name
         ]);
 

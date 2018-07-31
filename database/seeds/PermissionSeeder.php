@@ -34,6 +34,16 @@ class PermissionSeeder extends Seeder
                 'delete_category' => ['Delete Category', 'Allow deletion category'],
                 'edit_category' => ['Edit Category', 'Allow editing of category']
             ]
+        ],
+
+        [
+            'name' => 'manufacturer',
+            'items' => [
+                'browse_manufacturers' => ['Browse Manufacturers', 'Allow browsing of manufacturers'],
+                'create_manufacturer' => ['Create Manufacturer', 'Allow creation of manufacturer'],
+                'delete_manufacturer' => ['Delete Manufacturer', 'Allow deletion manufacturer'],
+                'edit_manufacturer' => ['Edit Manufacturer', 'Allow editing of manufacturer']
+            ]
         ]
     ];
 

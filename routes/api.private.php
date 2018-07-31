@@ -57,6 +57,16 @@ Route::group([
 
                 Route::post('/create', 'CategoryController@create');
             });
+
+            Route::group(['as' => 'manufacturers.', 'prefix' => 'manufacturers'], function () {
+                Route::get('/', 'ManufacturerController@index');
+                Route::get('/all', 'ManufacturerController@all');
+
+                Route::patch('/{model}', 'ManufacturerController@edit');
+                Route::delete('/{model}', 'ManufacturerController@delete');
+
+                Route::post('/create', 'ManufacturerController@create');
+            });
         });
     }
 );

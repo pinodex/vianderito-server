@@ -37,6 +37,12 @@ const router = new Router({
       name: 'categories',
       component: () => import('@admin/pages/categories/index')
     },
+
+    {
+      path: '/manufacturers',
+      name: 'manufacturers',
+      component: () => import('@admin/pages/manufacturers/index')
+    },
   ]
 })
 
