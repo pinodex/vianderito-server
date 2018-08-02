@@ -53,10 +53,13 @@
     },
 
     mounted () {
+      const loadingComponent = this.$loading.open()
+
       let id = this.$route.params.id
 
       this.$product.fetch(id)
         .then(response => this.model = response.data)
+        .then(() => loadingComponent.close())
     },
 
     methods: {

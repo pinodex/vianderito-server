@@ -93,10 +93,13 @@
     },
 
     mounted () {
+      const loadingComponent = this.$loading.open()
+
       let id = this.$route.params.id
 
       this.$account.fetch(id)
         .then(response => this.account = response.data)
+        .then(() => loadingComponent.close())
     }
   }
 </script>
