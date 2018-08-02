@@ -80,18 +80,14 @@
 
         <div class="field-body">
           <div class="field">
-            <div class="control">
-              <div class="select is-fullwidth">
-                <select name="group_id" v-model="model.group_id"
-                  :class="{ 'is-danger': errors.group_id }"
-                  :disabled="groupsLoading">
+            <b-select name="group_id" v-model="model.group_id" expanded
+              :class="{ 'is-danger': errors.group_id }"
+              :loading="groupsLoading">
 
-                  <option v-for="group in groups" :value="group.id">
-                    {{ group.name }}
-                  </option>
-                </select>
-              </div>
-            </div>
+              <option v-for="group in groups" :value="group.id">
+                {{ group.name }}
+              </option>
+            </b-select>
 
             <p class="help is-danger" v-for="message in errors.group">{{ message }}</p>
           </div>
