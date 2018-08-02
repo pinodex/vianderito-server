@@ -58,6 +58,18 @@ class ManufacturerController extends Controller
     }
 
     /**
+     * Model view action
+     * 
+     * @param  Request $request Request object
+     * @param  Model   $model   Model model
+     * @return mixed
+     */
+    public function view(Request $request, Model $model)
+    {
+        return $model;
+    }
+
+    /**
      * Create model action
      * 
      * @param  Request $request Request object

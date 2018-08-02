@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Api\Priv\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SaveCategory as SaveModel;
-use App\Models\Category as Model;
+use App\Http\Requests\SaveProduct as SaveModel;
+use App\Models\Product as Model;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     public function __construct()
     {
         parent::__construct();
 
         $this->acl([
-            'browse_categories'   => ['index', 'all'],
-            'create_category'     => ['create'],
-            'edit_category'       => ['edit'],
-            'delete_category'     => ['delete']
+            'browse_products'   => ['index', 'all'],
+            'create_product'    => ['create'],
+            'edit_product'      => ['edit'],
+            'delete_product'    => ['delete']
         ]);
     }
 
@@ -30,7 +30,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $query = $request->only(
-            ['name']
+            ['name', 'manufacturer_id', 'category_id', 'upc']
         );
 
         $models = Model::search($query);
@@ -39,22 +39,9 @@ class CategoryController extends Controller
             $models->with(explode(',', $relations));
         }
 
-        // $models->where('parent_id', null)->with('categories');
-
         $result = $models->paginate(20);
 
         return $result;
-    }
-
-    /**
-     * Get all model in JSON
-     * 
-     * @param  Request $request Request object
-     * @return mixed
-     */
-    public function all()
-    {
-        return Model::all();
     }
 
     /**
@@ -70,6 +57,17 @@ class CategoryController extends Controller
     }
 
     /**
+     * Get all model in JSON
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
+    public function all()
+    {
+        return Model::all();
+    }
+
+    /**
      * Create model action
      * 
      * @param  Request $request Request object
@@ -77,11 +75,11 @@ class CategoryController extends Controller
      */
     public function create(SaveModel $request)
     {
-        $data = $request->only(['name', 'description']);
+        $data = $request->only(['manufacturer_id', 'category_id', 'upc', 'name', 'description']);
 
         $model = Model::create($data);
 
-        $this->admin->user()->log('categories:create', [
+        $this->admin->user()->log('products:create', [
             'name' => $model->name
         ]);
 
@@ -97,12 +95,12 @@ class CategoryController extends Controller
      */
     public function edit(SaveModel $request, Model $model)
     {
-        $data = $request->only(['name', 'description']);
+        $data = $request->only(['manufacturer_id', 'category_id', 'upc', 'name', 'description']);
 
         $model->fill($data);
         $model->save();
 
-        $this->admin->user()->log('categories:edit', [
+        $this->admin->user()->log('products:edit', [
             'name' => $model->name
         ]);
 
@@ -120,7 +118,7 @@ class CategoryController extends Controller
     {
         $model->delete();
 
-        $this->admin->user()->log('categories:delete', [
+        $this->admin->user()->log('products:delete', [
             'name' => $model->name
         ]);
 

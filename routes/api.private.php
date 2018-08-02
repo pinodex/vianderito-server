@@ -52,6 +52,8 @@ Route::group([
                 Route::get('/', 'CategoryController@index');
                 Route::get('/all', 'CategoryController@all');
 
+                Route::get('/{model}', 'CategoryController@view');
+
                 Route::patch('/{model}', 'CategoryController@edit');
                 Route::delete('/{model}', 'CategoryController@delete');
 
@@ -62,10 +64,24 @@ Route::group([
                 Route::get('/', 'ManufacturerController@index');
                 Route::get('/all', 'ManufacturerController@all');
 
+                Route::get('/{model}', 'ManufacturerController@view');
+
                 Route::patch('/{model}', 'ManufacturerController@edit');
                 Route::delete('/{model}', 'ManufacturerController@delete');
 
                 Route::post('/create', 'ManufacturerController@create');
+            });
+
+            Route::group(['as' => 'products.', 'prefix' => 'products'], function () {
+                Route::get('/', 'ProductController@index');
+                Route::get('/all', 'ProductController@all');
+
+                Route::get('/{model}', 'ProductController@view');
+
+                Route::patch('/{model}', 'ProductController@edit');
+                Route::delete('/{model}', 'ProductController@delete');
+
+                Route::post('/create', 'ProductController@create');
             });
         });
     }

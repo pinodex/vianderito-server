@@ -2,18 +2,24 @@
   <form @submit.prevent="submitRequest()">
     <editor :model="model" :errors="errors" />
 
-    <div class="field">
-      <div class="control">
-        <button class="button is-primary is-fullwidth"
-          :disabled="isFormLoading"
-          :class="{ 'is-loading': isFormLoading }">
+    <div class="level">
+      <div class="level-left"></div>
+      
+      <div class="level-right">
+        <div class="field">
+          <div class="control">
+            <button class="button is-fullwidth is-primary"
+              :disabled="isFormLoading"
+              :class="{ 'is-loading': isFormLoading }">
 
-          <span class="icon is-small">
-            <i class="fa fa-save"></i>
-          </span>
+              <span class="icon is-small">
+                <i class="fa fa-save"></i>
+              </span>
 
-          <span>Add Manufacturer</span>
-        </button>
+              <span>Save Changes</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </form>
@@ -23,14 +29,13 @@
   import editor from './editor'
 
   export default {
-    inject: ['$manufacturer'],
+    inject: ['$product'],
     components: { editor },
+    props: ['model'],
 
     data () {
       return {
         isFormLoading: false,
-
-        model: {},
         errors: {}
       }
     },
@@ -40,15 +45,20 @@
         this.isFormLoading = true
         this.errors = {}
 
-        this.$manufacturer.create(this.model)
+        this.$product.update(this.model)
           .then(response => {
-            this.$root.$emit('manufacturers:saved', this.model)
+            this.$root.$emit('products:saved', this.model)
 
-            this.close()
+            this.$parent.close()
+            
+            this.$toast.open({
+              message: `Changes to ${this.model.name} has been saved`,
+              type: 'is-success'
+            })
           })
           .catch(error => {
             if (error.response.status == 422) {
-              this.errors = error.response.data.errors
+              this.errors = error.response.data
 
               return
             }

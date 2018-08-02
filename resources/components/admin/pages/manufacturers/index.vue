@@ -20,7 +20,7 @@
                       <i class="fa fa-plus"></i>
                     </span>
                     
-                    <span>Create Manufacturer</span>
+                    <span>Add Manufacturer</span>
                   </button>
                 </p>
               </div>
@@ -50,7 +50,7 @@
 
     <b-modal :active.sync="modal.create" :width="400">
       <div class="modal-box">
-        <h1 class="modal-header">Create Manufacturer</h1>
+        <h1 class="modal-header">Add Manufacturer</h1>
 
         <div class="modal-body">
           <create></create>

@@ -100,6 +100,12 @@
             route: { name: 'manufacturers' },
             icon: 'fa fa-industry',
             text: 'Manufacturers'
+          },
+
+          {
+            route: { name: 'products' },
+            icon: 'fa fa-box',
+            text: 'Products'
           }
         ]
       }

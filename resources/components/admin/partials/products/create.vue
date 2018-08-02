@@ -12,7 +12,7 @@
             <i class="fa fa-save"></i>
           </span>
 
-          <span>Add Manufacturer</span>
+          <span>Add Product</span>
         </button>
       </div>
     </div>
@@ -23,7 +23,7 @@
   import editor from './editor'
 
   export default {
-    inject: ['$manufacturer'],
+    inject: ['$product'],
     components: { editor },
 
     data () {
@@ -40,9 +40,9 @@
         this.isFormLoading = true
         this.errors = {}
 
-        this.$manufacturer.create(this.model)
+        this.$product.create(this.model)
           .then(response => {
-            this.$root.$emit('manufacturers:saved', this.model)
+            this.$root.$emit('products:saved', this.model)
 
             this.close()
           })

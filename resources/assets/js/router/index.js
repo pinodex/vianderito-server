@@ -43,6 +43,24 @@ const router = new Router({
       name: 'manufacturers',
       component: () => import('@admin/pages/manufacturers/index')
     },
+
+    {
+      path: '/products',
+      name: 'products',
+      component: () => import('@admin/pages/products/index')
+    },
+
+    {
+      path: '/products/add',
+      name: 'products.add',
+      component: () => import('@admin/pages/products/add')
+    },
+
+    {
+      path: '/products/:id/edit',
+      name: 'products.edit',
+      component: () => import('@admin/pages/products/edit')
+    },
   ]
 })
 
