@@ -19,39 +19,45 @@
       </b-table-column>
       
       <b-table-column class="is-fit">
-        <div class="dropdown is-hoverable is-right">
-          <div class="dropdown-trigger">
-            <button class="button is-outlined is-small">
+        <div class="field has-addons">
+          <p class="control">
+            <a href="#" class="button is-small"
+              @click.prevent="editModel(props.row)"
+              v-if="$root.can('edit_manufacturer')">
+                    
               <span class="icon is-small">
-                <i class="fa fa-chevron-down"></i>
+                <i class="fa fa-edit"></i>
               </span>
-            </button>
-          </div>
 
-          <div class="dropdown-menu">
-            <div class="dropdown-content">
-              <a href="#" class="dropdown-item"
-                @click.prevent="editModel(props.row)"
-                v-if="$root.can('edit_manufacturer')">
-                
-                <span class="icon is-small">
-                  <i class="fa fa-edit"></i>
-                </span>
+              <span>Edit</span>
+            </a>
+          </p>
 
-                <span>Edit</span>
-              </a>
+          <p class="control">
+            <div class="dropdown is-hoverable is-right">
+              <div class="dropdown-trigger">
+                <button class="button is-outlined is-small">
+                  <span class="icon is-small">
+                    <i class="fa fa-chevron-down"></i>
+                  </span>
+                </button>
+              </div>
 
-              <a href="#" class="dropdown-item"
-                @click.prevent="deleteModel(props.row)"
-                v-if="$root.can('delete_manufacturer')">
-                <span class="icon is-small">
-                  <i class="fa fa-trash"></i>
-                </span>
+              <div class="dropdown-menu">
+                <div class="dropdown-content">
+                  <a href="#" class="dropdown-item"
+                    @click.prevent="deleteModel(props.row)"
+                    v-if="$root.can('delete_manufacturer')">
+                    <span class="icon is-small">
+                      <i class="fa fa-trash"></i>
+                    </span>
 
-                <span>Delete</span>
-              </a>
+                    <span>Delete</span>
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
+          </p>
         </div>
       </b-table-column>
     </template>
