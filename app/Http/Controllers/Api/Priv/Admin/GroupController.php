@@ -71,7 +71,7 @@ class GroupController extends Controller
             'name' => $model->name
         ]);
 
-        return response('', 204);
+        return $model;
     }
 
     /**
@@ -112,7 +112,7 @@ class GroupController extends Controller
             'name' => $model->name
         ]);
 
-        return response('', 204);
+        return $model;
     }
 
     /**

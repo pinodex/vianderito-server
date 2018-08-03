@@ -85,7 +85,7 @@ class ManufacturerController extends Controller
             'name' => $model->name
         ]);
 
-        return response('', 204);
+        return $model;
     }
 
     /**
