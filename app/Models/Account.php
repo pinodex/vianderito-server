@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Scopes\OrderByCreateScope;
 use App\Traits\PasswordHash;
 use App\Traits\LastLogin;
-use App\Traits\Avatar;
+use App\Traits\Picture;
 use App\Traits\Search;
 use Webpatser\Uuid\Uuid;
 
@@ -17,7 +17,7 @@ class Account extends Authenticatable
     use SoftDeletes,
         PasswordHash,
         LastLogin,
-        Avatar,
+        Picture,
         Search;
 
     public $incrementing = false;

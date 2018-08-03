@@ -6,7 +6,7 @@
           <article class="media is-vcentered">
             <figure class="media-left">
               <p class="image is-64x64">
-                <img :src="account.picture.thumb" />
+                <img :src="account.picture.thumbnail" />
               </p>
             </figure>
 

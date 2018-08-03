@@ -16,7 +16,7 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('group_id')->nullable();
-            $table->uuid('avatar_id')->nullable();
+            $table->uuid('picture_id')->nullable();
 
             $table->string('first_name');
             $table->string('middle_name')->nullable();

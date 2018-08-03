@@ -16,7 +16,7 @@
           :to="{ name: 'accounts.view', params: { id: props.row.id }}">
           <figure class="media-left">
             <p class="image is-48x48">
-              <img :src="props.row.picture.thumb" />
+              <img :src="props.row.picture.thumbnail" />
             </p>
           </figure>
 
