@@ -1,18 +1,20 @@
 <template>
   <section class="main-container">
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <h1 class="title">Add Product</h1>
-        </div>
-      </div>
-
-      <div class="level-right"></div>
-    </div>
-
-    <div class="columns">
+    <div class="columns is-centered">
       <div class="column is-6">
+        <h1 class="title">Add Product</h1>
+
         <form @submit.prevent="submitRequest()">
+          <div class="field">
+            <label class="label">Picture</label>
+
+            <div class="control">
+              <productimage class="has-contents-below"
+                @input="imageInput"
+                :file="picture" />
+            </div>
+          </div>
+
           <editor :model="model" :errors="errors"></editor>
 
           <div class="field">
@@ -37,30 +39,44 @@
 
 <script>
   import editor from '@admin/partials/products/editor'
+  import productimage from '@admin/partials/products/image'
 
   export default {
     inject: ['$product'],
     
-    components: { editor },
+    components: { editor, productimage },
 
     data () {
       return {
         model: {},
         errors: {},
 
+        picture: null,
+
         isFormLoading: false
       }
     },
 
     methods: {
+      imageInput (value) {
+        this.picture = value[0]
+      },
+
       submitRequest () {
         this.isFormLoading = true
         this.errors = {}
 
         this.$product.create(this.model)
           .then(response => {
-            this.$root.$emit('products:saved', this.model)
+            if (this.picture) {
+              return this.$product.setPicture(response.data.id, this.picture)
+            }
 
+            return response
+          })
+          .then(response => {
+            this.$root.$emit('products:saved', this.model)
+            
             this.$router.push({ name: 'products' })
           })
           .catch(error => {

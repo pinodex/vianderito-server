@@ -57,6 +57,28 @@ class ProductController extends Controller
     }
 
     /**
+     * Model picture action
+     * 
+     * @param  Request $request Request object
+     * @param  Model $model Model model
+     * @return mixed
+     */
+    public function picture(Request $request, Model $model)
+    {
+        $file = $request->file('file');
+
+        $model->picture = $file;
+
+        $model->save();
+
+        $this->admin->user()->log('products:set_picture', [
+            'name' => $model->name
+        ]);
+
+        return $model;
+    }
+
+    /**
      * Get all model in JSON
      * 
      * @param  Request $request Request object
@@ -83,7 +105,7 @@ class ProductController extends Controller
             'name' => $model->name
         ]);
 
-        return response('', 204);
+        return $model;
     }
 
     /**

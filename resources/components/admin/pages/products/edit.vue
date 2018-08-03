@@ -1,18 +1,21 @@
 <template>
-  <section class="main-container">
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <h1 class="title">Edit Product</h1>
-        </div>
-      </div>
-
-      <div class="level-right"></div>
-    </div>
-
-    <div class="columns">
+  <section class="main-container" v-if="model.id">
+    <div class="columns is-centered">
       <div class="column is-6">
+        <h1 class="title">Edit Product</h1>
+
         <form @submit.prevent="submitRequest()">
+          <div class="field">
+            <label class="label">Picture</label>
+
+            <div class="control">
+              <productimage class="has-contents-below"
+                @input="imageInput"
+                :preview="model.picture.image"
+                :file="picture" />
+            </div>
+          </div>
+
           <editor :model="model" :errors="errors"></editor>
 
           <div class="field">
@@ -37,16 +40,19 @@
 
 <script>
   import editor from '@admin/partials/products/editor'
+  import productimage from '@admin/partials/products/image'
 
   export default {
     inject: ['$product'],
     
-    components: { editor },
+    components: { editor, productimage },
 
     data () {
       return {
         model: {},
         errors: {},
+
+        picture: null,
 
         isFormLoading: false
       }
@@ -63,11 +69,22 @@
     },
 
     methods: {
+      imageInput (value) {
+        this.picture = value[0]
+      },
+
       submitRequest () {
         this.isFormLoading = true
         this.errors = {}
 
         this.$product.update(this.model)
+          .then(response => {
+            if (this.picture) {
+              return this.$product.setPicture(this.model.id, this.picture)
+            }
+
+            return response
+          })
           .then(response => {
             this.$root.$emit('products:saved', this.model)
 

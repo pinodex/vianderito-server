@@ -77,6 +77,7 @@ Route::group([
                 Route::get('/all', 'ProductController@all');
 
                 Route::get('/{model}', 'ProductController@view');
+                Route::post('/{model}/picture', 'ProductController@picture');
 
                 Route::patch('/{model}', 'ProductController@edit');
                 Route::delete('/{model}', 'ProductController@delete');

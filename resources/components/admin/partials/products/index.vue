@@ -10,6 +10,12 @@
     @page-change="onPageChange">
 
     <template slot-scope="props">
+      <b-table-column class="is-fit">
+        <figure class="image is-32x32">
+          <img :src="props.row.picture.thumbnail">
+        </figure>
+      </b-table-column>
+
       <b-table-column field="name" label="Name" sortable>
         {{ props.row.name }}
       </b-table-column>

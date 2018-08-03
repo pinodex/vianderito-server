@@ -1,5 +1,6 @@
 const ENDPOINT_GET = '/admin/products',
       ENDPOINT_FETCH = '/admin/products/{id}',
+      ENDPOINT_PICTURE = '/admin/products/{id}/picture',
       ENDPOINT_CREATE = '/admin/products/create',
       ENDPOINT_SEARCH = '/admin/products/search'
 
@@ -37,6 +38,16 @@ export default class {
     let url = ENDPOINT_FETCH.formatUnicorn({ id })
     
     return this.$http.delete(url)
+  }
+
+  setPicture(id, file) {
+    let url = ENDPOINT_PICTURE.formatUnicorn({ id }),
+        options = { headers: { 'Content-Type': 'multipart/form-data' }},
+        data = new FormData()
+
+        data.append('file', file)
+
+    return this.$http.post(url, data, options)
   }
 
 }

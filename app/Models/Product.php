@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Scopes\OrderByCreateScope;
-use Webpatser\Uuid\Uuid;
+use App\Traits\Picture;
 use App\Traits\Search;
+use Webpatser\Uuid\Uuid;
 
 class Product extends Model
 {
     use SoftDeletes,
+        Picture,
         Search;
 
     public $incrementing = false;
@@ -21,6 +23,10 @@ class Product extends Model
         'upc',
         'name',
         'description'
+    ];
+
+    public $appends = [
+        'picture'
     ];
 
     protected $dates = [
@@ -41,6 +47,21 @@ class Product extends Model
         static::creating(function ($model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
+    }
+
+    protected function getImageDimensions()
+    {
+        return [1280, 720];
+    }
+
+    protected function getDefaultImage()
+    {
+        return '/assets/img/generic-product-image.png';
+    }
+
+    protected function getDefaultThumbnail()
+    {
+        return '/assets/img/generic-product-thumb.png';
     }
 
     public function category()
