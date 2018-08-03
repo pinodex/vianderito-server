@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->uuid('manufacturer_id');
             $table->uuid('category_id');
             $table->uuid('picture_id')->nullable();
-            $table->char('upc', 12);
+            $table->char('upc', 15);
             $table->string('name');
             $table->text('description')->nullable();
 

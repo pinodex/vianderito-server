@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GroupPermissionSeeder::class);
 
         $this->call(CategorySeeder::class);
+        $this->call(ManufacturerSeeder::class);
+        $this->call(ProductSeeder::class);
     }
 }
