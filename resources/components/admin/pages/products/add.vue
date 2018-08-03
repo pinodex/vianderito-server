@@ -76,6 +76,11 @@
           })
           .then(response => {
             this.$root.$emit('products:saved', this.model)
+
+            this.$toast.open({
+              message: `${this.model.name} product has been added`,
+              type: 'is-success'
+            })
             
             this.$router.push({ name: 'products' })
           })

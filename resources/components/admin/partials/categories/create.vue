@@ -44,6 +44,11 @@
           .then(response => {
             this.$root.$emit('categories:saved', this.model)
 
+            this.$toast.open({
+              message: `${this.model.name} category has been added`,
+              type: 'is-success'
+            })
+
             this.close()
           })
           .catch(error => {

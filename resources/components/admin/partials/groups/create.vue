@@ -44,6 +44,11 @@
           .then(response => {
             this.$root.$emit('groups:saved', this.model)
 
+            this.$toast.open({
+              message: `${this.model.name} group has been added`,
+              type: 'is-success'
+            })
+
             this.close()
           })
           .catch(error => {
