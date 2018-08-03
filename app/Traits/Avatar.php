@@ -2,9 +2,9 @@
 
 namespace App\Traits;
 
+use Uuid;
 use Image;
 use Storage;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\File\File;
 
 trait Avatar
@@ -36,7 +36,7 @@ trait Avatar
     public function setPictureAttribute(File $file)
     {
         $picture = Image::make($file);
-        $uuid = Uuid::uuid4()->toString();
+        $uuid =  (string) Uuid::generate();
         $storage = Storage::disk('public');
 
         $pictureTarget = sprintf('avatars/%s.picture.jpg', $uuid);
