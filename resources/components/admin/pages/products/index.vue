@@ -13,6 +13,18 @@
             <div class="level-item">
               <div class="field is-grouped">
                 <p class="control">
+                  <button class="button is-rounded"
+                    @click="searchVisible = true"
+                    v-if="$root.can('browse_products')">
+                    <span class="icon">
+                      <i class="fa fa-search"></i>
+                    </span>
+                    
+                    <span>Search</span>
+                  </button>
+                </p>
+
+                <p class="control">
                   <router-link class="button is-primary is-rounded"
                     :to="{ name: 'products.add' }"
                     @click="modal.create = true"
@@ -31,23 +43,17 @@
 
         <products :query="query"></products>
       </div>
+    </div>
 
-      <div class="column is-3" v-if="$root.can('browse_products')">
-         <div class="panel">
-          <div class="panel-heading">
-            <span class="icon is-small">
-              <i class="fa fa-search"></i>
-            </span>
+    <b-modal :active.sync="searchVisible" :width="360">
+      <div class="modal-box">
+        <h1 class="modal-header">Search Product</h1>
 
-            <span>Search</span>
-          </div>
-
-          <div class="panel-block">
-            <search :query="query"></search>
-          </div>
+        <div class="modal-body">
+          <search :query="query"></search>
         </div>
       </div>
-    </div>
+    </b-modal>
   </section>
 </template>
 
@@ -61,7 +67,9 @@
     data () {
       return {
         mountedModel: null,
-        query: {}
+        query: {},
+
+        searchVisible: false
       }
     },
 
@@ -71,11 +79,28 @@
 
     mounted () {
       this.$root.$on('products:query:clear', () => {
+        this.searchVisible = false
         this.query = {}
 
         setTimeout(() => 
           this.$root.$emit('products:query'), 1)
       })
+
+      this.$root.$on('products:query', () => {
+        this.searchVisible = false
+      })
+    },
+
+    beforeDestroy () {
+      this.$root.$off('products:query:clear')
+      
+      this.$root.$off('products:query')
+    },
+
+    methods: {
+      toggleSearch () {
+        this.searchVisible = !this.searchVisible
+      }
     }
   }
 </script>
