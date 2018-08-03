@@ -118,6 +118,18 @@ a {
 
   .navbar-menu {
     flex-direction: column;
+
+    height: calc(100vh - 124px);
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+     
+    &::-webkit-scrollbar-thumb {
+      background-color: #546c78;
+      outline: 1px solid #546c78;
+    }
   }
 
   .navbar-item {
