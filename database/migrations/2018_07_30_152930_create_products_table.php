@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->uuid('category_id');
             $table->char('upc', 12);
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
 
             $table->softDeletes();
             $table->timestamps();
