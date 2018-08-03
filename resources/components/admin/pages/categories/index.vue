@@ -30,6 +30,22 @@
 
         <categories :query="query"></categories>
       </div>
+
+      <div class="column is-3" v-if="$root.can('browse_categories')">
+         <div class="panel">
+          <div class="panel-heading">
+            <span class="icon is-small">
+              <i class="fa fa-search"></i>
+            </span>
+
+            <span>Search</span>
+          </div>
+
+          <div class="panel-block">
+            <search :query="query"></search>
+          </div>
+        </div>
+      </div>
     </div>
 
     <b-modal :active.sync="modal.create" :width="400">
@@ -56,11 +72,12 @@
 
 <script>
   import categories from '@admin/partials/categories/index'
+  import search from '@admin/partials/categories/search'
   import create from '@admin/partials/categories/create'
   import edit from '@admin/partials/categories/edit'
 
   export default {
-    components: { categories, create, edit },
+    components: { categories, search, create, edit },
 
     data () {
       return {
