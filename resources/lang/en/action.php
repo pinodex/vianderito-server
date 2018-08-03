@@ -14,4 +14,17 @@ return [
     'groups:edit' => 'Edited group :name',
     'groups:set_permissions' => 'Set group permissions for :name',
     'groups:delete' => 'Deleted group :name',
+
+    'categories:create' => 'Created category :name',
+    'categories:edit' => 'Edited category :name',
+    'categories:delete' => 'Deleted category :name',
+
+    'manufacturers:create' => 'Created manufacturer :name',
+    'manufacturers:edit' => 'Edited manufacturer :name',
+    'manufacturers:delete' => 'Deleted manufacturer :name',
+
+    'products:create' => 'Created product :name',
+    'products:edit' => 'Edited product :name',
+    'products:set_picture' => 'Set product picture for :name',
+    'products:delete' => 'Deleted product :name',
 ];
