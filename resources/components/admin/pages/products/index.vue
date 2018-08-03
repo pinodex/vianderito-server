@@ -14,6 +14,7 @@
               <div class="field is-grouped">
                 <p class="control">
                   <button class="button is-rounded"
+                    :class="{ 'is-warning': isSearchActive }"
                     @click="searchVisible = true"
                     v-if="$root.can('browse_products')">
                     <span class="icon">
@@ -69,7 +70,8 @@
         mountedModel: null,
         query: {},
 
-        searchVisible: false
+        searchVisible: false,
+        isSearchActive: false
       }
     },
 
@@ -79,6 +81,7 @@
 
     mounted () {
       this.$root.$on('products:query:clear', () => {
+        this.isSearchActive = false
         this.searchVisible = false
         this.query = {}
 
@@ -86,7 +89,19 @@
           this.$root.$emit('products:query'), 1)
       })
 
-      this.$root.$on('products:query', () => {
+      this.$root.$on('products:query', data => {
+        this.isSearchActive = false
+        
+        for (var key in this.query) {
+          if (this.query.hasOwnProperty(key)) {
+            if (key == 'with') continue
+
+            if (this.query[key].length > 0) {
+              this.isSearchActive = true
+            }
+          }
+        }
+
         this.searchVisible = false
       })
     },
