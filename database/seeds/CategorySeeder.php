@@ -19,7 +19,7 @@ class CategorySeeder extends Seeder
         $handle = fopen($path, 'r');
         $row = -1;
 
-        $data = collect([]);
+        $data = [];
 
         while ($line = fgetcsv($handle)) {
             $row++;
@@ -28,39 +28,15 @@ class CategorySeeder extends Seeder
                 continue;
             }
 
-            $data->push([
-                'category'      => $line[0],
-                'subcategory'   => $line[1]
-            ]);
-        }
-
-        $categories = $data->groupBy('category');
-        $normalizedData = [];
-
-        $categories->each(function ($item, $key) use (&$normalizedData, $time) {
-            $parentId = (string) Uuid::generate();
-
-            $normalizedData[] = [
-                'id' => $parentId,
-                'parent_id' => null,
-                'name' => $key,
-                'description' => '',
+            $data[] = [
+                'id'            => (string) Uuid::generate(),
+                'name'          => $line[0],
+                'description'   => '',
                 'created_at'    => $time,
                 'updated_at'    => $time
             ];
+        }
 
-            $item->each(function ($subItem) use (&$normalizedData, $parentId, $time) {
-                $normalizedData[] = [
-                    'id' => (string) Uuid::generate(),
-                    'parent_id' => $parentId,
-                    'name' => $subItem['subcategory'],
-                    'description' => '',
-                    'created_at'    => $time,
-                    'updated_at'    => $time
-                ];
-            });
-        });
-
-        DB::table('categories')->insert($normalizedData);
+        DB::table('categories')->insert($data);
     }
 }

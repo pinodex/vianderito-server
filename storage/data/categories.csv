@@ -1,74 +1,16 @@
-Category,Subcategories
-Alcohol,Wines
-Alcohol,Beers
-Alcohol,Spirits
-Books and Stationery,Printing
-Books and Stationery,Cards
-Books and Stationery,Paper
-Books and Stationery,Pens
-Books and Stationery,Writing Materials
-Chemists and Drugstores,Beauty Products
-Chemists and Drugstores,Toiletries
-Chemists and Drugstores,Cosmetics
-Clothing,Baby wear and nursery goods
-Clothing,Children's wear
-Clothing,Ladies' wear
-Clothing,Menswear
-Clothing,Knitwear
-Clothing,Fashion accessories
-Clothing,Work wear
-Clothing,School wear
-Clothing,Maternity wear
-Clothing,Lingerie
-Clothing,Leather wear
-Clothing,Sports wear
-Clothing,Bridal wear
-DIY Goods,Wallpaper
-DIY Goods,Paint
-DIY Goods,Hardware
-DIY Goods,Ironmongery
-DIY Goods,Doors
-Electrical Goods,Computer hardware
-Electrical Goods,Computer software
-Electrical Goods,White goods
-Electrical Goods,Brown goods
-Electrical Goods,Audio-visual
-Footwear,Children's shoes
-Footwear,Ladies' and Men's shoes
-Footwear,Sports shoes
-Footwear,Shoe repair
-Foodstuffs and Consumables,Grocery
-Foodstuffs and Consumables,Butchers and Poultry
-Foodstuffs and Consumables,Bakery
-Foodstuffs and Consumables,Fishmongers
-Foodstuffs and Consumables,Greengrocers
-Foodstuffs and Consumables,Confectionery
-Foodstuffs and Consumables,Health foods
-Foodstuffs and Consumables,Organic foods
-Foodstuffs and Consumables,Delicatessen
-Furniture and Carpets,Curtains
-Furniture and Carpets,Sofas
-Furniture and Carpets,Soft Furnishings
-Garden Products,Flowers
-Garden Products,Plants
-Garden Products,Gardening Equipment
-Household and Textiles,China
-Household and Textiles,Household linens
-Household and Textiles,Pictures and frames
-Household and Textiles,Lighting
-Household and Textiles,Drapers
-Household and Textiles,Glassware
-Household and Textiles,Bedding
-Music and Film,Records
-Music and Film,DVDs
-Music and Film,CDs
-Music and Film,Musical Instruments
-Rentals,Television
-Rentals,Films
-Rentals,Games
-Sports Equipment,Camping and outdoor goods
-Sports Equipment,Leisure goods
-Sports Equipment,Bicycles and cycle accessories
-Restaurants and take-away food,Traditional foods
-Restaurants and take-away food,International foods
-Restaurants and take-away food,Snacks
+Category
+Alcohol
+Books and Stationery
+Chemists and Drugstores
+Clothing
+DIY Goods
+Electrical Goods
+Footwear
+Foodstuffs and Consumables
+Furniture and Carpets
+Garden Products
+Household and Textiles
+Music and Film
+Rentals
+Sports Equipment
+Restaurants and take-away food

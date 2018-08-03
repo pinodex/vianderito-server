@@ -16,7 +16,6 @@ class Category extends Model
     public $incrementing = false;
 
     public $fillable = [
-        'parent_id',
         'name',
         'description'
     ];
@@ -39,15 +38,5 @@ class Category extends Model
         static::creating(function ($model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
-    }
-
-    public function categories()
-    {
-        return $this->subcategories()->with('categories');
-    }
-
-    public function subcategories()
-    {
-        return $this->hasMany(Category::class, 'parent_id');
     }
 }
