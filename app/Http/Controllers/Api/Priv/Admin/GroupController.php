@@ -39,6 +39,8 @@ class GroupController extends Controller
             $models->with(explode(',', $relations));
         }
 
+        $models->withCount('accounts');
+
         $result = $models->paginate(20);
 
         return $result;

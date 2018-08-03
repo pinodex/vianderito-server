@@ -39,4 +39,9 @@ class Manufacturer extends Model
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

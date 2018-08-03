@@ -39,7 +39,7 @@ class CategoryController extends Controller
             $models->with(explode(',', $relations));
         }
 
-        // $models->where('parent_id', null)->with('categories');
+        $models->withCount('products');
 
         $result = $models->paginate(20);
 

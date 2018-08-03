@@ -17,6 +17,12 @@
       <b-table-column field="code" label="Code" sortable>
         {{ props.row.code }}
       </b-table-column>
+
+      <b-table-column field="name" label="Products" sortable>
+        <router-link :to="{ name: 'products', query: { manufacturer_id: props.row.id } }">
+          {{ props.row.products_count }} {{ props.row.products_count | pluralize('product') }}
+        </router-link>
+      </b-table-column>
       
       <b-table-column class="is-fit">
         <div class="field has-addons">

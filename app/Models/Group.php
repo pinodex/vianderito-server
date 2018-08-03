@@ -20,10 +20,6 @@ class Group extends Model
         'description'
     ];
 
-    public $appends = [
-        'accounts_count'
-    ];
-
     public $with = [
         'permissions'
     ];
@@ -52,10 +48,5 @@ class Group extends Model
     public function accounts()
     {
         return $this->hasMany(Account::class);
-    }
-
-    public function getAccountsCountAttribute()
-    {
-        return $this->accounts()->getQuery()->count();
     }
 }
