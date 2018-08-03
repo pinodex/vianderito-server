@@ -111,7 +111,9 @@
     },
 
     beforeDestroy () {
+      this.$root.$off('manufacturers:query:clear')
 
+      this.$root.$off('manufacturers:edit')
     }
   }
 </script>

@@ -112,6 +112,7 @@
 
     beforeDestroy () {
       this.$root.$off('accounts:query:clear')
+      
       this.$root.$off('accounts:edit')
     }
   }

@@ -111,7 +111,9 @@
     },
 
     beforeDestroy () {
+      this.$root.$off('categories:query:clear')
 
+      this.$root.$off('categories:edit')
     }
   }
 </script>
