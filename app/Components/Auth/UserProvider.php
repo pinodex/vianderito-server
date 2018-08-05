@@ -19,9 +19,7 @@ use Illuminate\Contracts\Auth\UserProvider as BaseUserProvider;
 
 class UserProvider implements BaseUserProvider
 {
-    protected $relations = [
-        'picture'
-    ];
+    protected $relations = [];
 
     public function retrieveById($identifier)
     {
@@ -43,6 +41,7 @@ class UserProvider implements BaseUserProvider
         return User::with($this->relations)
             ->where('username', $credentials['id'])
             ->orWhere('email_address', $credentials['id'])
+            ->orWhere('phone_number', $credentials['id'])
             ->first();
     }
 
