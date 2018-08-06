@@ -12,7 +12,8 @@
         "laravel/tinker": "~1.0",
         "rcrowe/twigbridge": "^0.9.6",
         "webpatser/laravel-uuid": "^3.0",
-        "fideloper/proxy": "^4.0"
+        "fideloper/proxy": "^4.0",
+        "tymon/jwt-auth": "dev-develop"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",

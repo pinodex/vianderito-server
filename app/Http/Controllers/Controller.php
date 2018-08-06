@@ -17,7 +17,7 @@ class Controller extends BaseController
      * 
      * @var \Illuminate\Auth\SessionGuard
      */
-    protected $web;
+    protected $api;
 
     /**
      * Admin session guard
@@ -28,7 +28,7 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        $this->web = Auth::guard('web');
+        $this->api = Auth::guard('api');
 
         $this->admin = Auth::guard('admin');
     }

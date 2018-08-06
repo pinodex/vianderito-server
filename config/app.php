@@ -166,6 +166,7 @@ return [
 
         TwigBridge\ServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
         /*
          * Package Service Providers...
