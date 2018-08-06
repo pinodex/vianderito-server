@@ -164,6 +164,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        App\Providers\AuthyApiServiceProvider::class,
+
         TwigBridge\ServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,

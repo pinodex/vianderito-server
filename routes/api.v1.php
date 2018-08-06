@@ -20,7 +20,21 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
+
+    Route::post('register', 'AuthController@register');
     
     Route::get('me', 'AuthController@me');
+
+});
+
+Route::group(['prefix' => 'verify', 'namespace' => 'Verify'], function () {
+
+    Route::group(['prefix' => 'sms'], function () {
+
+        Route::post('start', 'SmsVerificationController@start');
+
+        Route::post('verify', 'SmsVerificationController@verify');
+
+    });
 
 });

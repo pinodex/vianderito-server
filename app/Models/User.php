@@ -80,4 +80,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * Set user verification status to true
+     */
+    public function verify()
+    {
+        $this->is_verified = true;
+
+        $this->save();
+    }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRegister;
+use App\Models\User as Model;
 
 class AuthController extends Controller
 {
@@ -43,6 +45,22 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Token invalidated'
         ]);
+    }
+
+    /**
+     * Register user
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
+    public function register(UserRegister $request)
+    {
+        $data = $request->only(['name', 'username', 'password',
+            'email_address', 'phone_number']);
+
+        $model = Model::create($data);
+
+        return $model;
     }
 
     /**
