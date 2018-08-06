@@ -151,7 +151,7 @@
     },
 
     mounted () {
-      if (this.model.picture.image) {
+      if (this.model.picture) {
         this.avatar = this.model.picture.image
       }
 
