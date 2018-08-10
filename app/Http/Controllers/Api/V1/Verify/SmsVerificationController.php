@@ -71,8 +71,8 @@ class SmsVerificationController extends Controller
             ];
         }
 
-        return [
+        return response()->json([
             'message' => $response->message()
-        ];
+        ], 400);
     }
 }
