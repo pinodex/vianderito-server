@@ -15,7 +15,7 @@
         <router-link class="media is-vcentered"
           :to="{ name: 'users.view', params: { id: props.row.id }}">
           <figure class="media-left">
-            <p class="image is-48x48">
+            <p class="image is-48x48 avatar">
               <img :src="props.row.picture.thumbnail" />
             </p>
           </figure>
