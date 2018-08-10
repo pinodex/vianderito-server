@@ -128,6 +128,8 @@
           <span>Click to upload</span>
         </a>
       </b-upload>
+
+      <p class="is-size-7 has-text-centered">Max file size: 2MB</p>
     </div>
   </div>
 </template>
@@ -170,6 +172,12 @@
     methods: {
       avatarSelect (value) {
         if (value.length == 0) {
+          return
+        }
+
+        if (value[0].size > 2000000) {
+          this.$emit('fileSizeExceed')
+
           return
         }
 

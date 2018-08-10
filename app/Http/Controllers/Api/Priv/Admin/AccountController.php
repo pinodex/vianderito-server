@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Priv\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveAccount as SaveModel;
+use App\Http\Requests\SaveAccountAvatar;
 use App\Models\Account as Model;
 
 class AccountController extends Controller
@@ -126,7 +127,7 @@ class AccountController extends Controller
      * @param  Model $model Model model
      * @return mixed
      */
-    public function avatar(Request $request, Model $model)
+    public function avatar(SaveAccountAvatar $request, Model $model)
     {
         $file = $request->file('file');
 

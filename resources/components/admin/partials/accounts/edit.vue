@@ -2,6 +2,7 @@
   <form @submit.prevent="submitRequest()">
     <editor :model="model" :errors="errors"
       @passwordResetRequest="resetPassword"
+      @fileSizeExceed="fileSizeExceed"
       @filesChange="filesChange" />
 
     <div class="level">
@@ -47,6 +48,13 @@
     methods: {
       filesChange (value) {
         this.files = value
+      },
+
+      fileSizeExceed () {
+        this.$dialog.alert({
+          title: 'Image too large',
+          message: `Image file size should not exceed 2MB`
+        })
       },
 
       submitRequest () {

@@ -1,7 +1,9 @@
 <template>
   <div>
     <form v-show="screen == 1" @submit.prevent="submitRequest()">
-      <editor :model="model" :errors="errors" @filesChange="filesChange" />
+      <editor :model="model" :errors="errors"
+        @fileSizeExceed="fileSizeExceed"
+        @filesChange="filesChange" />
 
       <div class="field">
         <div class="control">
@@ -71,6 +73,13 @@
     methods: {
       filesChange (value) {
         this.files = value
+      },
+
+      fileSizeExceed () {
+        this.$dialog.alert({
+          title: 'Image too large',
+          message: `Image file size should not exceed 2MB`
+        })
       },
       
       submitRequest () {
