@@ -26,6 +26,7 @@ Route::group([
                 Route::delete('/{model}', 'AccountController@delete');
                 
                 Route::post('/{model}/avatar', 'AccountController@avatar');
+                Route::post('/{model}/reset_password', 'AccountController@resetPassword');
                 Route::get('/{model}/logs', 'AccountController@logs');
 
                 Route::post('/create', 'AccountController@create');

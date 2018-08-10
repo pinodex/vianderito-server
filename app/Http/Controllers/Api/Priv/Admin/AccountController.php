@@ -142,6 +142,26 @@ class AccountController extends Controller
     }
 
     /**
+     * Model password reset action
+     * 
+     * @param  Request $request Request object
+     * @param  Model $model Model model
+     * @return mixed
+     */
+    public function resetPassword(Request $request, Model $model)
+    {
+        $password = $model->generatePassword();
+
+        $model->require_password_change = true;
+
+        $model->save();
+
+        return [
+            'generated_password' => $password
+        ];
+    }
+
+    /**
      * Delete model action
      * 
      * @param  Request $request Request object
