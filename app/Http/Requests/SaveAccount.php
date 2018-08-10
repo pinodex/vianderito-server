@@ -28,7 +28,7 @@ class SaveAccount extends FormRequest
         if ($model) {
             return [
                 'first_name'    => 'required|regex:/^[\pL\s\-]+$/u',
-                'middle_name'   => 'regex:/^[\pL\s\-]+$/u',
+                'middle_name'   => 'nullable|regex:/^[\pL\s\-]+$/u',
                 'last_name'     => 'required|regex:/^[\pL\s\-]+$/u',
                 'username'      => [
                     'required',
@@ -41,7 +41,7 @@ class SaveAccount extends FormRequest
 
         return [
             'first_name'    => 'required|regex:/^[\pL\s\-]+$/u',
-            'middle_name'   => 'regex:/^[\pL\s\-]+$/u',
+            'middle_name'   => 'nullable|regex:/^[\pL\s\-]+$/u',
             'last_name'     => 'required|regex:/^[\pL\s\-]+$/u',
             'username'      => [
                 'required',
