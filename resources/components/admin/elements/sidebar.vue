@@ -18,6 +18,7 @@
 
     <div class="navbar-menu">
       <router-link class="navbar-item" v-for="(item, i) in items"
+          v-if="$root.can(item.permissions)"
           :class="{ 'is-active': isNavItemActive(item.route.name) }"
           :to="item.route"
           :key="i">

@@ -96,43 +96,50 @@
           {
             route: { name: 'index' },
             icon: 'fa fa-home',
-            text: 'Home'
+            text: 'Home',
+            permissions: ['*']
           },
 
           {
             route: { name: 'accounts' },
             icon: 'fa fa-user',
-            text: 'Accounts'
+            text: 'Accounts',
+            permissions: ['browse_accounts']
           },
 
           {
             route: { name: 'groups' },
             icon: 'fa fa-users',
-            text: 'Groups'
+            text: 'Groups',
+            permissions: ['browse_groups']
           },
 
           {
             route: { name: 'categories' },
             icon: 'fa fa-layer-group',
-            text: 'Categories'
+            text: 'Categories',
+            permissions: ['browse_categories']
           },
 
           {
             route: { name: 'manufacturers' },
             icon: 'fa fa-industry',
-            text: 'Manufacturers'
+            text: 'Manufacturers',
+            permissions: ['browse_manufacturers']
           },
 
           {
             route: { name: 'products' },
             icon: 'fa fa-box',
-            text: 'Products'
+            text: 'Products',
+            permissions: ['browse_products']
           },
 
           {
             route: { name: 'users' },
             icon: 'fa fa-users',
-            text: 'Users'
+            text: 'Users',
+            permissions: ['browse_users']
           }
         ]
       }

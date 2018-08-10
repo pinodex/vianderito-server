@@ -98,6 +98,10 @@ const app = new Vue({
         return false
       }
 
+      if (permission == '*') {
+        return true
+      }
+
       if (permission.constructor === Array) {
         for (var i = 0; i < permission.length; i++) {
           let status = this.can(permission[i])
@@ -110,7 +114,8 @@ const app = new Vue({
         return false
       }
 
-      let index = this.account.group.permissions.findIndex(item => item.id == permission)
+      let index = this.account.group.permissions.findIndex(
+        item => item.id == permission)
 
       return index !== -1
     }
