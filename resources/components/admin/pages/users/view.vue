@@ -1,22 +1,22 @@
 <template>
-  <section v-if="account">
-    <div class="hero is-primary is-bold">
+  <section v-if="user">
+    <div class="hero is-info is-bold">
       <div class="hero-body">
         <div class="ui-container">
           <article class="media is-vcentered">
             <figure class="media-left">
               <p class="image is-64x64">
-                <img :src="account.picture.thumbnail" />
+                <img :src="user.picture.thumbnail" />
               </p>
             </figure>
 
             <div class="media-content">
               <div class="content">
                 <p class="subtitle is-5 is-marginless">
-                  <strong>{{ account.name }}</strong>
+                  <strong>{{ user.name }}</strong>
                 </p>
 
-                <p class="is-size-6">@{{ account.username }}</p>
+                <p class="is-size-6">@{{ user.username }}</p>
               </div>
             </div>
           </article>
@@ -29,11 +29,11 @@
         <div class="column is-3">
           <div class="box">
             <p class="is-size-6 is-marginless has-text-dark">
-              <small><strong>Created</strong></small>
+              <small><strong>Created at</strong></small>
             </p>
 
             <p class="is-size-6 has-contents-below">
-              {{ account.created_at | moment('MMM DD, YYYY hh:mm A') }}
+              {{ user.created_at | moment('MMM DD, YYYY hh:mm A') }}
             </p>
 
             <p class="is-size-6 is-marginless has-text-dark">
@@ -41,37 +41,13 @@
             </p>
 
             <p class="is-size-6 has-contents-below">
-              {{ account.last_login_at | moment('MMM DD, YYYY hh:mm A') }}
+              {{ user.last_login_at ? (user.last_login_at | moment('MMM DD, YYYY hh:mm A'))
+                 : 'None recorded' }}
             </p>
-
-            <template v-if="account.group">
-              <hr />
-
-              <p class="is-size-6 is-marginless has-text-dark">
-                <small><strong>Group</strong></small>
-              </p>
-
-              <p class="is-size-6 has-contents-below">
-                {{ account.group.name }}
-              </p>
-
-              <p class="is-size-6 is-marginless has-text-dark">
-                <small><strong>Permissions</strong></small>
-              </p>
-
-              <ul class="is-size-6">
-                <li v-for="permission in account.group.permissions" :key="permission.id">
-                  {{ permission.name }}
-                </li>
-              </ul>
-            </template>
           </div>
         </div>
 
         <div class="column">
-          <h2 class="is-size-4 has-contents-below">Account Logs</h2>
-
-          <logs :id="account.id"></logs>
         </div>
       </div>
     </div>
@@ -79,16 +55,12 @@
 </template>
 
 <script>
-  import logs from '@admin/partials/accounts/logs'
-
   export default {
-    inject: ['$account'],
-
-    components: { logs },
+    inject: ['$user'],
 
     data () {
       return {
-        account: null
+        user: null
       }
     },
 
@@ -97,8 +69,8 @@
 
       let id = this.$route.params.id
 
-      this.$account.fetch(id)
-        .then(response => this.account = response.data)
+      this.$user.fetch(id)
+        .then(response => this.user = response.data)
         .then(() => loadingComponent.close())
     }
   }

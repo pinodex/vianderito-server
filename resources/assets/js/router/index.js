@@ -67,6 +67,12 @@ const router = new Router({
       name: 'users',
       component: () => import('@admin/pages/users/index')
     },
+
+    {
+      path: '/users/:id',
+      name: 'users.view',
+      component: () => import('@admin/pages/users/view')
+    },
   ]
 })
 
