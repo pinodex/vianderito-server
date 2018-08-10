@@ -15,6 +15,12 @@ const router = new Router({
     },
 
     {
+      path: '/change_password',
+      name: 'change_password',
+      component: () => import('@admin/pages/change_password')
+    },
+
+    {
       path: '/accounts',
       name: 'accounts',
       component: () => import('@admin/pages/accounts/index')

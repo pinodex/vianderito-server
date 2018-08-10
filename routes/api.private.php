@@ -13,6 +13,8 @@ Route::group([
         Route::post('/login', 'MainController@login');
         Route::post('/logout', 'MainController@logout');
 
+        Route::post('/change_password', 'MainController@changePassword');
+
         Route::get('/permissions', 'MainController@permissions');
 
         Route::group(['middleware' => 'auth:admin'], function () {

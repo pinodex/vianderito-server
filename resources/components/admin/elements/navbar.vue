@@ -23,13 +23,27 @@
       </div>
 
       <div class="navbar-end">
-        <div class="navbar-item has-dropdown is-hoverable account">
-          <div class="navbar-link">{{ $root.account.name }}</div>
+        <router-link class="navbar-item has-dropdown is-hoverable account"
+          :to="{ name: 'accounts.view', params: { id: $root.account.id } }">
+          <div class="navbar-link">
+            <section class="media is-vcentered">
+              <figure class="media-left">
+                <p class="image is-32x32 avatar">
+                  <img :src="$root.account.picture.thumbnail" />
+                </p>
+              </figure>
+
+              <div class="media-content">
+                <div class="content">{{ $root.account.name }}</div>
+              </div>
+            </section>
+          </div>
 
           <div class="navbar-dropdown">
+            <router-link :to="{ name: 'change_password' }" class="navbar-item">Change Password</router-link>
             <a href="#" class="navbar-item" @click.prevent="logout()">Logout</a>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </nav>

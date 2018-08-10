@@ -7,6 +7,26 @@
       <sidebar :items="nav"></sidebar>
 
       <div class="router-view">
+        <div class="notification top-notification is-warning"
+          v-if="$root.account.require_password_change">
+
+          <div class="level">
+            <div class="level-left">
+              <div class="level-item">
+                You are required to set a new password for your account.
+              </div>
+            </div>
+
+            <div class="level-right">
+              <div class="level-right">
+                <router-link :to="{ name: 'change_password' }" class="button">
+                  Change Password
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="ui-container" :class="{ 'is-fullwidth': isUiFullWidth }">
           <router-view></router-view>
         </div>

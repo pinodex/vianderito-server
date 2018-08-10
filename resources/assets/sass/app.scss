@@ -28,6 +28,11 @@ a {
   margin-bottom: 1em;
 }
 
+.notification.top-notification {
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
 .main-container {
   padding: 1.5rem;
 }
@@ -154,6 +159,10 @@ a {
   }
 }
 
+.navbar-item .media img {
+  max-height: initial;
+}
+
 .router-view {
   margin-top: $navbar-height;
 
@@ -166,6 +175,11 @@ a {
     margin-top: $navbar-height-extended;
     margin-left: 300px;
   }
+}
+
+.image.avatar {
+  border-radius: 100%;
+  overflow: hidden;
 }
 
 .panel {

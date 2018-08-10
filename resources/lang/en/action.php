@@ -3,7 +3,7 @@
 return [
     'account:login' => 'Account login',
     'account:logout' => 'Account logout',
-    'profile:change_password' => 'Change password',
+    'account:change_password' => 'Change password',
 
     'accounts:create' => 'Created account :name',
     'accounts:edit' => 'Edited account :name',
