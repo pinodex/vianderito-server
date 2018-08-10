@@ -162,6 +162,10 @@
 
     methods: {
       avatarSelect (value) {
+        if (value.length == 0) {
+          return
+        }
+
         let reader = new FileReader(),
             vm = this
 
