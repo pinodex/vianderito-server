@@ -32,7 +32,7 @@
   import editor from './editor'
 
   export default {
-    inject: ['$account'],
+    inject: ['$user'],
     components: { editor },
     props: ['model'],
 
@@ -61,16 +61,16 @@
         this.isFormLoading = true
         this.errors = {}
 
-        this.$account.update(this.model)
+        this.$user.update(this.model)
           .then(response => {
             if (this.files.length > 0) {
-              return this.$account.setAvatar(response.data.id, this.files[0])
+              return this.$user.setAvatar(response.data.id, this.files[0])
             }
 
             return response
           })
           .then(response => {
-            this.$root.$emit('accounts:saved', this.model)
+            this.$root.$emit('users:saved', this.model)
 
             this.$parent.close()
             
@@ -105,7 +105,7 @@
           onConfirm: () => {
             const loadingComponent = this.$loading.open()
 
-            this.$account.resetPassword(this.model.id)
+            this.$user.resetPassword(this.model.id)
               .then(response => {
                 let title = 'Password Reset',
                     message = `New password for ${this.model.name}<br /><br />` +

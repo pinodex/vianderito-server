@@ -9,13 +9,17 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Scopes\OrderByCreateScope;
 use App\Traits\PasswordHash;
 use App\Traits\LastLogin;
+use App\Traits\Picture;
+use App\Traits\Search;
 use Webpatser\Uuid\Uuid;
 
 class User extends Authenticatable implements JWTSubject
 {
     use SoftDeletes,
         PasswordHash,
-        LastLogin;
+        LastLogin,
+        Picture,
+        Search;
 
     public $incrementing = false;
 
@@ -24,7 +28,12 @@ class User extends Authenticatable implements JWTSubject
         'username',
         'email_address',
         'phone_number',
-        'password'
+        'password',
+        'is_verified'
+    ];
+
+    public $appends = [
+        'picture'
     ];
 
     public $dates = [

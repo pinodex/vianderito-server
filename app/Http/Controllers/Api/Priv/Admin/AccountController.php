@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Priv\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveAccount as SaveModel;
-use App\Http\Requests\SaveAccountAvatar;
+use App\Http\Requests\SaveAvatar;
 use App\Models\Account as Model;
 
 class AccountController extends Controller
@@ -127,7 +127,7 @@ class AccountController extends Controller
      * @param  Model $model Model model
      * @return mixed
      */
-    public function avatar(SaveAccountAvatar $request, Model $model)
+    public function avatar(SaveAvatar $request, Model $model)
     {
         $file = $request->file('file');
 
@@ -156,6 +156,10 @@ class AccountController extends Controller
         $model->require_password_change = true;
 
         $model->save();
+
+        $this->admin->user()->log('accounts:reset_password', [
+            'name' => $model->name
+        ]);
 
         return [
             'generated_password' => $password

@@ -85,6 +85,17 @@ Route::group([
 
                 Route::post('/create', 'ProductController@create');
             });
+
+            Route::group(['as' => 'users.', 'prefix' => 'users'], function () {
+                Route::get('/', 'UserController@index');
+
+                Route::get('/{model}', 'UserController@view');
+                Route::patch('/{model}', 'UserController@edit');
+                Route::delete('/{model}', 'UserController@delete');
+                
+                Route::post('/{model}/avatar', 'UserController@avatar');
+                Route::post('/{model}/reset_password', 'UserController@resetPassword');
+            });
         });
     }
 );

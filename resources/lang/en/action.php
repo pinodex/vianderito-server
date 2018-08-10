@@ -9,6 +9,7 @@ return [
     'accounts:edit' => 'Edited account :name',
     'accounts:set_avatar' => 'Set account avatar for :name',
     'accounts:delete' => 'Deleted account :name',
+    'accounts:reset_password' => 'Reset password for account :name',
 
     'groups:create' => 'Created group :name',
     'groups:edit' => 'Edited group :name',
@@ -27,4 +28,9 @@ return [
     'products:edit' => 'Edited product :name',
     'products:set_picture' => 'Set product picture for :name',
     'products:delete' => 'Deleted product :name',
+
+    'users:create' => 'Created user :name',
+    'users:edit' => 'Edited user :name',
+    'users:set_avatar' => 'Set user avatar for :name',
+    'users:delete' => 'Deleted user :name'
 ];

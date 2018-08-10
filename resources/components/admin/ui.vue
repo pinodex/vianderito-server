@@ -106,6 +106,12 @@
             route: { name: 'products' },
             icon: 'fa fa-box',
             text: 'Products'
+          },
+
+          {
+            route: { name: 'users' },
+            icon: 'fa fa-users',
+            text: 'Users'
           }
         ]
       }
