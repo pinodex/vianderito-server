@@ -27,7 +27,9 @@
         </div>
 
         <div class="ui-container" :class="{ 'is-fullwidth': isUiFullWidth }">
-          <router-view></router-view>
+          <transition name="fade" mode="out-in">
+            <router-view></router-view>
+          </transition>
         </div>
       </div>
     </template>
