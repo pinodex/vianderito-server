@@ -8,17 +8,16 @@
 
       <div class="router-view">
         <div class="notification top-notification is-warning"
-          v-if="$root.account.require_password_change">
-
+          v-if="$root.account.require_password_change && $route.name != 'change_password'">
           <div class="level">
             <div class="level-left">
               <div class="level-item">
-                You are required to set a new password for your account.
+                <strong>Please set a new password for your account!</strong>
               </div>
             </div>
 
             <div class="level-right">
-              <div class="level-right">
+              <div class="level-item">
                 <router-link :to="{ name: 'change_password' }" class="button">
                   Change Password
                 </router-link>

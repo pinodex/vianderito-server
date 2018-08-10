@@ -2,6 +2,11 @@
   <section class="main-container">
     <div class="columns is-centered">
       <div class="column is-4">
+        <div class="notification is-warning"
+          v-if="$root.account.require_password_change">
+          Please set a new password for your account
+        </div>
+
         <h1 class="title">Change Password</h1>
 
         <div class="notification is-danger" v-if="message">
@@ -33,6 +38,14 @@
     </div>
   </section>
 </template>
+
+<style lang="scss" scoped>
+  @media (min-width: 1088px) {
+    .main-container {
+      margin-top: 100px;
+    }
+  }
+</style>
 
 <script>
   import meteredpassword from '@admin/partials/metered-password'
