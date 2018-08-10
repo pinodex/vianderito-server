@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaveManufacturer extends FormRequest
+class SaveProductPicture extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class SaveManufacturer extends FormRequest
     public function rules()
     {
         return [
-            'name'    => 'required',
-            'code'    => 'required|numeric'
+            'file' => 'required|max:2048|mimes:jpeg,png,bmp,tiff'
         ];
     }
 }

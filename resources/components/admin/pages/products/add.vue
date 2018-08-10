@@ -10,6 +10,7 @@
 
             <div class="control">
               <productimage class="has-contents-below"
+                @fileSizeExceed="fileSizeExceed"
                 @input="imageInput"
                 :file="picture" />
             </div>
@@ -60,6 +61,13 @@
     methods: {
       imageInput (value) {
         this.picture = value[0]
+      },
+
+      fileSizeExceed () {
+        this.$dialog.alert({
+          title: 'Image too large',
+          message: `Image file size should not exceed 2MB`
+        })
       },
 
       submitRequest () {

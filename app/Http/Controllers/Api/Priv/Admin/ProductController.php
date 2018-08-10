@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Priv\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveProduct as SaveModel;
+use App\Http\Requests\SaveProductPicture;
 use App\Models\Product as Model;
 
 class ProductController extends Controller
@@ -63,7 +64,7 @@ class ProductController extends Controller
      * @param  Model $model Model model
      * @return mixed
      */
-    public function picture(Request $request, Model $model)
+    public function picture(SaveProductPicture $request, Model $model)
     {
         $file = $request->file('file');
 

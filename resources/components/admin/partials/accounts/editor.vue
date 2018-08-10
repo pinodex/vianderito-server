@@ -89,7 +89,7 @@
               </option>
             </b-select>
 
-            <p class="help is-danger" v-for="message in errors.group">{{ message }}</p>
+            <p class="help is-danger" v-for="message in errors.group_id">{{ message }}</p>
           </div>
         </div>
       </div>

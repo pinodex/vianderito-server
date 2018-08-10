@@ -27,7 +27,7 @@ class SaveProduct extends FormRequest
             'name'              => 'required',
             'manufacturer_id'   => 'required|exists:manufacturers,id',
             'category_id'       => 'required|exists:categories,id',
-            'upc'               => 'required'
+            'upc'               => 'required|numeric'
         ];
     }
 }
