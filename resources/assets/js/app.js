@@ -4,6 +4,7 @@ import Moment from 'vue-moment'
 import Filters from 'vue2-filters'
 import Buefy from 'buefy'
 import Axios from 'axios'
+import moment from 'moment'
 
 import store from './store'
 import router from './router'
@@ -14,7 +15,7 @@ import '../../components/admin'
 
 Vue.use(Buefy, {
   defaultIconPack: 'fa',
-  defaultDateFormatter: (date) => date.toISOString().split('T')[0]
+  defaultDateFormatter: (date) => moment(date).format('YYYY-MM-DD HH:mm:ss')
 })
 
 Vue.use(ProgressBar, {

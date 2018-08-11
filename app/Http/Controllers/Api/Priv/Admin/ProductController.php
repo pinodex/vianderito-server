@@ -31,7 +31,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $query = $request->only(
-            ['name', 'manufacturer_id', 'category_id', 'upc']
+            ['id', 'name', 'manufacturer_id', 'category_id', 'upc']
         );
 
         $models = Model::search($query);

@@ -69,6 +69,24 @@ const router = new Router({
     },
 
     {
+      path: '/inventories',
+      name: 'inventories',
+      component: () => import('@admin/pages/inventories/index')
+    },
+
+    {
+      path: '/inventories/add',
+      name: 'inventories.add',
+      component: () => import('@admin/pages/inventories/add')
+    },
+
+    {
+      path: '/inventories/:id/edit',
+      name: 'inventories.edit',
+      component: () => import('@admin/pages/inventories/edit')
+    },
+
+    {
       path: '/users',
       name: 'users',
       component: () => import('@admin/pages/users/index')

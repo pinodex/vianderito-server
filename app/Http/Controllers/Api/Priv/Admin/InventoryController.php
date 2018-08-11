@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Api\Priv\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SaveManufacturer as SaveModel;
-use App\Models\Manufacturer as Model;
+use App\Http\Requests\SaveInventory as SaveModel;
+use App\Models\Inventory as Model;
 
-class ManufacturerController extends Controller
+class InventoryController extends Controller
 {
     public function __construct()
     {
         parent::__construct();
 
         $this->acl([
-            'browse_manufacturers'  => ['index', 'all'],
-            'create_manufacturer'   => ['create'],
-            'edit_manufacturer'     => ['edit'],
-            'delete_manufacturer'   => ['delete']
+            'browse_inventories'   => ['index', 'all'],
+            'create_inventory'     => ['create'],
+            'edit_inventory'       => ['edit'],
+            'delete_inventory'     => ['delete']
         ]);
     }
 
@@ -30,31 +30,20 @@ class ManufacturerController extends Controller
     public function index(Request $request)
     {
         $query = $request->only(
-            ['id', 'name']
+            ['product_id']
         );
 
         $models = Model::search($query);
+
+        $models->has('product')->with('product');
 
         if ($relations = $request->input('with')) {
             $models->with(explode(',', $relations));
         }
 
-        $models->withCount('products');
-
         $result = $models->paginate(20);
 
         return $result;
-    }
-
-    /**
-     * Get all model in JSON
-     * 
-     * @param  Request $request Request object
-     * @return mixed
-     */
-    public function all()
-    {
-        return Model::all();
     }
 
     /**
@@ -77,12 +66,16 @@ class ManufacturerController extends Controller
      */
     public function create(SaveModel $request)
     {
-        $data = $request->only(['name', 'code']);
+        $data = $request->only([
+            'eid', 'product_id', 'stocks', 'price', 'batch_date', 'expiration_date'
+        ]);
 
         $model = Model::create($data);
 
-        $this->admin->user()->log('manufacturers:create', [
-            'name' => $model->name
+        $product = $model->product;
+
+        $this->admin->user()->log('inventories:create', [
+            'product' => $product->name
         ]);
 
         return $model;
@@ -97,13 +90,17 @@ class ManufacturerController extends Controller
      */
     public function edit(SaveModel $request, Model $model)
     {
-        $data = $request->only(['name', 'code']);
+        $data = $request->only([
+            'stocks', 'price', 'batch_date', 'expiration_date'
+        ]);
 
         $model->fill($data);
         $model->save();
 
-        $this->admin->user()->log('manufacturers:edit', [
-            'name' => $model->name
+        $product = $model->product;
+
+        $this->admin->user()->log('inventories:edit', [
+            'product' => $product->name
         ]);
 
         return $model;
@@ -118,10 +115,13 @@ class ManufacturerController extends Controller
      */
     public function delete(Request $request, Model $model)
     {
+        $product = $model->product;
+
         $model->delete();
 
-        $this->admin->user()->log('manufacturers:delete', [
-            'name' => $model->name
+        $this->admin->user()->log('inventories:delete', [
+            'id' => $model->eid,
+            'product' => $product->name
         ]);
 
         return response('', 204);

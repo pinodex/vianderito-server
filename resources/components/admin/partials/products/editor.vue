@@ -101,7 +101,9 @@
         categories: [],
 
         isManufacturersLoading: false,
-        isCategoriesLoading: false
+        isCategoriesLoading: false,
+
+        isLoaded: false
       }
     },
 
@@ -114,6 +116,9 @@
     },
 
     updated () {
+      if (this.isLoaded)
+        return
+
       if (this.model.manufacturer_id && !this.manufacturer) {
         this.$manufacturer.fetch(this.model.manufacturer_id)
           .then(response => this.manufacturer = response.data.name)
@@ -123,6 +128,8 @@
         this.$category.fetch(this.model.category_id)
           .then(response => this.category = response.data.name)
       }
+
+      this.isLoaded = true
     },
 
     methods: {

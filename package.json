@@ -18,6 +18,7 @@
         "debounce": "^1.1.0",
         "format-unicorn": "^1.1.1",
         "laravel-mix": "^1.0",
+        "moment": "^2.22.2",
         "promise.prototype.finally": "^3.1.0",
         "vue": "^2.5.16",
         "vue-moment": "^4.0.0",

@@ -29,6 +29,10 @@ return [
     'products:set_picture' => 'Set product picture for :name',
     'products:delete' => 'Deleted product :name',
 
+    'inventories:create' => 'Created inventory for :product',
+    'inventories:edit' => 'Edited inventory for :product',
+    'inventories:delete' => 'Deleted inventory :id for :product',
+
     'users:create' => 'Created user :name',
     'users:edit' => 'Edited user :name',
     'users:set_avatar' => 'Set user avatar for :name',

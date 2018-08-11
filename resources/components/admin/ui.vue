@@ -136,6 +136,13 @@
           },
 
           {
+            route: { name: 'inventories' },
+            icon: 'fa fa-boxes',
+            text: 'Inventories',
+            permissions: ['browse_inventories']
+          },
+
+          {
             route: { name: 'users' },
             icon: 'fa fa-users',
             text: 'Users',

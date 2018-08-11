@@ -2,21 +2,9 @@
   <section class="main-container" v-if="model.id">
     <div class="columns is-centered">
       <div class="column is-6">
-        <h1 class="title">Edit Product</h1>
+        <h1 class="title">Edit Inventory</h1>
 
         <form @submit.prevent="submitRequest()">
-          <div class="field">
-            <label class="label">Picture</label>
-
-            <div class="control">
-              <productimage class="has-contents-below"
-                @fileSizeExceed="fileSizeExceed"
-                @input="imageInput"
-                :preview="model.picture.image"
-                :file="picture" />
-            </div>
-          </div>
-
           <editor :model="model" :errors="errors"></editor>
 
           <div class="field">
@@ -40,13 +28,12 @@
 </template>
 
 <script>
-  import editor from '@admin/partials/products/editor'
-  import productimage from '@admin/partials/products/image'
+  import editor from '@admin/partials/inventories/editor'
 
   export default {
-    inject: ['$product'],
+    inject: ['$inventory'],
     
-    components: { editor, productimage },
+    components: { editor },
 
     data () {
       return {
@@ -64,7 +51,7 @@
 
       let id = this.$route.params.id
 
-      this.$product.fetch(id)
+      this.$inventory.fetch(id)
         .then(response => this.model = response.data)
         .then(() => loadingComponent.close())
     },
@@ -85,21 +72,21 @@
         this.isFormLoading = true
         this.errors = {}
 
-        this.$product.update(this.model)
+        this.$inventory.update(this.model)
           .then(response => {
             if (this.picture) {
-              return this.$product.setPicture(this.model.id, this.picture)
+              return this.$inventory.setPicture(this.model.id, this.picture)
             }
 
             return response
           })
           .then(response => {
-            this.$root.$emit('products:saved', this.model)
+            this.$root.$emit('inventories:saved', this.model)
 
-            this.$router.push({ name: 'products' })
+            this.$router.push({ name: 'inventories' })
             
             this.$toast.open({
-              message: `Changes to ${this.model.name} has been saved`,
+              message: `Changes to product inventory has been saved`,
               type: 'is-success'
             })
           })

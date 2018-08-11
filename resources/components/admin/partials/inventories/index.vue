@@ -10,39 +10,56 @@
     @page-change="onPageChange">
 
     <template slot-scope="props">
-      <b-table-column class="is-fit">
-        <figure class="image is-32x32">
-          <img :src="props.row.picture.thumbnail">
-        </figure>
+      <b-table-column field="eid" label="ID" sortable>
+        {{ props.row.eid }}
       </b-table-column>
 
-      <b-table-column field="name" label="Name" sortable>
-        {{ props.row.name }}
+      <b-table-column field="product.name" label="Product" sortable>
+        <section class="media is-vcentered">
+          <figure class="media-left">
+            <p class="image is-48x48">
+              <img :src="props.row.product.picture.thumbnail">
+            </p>
+          </figure>
+
+          <router-link class="media-content"
+            :to="{ name: 'products', query: { id: props.row.product.id } }">
+            <h1 class="is-size-6">{{ props.row.product.name }} </h1>
+
+            <p class="is-size-7">
+              {{ props.row.product.upc }}
+            </p>
+          </router-link>
+        </section>
       </b-table-column>
 
-      <b-table-column field="code" label="UPC" sortable>
-        {{ props.row.upc }}
+      <b-table-column field="stocks" label="Stocks" class="has-text-right" sortable>
+        {{ props.row.stocks }}
       </b-table-column>
 
-      <b-table-column field="category" label="Category" sortable>
-        <router-link :to="{ name: 'categories', query: { id: props.row.category.id } }">
-          {{ props.row.category.name }}
-        </router-link>
+      <b-table-column field="price" label="Price" class="has-text-right" sortable>
+        {{ props.row.price }}
       </b-table-column>
 
-      <b-table-column field="manufacturer" label="Manufacturer" sortable>
-        <router-link :to="{ name: 'manufacturers', query: { id: props.row.manufacturer.id } }">
-          {{ props.row.manufacturer.name }}
-        </router-link>
+      <b-table-column field="batch_date" label="Batch Date" sortable>
+        {{ props.row.batch_date }}
+      </b-table-column>
+
+      <b-table-column field="expiration_date" label="Expiration" sortable>
+        {{ props.row.expiration_date }}
+      </b-table-column>
+
+      <b-table-column field="created_at" label="Date Added" sortable>
+        {{ props.row.created_at }}
       </b-table-column>
       
       <b-table-column class="is-fit">
         <div class="field has-addons">
           <p class="control">
             <router-link class="button is-small"
-              :to="{ name: 'products.edit', params: { id: props.row.id } }"
+              :to="{ name: 'inventories.edit', params: { id: props.row.id } }"
               @click.prevent="editModel(props.row)"
-              v-if="$root.can('edit_product')">
+              v-if="$root.can('edit_inventory')">
                     
               <span class="icon is-small">
                 <i class="fa fa-edit"></i>
@@ -64,19 +81,9 @@
 
               <div class="dropdown-menu">
                 <div class="dropdown-content">
-                  <router-link class="dropdown-item"
-                    :to="{ name: 'inventories', query: { product_id: props.row.id } }"
-                    v-if="$root.can('browse_inventories')">
-                    <span class="icon is-small">
-                      <i class="fa fa-boxes"></i>
-                    </span>
-
-                    <span>Inventories</span>
-                  </router-link>
-
                   <a href="#" class="dropdown-item"
                     @click.prevent="deleteModel(props.row)"
-                    v-if="$root.can('delete_product')">
+                    v-if="$root.can('delete_inventory')">
                     <span class="icon is-small">
                       <i class="fa fa-trash"></i>
                     </span>
@@ -97,7 +104,7 @@
   let deferPageChange = false
 
   export default {
-    inject: ['$product'],
+    inject: ['$inventory'],
 
     props: {
       query: {
@@ -117,23 +124,21 @@
     mounted () {
       this.refresh()
 
-      this.$root.$on('products:saved', model => this.refresh())
+      this.$root.$on('inventories:saved', model => this.refresh())
 
-      this.$root.$on('products:query', () => this.refresh())
+      this.$root.$on('inventories:query', () => this.refresh())
     },
 
     beforeDestroy () {
-      this.$root.$off('products:saved')
-      this.$root.$off('products:query')
+      this.$root.$off('inventories:saved')
+      this.$root.$off('inventories:query')
     },
 
     methods: {
       refresh () {
         this.isLoading = true
 
-        this.query.with = 'category,manufacturer'
-
-        this.$product.get(this.query)
+        this.$inventory.get(this.query)
           .then(response => {
             this._haltPageChangeEvent()
 
@@ -157,7 +162,7 @@
 
         this.isLoading = true
 
-        this.$product.get(query)
+        this.$inventory.get(query)
           .then(response => {
             this.result = response.data
           })
@@ -167,17 +172,17 @@
       },
 
       editModel (model) {
-        this.$root.$emit('products:edit', model)
+        this.$root.$emit('inventories:edit', model)
       },
 
       editModelPermissions (model) {
-        this.$root.$emit('products:edit_permissions', model)
+        this.$root.$emit('inventories:edit_permissions', model)
       },
 
       deleteModel (model) {
         this.$dialog.confirm({
           type: 'is-danger',
-          message: `${model.name} will be deleted. Confirm?`,
+          message: `This inventory will be deleted. Confirm?`,
           onConfirm: () => {
             let index = this.result.data.findIndex(a => a.id == model.id)
 
@@ -185,10 +190,10 @@
               this.result.data.splice(index, 1)
             }
 
-            this.$product.delete(model.id)
+            this.$inventory.delete(model.id)
               .then(response => {
                 this.$toast.open({
-                  message: `${model.name} has been deleted`,
+                  message: `Product inventory has been deleted`,
                   type: 'is-success'
                 })
               })

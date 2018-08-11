@@ -88,6 +88,17 @@ Route::group([
                 Route::post('/create', 'ProductController@create');
             });
 
+            Route::group(['as' => 'inventories.', 'prefix' => 'inventories'], function () {
+                Route::get('/', 'InventoryController@index');
+
+                Route::get('/{model}', 'InventoryController@view');
+
+                Route::patch('/{model}', 'InventoryController@edit');
+                Route::delete('/{model}', 'InventoryController@delete');
+
+                Route::post('/create', 'InventoryController@create');
+            });
+
             Route::group(['as' => 'users.', 'prefix' => 'users'], function () {
                 Route::get('/', 'UserController@index');
 

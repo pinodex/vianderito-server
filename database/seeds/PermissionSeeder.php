@@ -64,6 +64,16 @@ class PermissionSeeder extends Seeder
                 'delete_user' => ['Delete User', 'Allow deletion user'],
                 'edit_user' => ['Edit User', 'Allow editing of user']
             ]
+        ],
+
+        [
+            'name' => 'inventory',
+            'items' => [
+                'browse_inventories' => ['Browse Categories', 'Allow browsing of inventories'],
+                'create_inventory' => ['Create Category', 'Allow creation of inventory'],
+                'delete_inventory' => ['Delete Category', 'Allow deletion inventory'],
+                'edit_inventory' => ['Edit Category', 'Allow editing of inventory']
+            ]
         ]
     ];
 
