@@ -5,7 +5,7 @@
         <div class="ui-container">
           <article class="media is-vcentered">
             <figure class="media-left">
-              <p class="image is-64x64">
+              <p class="image is-64x64 avatar">
                 <img :src="user.picture.thumbnail" />
               </p>
             </figure>
