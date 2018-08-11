@@ -76,7 +76,8 @@
 </style>
 
 <script>
-  import zxcvbn from 'zxcvbn'
+  import zxcvbnAsync from 'zxcvbn-async'
+  const zxcvbn = zxcvbnAsync.load({ sync: true })
 
   export default {
     props: {

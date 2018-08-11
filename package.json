@@ -25,6 +25,7 @@
         "vue-router": "^3.0.1",
         "vue2-filters": "^0.3.0",
         "vuex": "^3.0.1",
-        "zxcvbn": "^4.4.2"
+        "zxcvbn": "^4.4.2",
+        "zxcvbn-async": "0.0.5"
     }
 }
