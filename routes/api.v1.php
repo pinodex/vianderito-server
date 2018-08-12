@@ -30,11 +30,29 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'verify', 'namespace' => 'Verify'], function () {
 
     Route::group(['prefix' => 'sms'], function () {
-
         Route::post('start', 'SmsVerificationController@start');
-
         Route::post('verify', 'SmsVerificationController@verify');
+    });
 
+});
+
+Route::group(['prefix' => 'store', 'namespace' => 'Store'], function () {
+
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('/', 'ProductController@index');
+        Route::get('/{model}', 'ProductController@view');
+        Route::get('/upc/{upc}', 'ProductController@viewUpc');
+    });
+
+    Route::group(['prefix' => 'categories'], function () {
+        Route::get('/', 'CategoryController@index');
+        Route::get('/{model}', 'CategoryController@view');
+    });
+
+    Route::group(['prefix' => 'manufacturers'], function () {
+        Route::get('/', 'ManufacturerController@index');
+        Route::get('/{model}', 'ManufacturerController@view');
+        Route::get('/code/{code}', 'ManufacturerController@viewCode');
     });
 
 });

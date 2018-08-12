@@ -23,11 +23,22 @@ class SaveProduct extends FormRequest
      */
     public function rules()
     {
+        $model = $this->route()->parameter('model');
+
+        if ($model) {
+            return [
+                'name'              => 'required',
+                'manufacturer_id'   => 'required|exists:manufacturers,id',
+                'category_id'       => 'required|exists:categories,id',
+                'upc'               => 'required|numeric|unique:products,upc,' . $model->id
+            ];
+        }
+
         return [
             'name'              => 'required',
             'manufacturer_id'   => 'required|exists:manufacturers,id',
             'category_id'       => 'required|exists:categories,id',
-            'upc'               => 'required|numeric'
+            'upc'               => 'required|numeric|unique:products,upc'
         ];
     }
 }

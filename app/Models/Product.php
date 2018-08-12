@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Scopes\OrderByCreateScope;
@@ -77,5 +78,14 @@ class Product extends Model
     public function inventories()
     {
         return $this->hasMany(Inventory::class);
+    }
+
+    public function frontInventory()
+    {
+        $frontInventory = $this->hasOne(Inventory::class)
+            ->orderBy('batch_date', 'ASC')
+            ->orderBy('expiration_date', 'ASC');
+
+        return $frontInventory;
     }
 }

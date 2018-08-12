@@ -23,9 +23,18 @@ class SaveManufacturer extends FormRequest
      */
     public function rules()
     {
+        $model = $this->route()->parameter('model');
+
+        if ($model) {
+            return [
+                'name'    => 'required',
+                'code'    => 'required|numeric|unique:manufacturers,code,' . $model->id
+            ];
+        }
+
         return [
             'name'    => 'required',
-            'code'    => 'required|numeric'
+            'code'    => 'required|numeric|unique:manufacturers,code'
         ];
     }
 }

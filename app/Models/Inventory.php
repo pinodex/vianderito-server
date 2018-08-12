@@ -28,6 +28,10 @@ class Inventory extends Model
         'deleted_at'
     ];
 
+    protected $casts = [
+        'price' => 'float',
+    ];
+
     /**
      * The "booting" method of the model.
      *
