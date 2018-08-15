@@ -13,6 +13,8 @@ import services from './services'
 import './group-by'
 import '../../components/admin'
 
+require('promise.prototype.finally').shim()
+
 Vue.use(Buefy, {
   defaultIconPack: 'fa',
   defaultDateFormatter: (date) => moment(date).format('YYYY-MM-DD HH:mm:ss')
