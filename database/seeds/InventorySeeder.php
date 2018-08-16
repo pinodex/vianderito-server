@@ -1,26 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
-class InventorySeeder extends Seeder
+class InventorySeeder extends BaseSeeder
 {
-    protected $productMap = [];
-
-    protected function getProductId($upc)
-    {
-        if (array_key_exists($upc, $this->productMap)) {
-            return $this->productMap[$upc];
-        }
-
-        $query = DB::table('products')->where('upc', $upc)->first();
-
-        if ($query) {
-            return $this->productMap[$upc] = $query->id;
-        }
-
-        return null;
-    }
-
     /**
      * Run the database seeds.
      *

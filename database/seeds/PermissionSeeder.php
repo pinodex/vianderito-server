@@ -67,6 +67,16 @@ class PermissionSeeder extends Seeder
         ],
 
         [
+            'name' => 'coupon',
+            'items' => [
+                'browse_coupons' => ['Browse Coupons', 'Allow browsing of coupons'],
+                'create_coupon' => ['Create Coupon', 'Allow creation of coupon'],
+                'delete_coupon' => ['Delete Coupon', 'Allow deletion coupon'],
+                'edit_coupon' => ['Edit Coupon', 'Allow editing of coupon']
+            ]
+        ],
+
+        [
             'name' => 'inventory',
             'items' => [
                 'browse_inventories' => ['Browse Categories', 'Allow browsing of inventories'],

@@ -1,8 +1,7 @@
-const ENDPOINT_GET = '/admin/inventories',
-      ENDPOINT_GET_ID = '/admin/inventories/byId',
-      ENDPOINT_FETCH = '/admin/inventories/{id}',
-      ENDPOINT_CREATE = '/admin/inventories/create',
-      ENDPOINT_SEARCH = '/admin/inventories/search'
+const ENDPOINT_GET = '/admin/coupons',
+      ENDPOINT_FETCH = '/admin/coupons/{id}',
+      ENDPOINT_CREATE = '/admin/coupons/create',
+      ENDPOINT_SEARCH = '/admin/coupons/search'
 
 export default class {
 
@@ -12,12 +11,6 @@ export default class {
 
   get (params) {
     return this.$http.get(ENDPOINT_GET, { params })
-  }
-
-  getById (id, params = {}) {
-    params.id = id
-
-    return this.$http.get(ENDPOINT_GET_ID, { params })
   }
 
   fetch (id, params) {

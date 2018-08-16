@@ -143,6 +143,13 @@
           },
 
           {
+            route: { name: 'coupons' },
+            icon: 'fa fa-ticket-alt',
+            text: 'Coupons',
+            permissions: ['browse_coupons']
+          },
+
+          {
             route: { name: 'users' },
             icon: 'fa fa-users',
             text: 'Users',

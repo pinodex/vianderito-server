@@ -27,4 +27,14 @@ trait Search
             }
         });
     }
+
+    /**
+     * Search models by IDs
+     * @param  array $id Array of IDs
+     * @return Builder
+     */
+    public static function searchByIds(array $id)
+    {
+        return self::whereIn('id', $id);
+    }
 }

@@ -87,6 +87,24 @@ const router = new Router({
     },
 
     {
+      path: '/coupons',
+      name: 'coupons',
+      component: () => import('@admin/pages/coupons/index')
+    },
+
+    {
+      path: '/coupons/create',
+      name: 'coupons.create',
+      component: () => import('@admin/pages/coupons/create')
+    },
+
+    {
+      path: '/coupons/:id/edit',
+      name: 'coupons.edit',
+      component: () => import('@admin/pages/coupons/edit')
+    },
+
+    {
       path: '/users',
       name: 'users',
       component: () => import('@admin/pages/users/index')

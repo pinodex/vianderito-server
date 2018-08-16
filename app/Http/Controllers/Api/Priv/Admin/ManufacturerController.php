@@ -47,6 +47,25 @@ class ManufacturerController extends Controller
     }
 
     /**
+     * Get models by IDs
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
+    public function byId(Request $request)
+    {
+        $id = $request->input('id', []);
+
+        $models = Model::searchByIds($id);
+
+        if ($relations = $request->input('with')) {
+            $models->with(explode(',', $relations));
+        }
+
+        return $models->get();
+    }
+
+    /**
      * Get all model in JSON
      * 
      * @param  Request $request Request object

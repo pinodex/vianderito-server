@@ -30,7 +30,7 @@ class InventoryController extends Controller
     public function index(Request $request)
     {
         $query = $request->only(
-            ['product_id']
+            ['eid', 'product_id']
         );
 
         $models = Model::search($query);
@@ -44,6 +44,27 @@ class InventoryController extends Controller
         $result = $models->paginate(20);
 
         return $result;
+    }
+
+    /**
+     * Get models by IDs
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
+    public function byId(Request $request)
+    {
+        $id = $request->input('id', []);
+
+        $models = Model::searchByIds($id);
+
+        $models->has('product')->with('product');
+
+        if ($relations = $request->input('with')) {
+            $models->with(explode(',', $relations));
+        }
+
+        return $models->get();
     }
 
     /**

@@ -53,6 +53,7 @@ Route::group([
 
             Route::group(['as' => 'categories.', 'prefix' => 'categories'], function () {
                 Route::get('/', 'CategoryController@index');
+                Route::get('/byId', 'CategoryController@byId');
                 Route::get('/all', 'CategoryController@all');
 
                 Route::get('/{model}', 'CategoryController@view');
@@ -65,6 +66,7 @@ Route::group([
 
             Route::group(['as' => 'manufacturers.', 'prefix' => 'manufacturers'], function () {
                 Route::get('/', 'ManufacturerController@index');
+                Route::get('/byId', 'ManufacturerController@byId');
                 Route::get('/all', 'ManufacturerController@all');
 
                 Route::get('/{model}', 'ManufacturerController@view');
@@ -77,6 +79,7 @@ Route::group([
 
             Route::group(['as' => 'products.', 'prefix' => 'products'], function () {
                 Route::get('/', 'ProductController@index');
+                Route::get('/byId', 'ProductController@byId');
                 Route::get('/all', 'ProductController@all');
 
                 Route::get('/{model}', 'ProductController@view');
@@ -90,6 +93,7 @@ Route::group([
 
             Route::group(['as' => 'inventories.', 'prefix' => 'inventories'], function () {
                 Route::get('/', 'InventoryController@index');
+                Route::get('/byId', 'InventoryController@byId');
 
                 Route::get('/{model}', 'InventoryController@view');
 
@@ -97,6 +101,17 @@ Route::group([
                 Route::delete('/{model}', 'InventoryController@delete');
 
                 Route::post('/create', 'InventoryController@create');
+            });
+
+            Route::group(['as' => 'coupons.', 'prefix' => 'coupons'], function () {
+                Route::get('/', 'CouponController@index');
+
+                Route::get('/{model}', 'CouponController@view');
+
+                Route::patch('/{model}', 'CouponController@edit');
+                Route::delete('/{model}', 'CouponController@delete');
+
+                Route::post('/create', 'CouponController@create');
             });
 
             Route::group(['as' => 'users.', 'prefix' => 'users'], function () {

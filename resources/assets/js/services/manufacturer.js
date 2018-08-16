@@ -1,4 +1,5 @@
 const ENDPOINT_GET = '/admin/manufacturers',
+      ENDPOINT_GET_ID = '/admin/manufacturers/byId',
       ENDPOINT_FETCH = '/admin/manufacturers/{id}',
       ENDPOINT_CREATE = '/admin/manufacturers/create',
       ENDPOINT_SEARCH = '/admin/manufacturers/search'
@@ -11,6 +12,12 @@ export default class {
 
   get (params) {
     return this.$http.get(ENDPOINT_GET, { params })
+  }
+
+  getById (id, params = {}) {
+    params.id = id
+
+    return this.$http.get(ENDPOINT_GET_ID, { params })
   }
 
   fetch (id, params) {

@@ -1,4 +1,5 @@
 const ENDPOINT_GET = '/admin/categories',
+      ENDPOINT_GET_ID = '/admin/categories/byId',
       ENDPOINT_FETCH = '/admin/categories/{id}',
       ENDPOINT_CREATE = '/admin/categories/create',
       ENDPOINT_SEARCH = '/admin/categories/search'
@@ -11,6 +12,12 @@ export default class {
 
   get (params) {
     return this.$http.get(ENDPOINT_GET, { params })
+  }
+
+  getById (id, params = {}) {
+    params.id = id
+
+    return this.$http.get(ENDPOINT_GET_ID, { params })
   }
 
   fetch (id, params) {

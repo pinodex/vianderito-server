@@ -1,0 +1,6 @@
+Code,Description,Type,Price,Percentage,Minimum,Maximum,Validity Start,Validity End,Products,Manufacturers,Categories,Inventories
+MAGIC5,Save 5 pesos on Magic Flakes,price,5,,0,5,2018-08-15 12:00:00,2018-08-30 12:00:00,4800016082085,,,
+JACK10,Save 10 pesos on Jack n' Jill Products,price,10,,0,10,2018-08-01 12:00:00,2018-08-30 12:00:00,,48000,,
+NISSIN2,2% off on Nissin Products,percentage,,2,0,100,2018-08-01 12:00:00,2018-09-30 12:00:00,,48077,,
+FREENOG,Free Eggnog,percentage,,100,0,100,2018-08-01 12:00:00,2018-09-01 12:00:00,4807770100406,,,
+CREAM,2% off on Cream-Os,percentage,,2,0,100,2018-08-05 12:00:00,2018-08-25 12:00:00,4800010075526 4800010075564,,,

@@ -1,43 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
-class ProductSeeder extends Seeder
+class ProductSeeder extends BaseSeeder
 {
-    protected $manufacturerMap = [];
-
-    protected $categoryMap = [];
-
-    protected function getManufacturerId($name)
-    {
-        if (array_key_exists($name, $this->manufacturerMap)) {
-            return $this->manufacturerMap[$name];
-        }
-
-        $query = DB::table('manufacturers')->where('name', $name)->first();
-
-        if ($query) {
-            return $this->manufacturerMap[$name] = $query->id;
-        }
-
-        return null;
-    }
-
-    protected function getCategoryId($name)
-    {
-        if (array_key_exists($name, $this->categoryMap)) {
-            return $this->categoryMap[$name];
-        }
-
-        $query = DB::table('categories')->where('name', $name)->first();
-
-        if ($query) {
-            return $this->categoryMap[$name] = $query->id;
-        }
-
-        return null;
-    }
-
     /**
      * Run the database seeds.
      *
