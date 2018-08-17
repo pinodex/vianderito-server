@@ -21,6 +21,8 @@ class CreateAccountsLogs extends Migration
             $table->string('ip_address');
             $table->text('user_agent');
             $table->timestamps();
+
+            $table->foreign('account_id')->references('id')->on('accounts');
         });
     }
 

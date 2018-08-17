@@ -30,6 +30,8 @@ class CreateAccountsTable extends Migration
             $table->timestamps();
             $table->timestamp('last_login_at')->nullable();
             $table->softDeletes();
+
+            $table->foreign('group_id')->references('id')->on('groups');
         });
     }
 

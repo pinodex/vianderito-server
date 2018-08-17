@@ -18,6 +18,9 @@ class CreateCouponsProductsTable extends Migration
             $table->uuid('product_id');
 
             $table->primary(['coupon_id', 'product_id']);
+
+            $table->foreign('coupon_id')->references('id')->on('coupons');
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

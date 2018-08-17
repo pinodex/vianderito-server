@@ -18,6 +18,9 @@ class CreateCouponsCategoriesTable extends Migration
             $table->uuid('category_id');
 
             $table->primary(['coupon_id', 'category_id']);
+
+            $table->foreign('coupon_id')->references('id')->on('coupons');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
