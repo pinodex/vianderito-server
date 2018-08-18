@@ -4,18 +4,6 @@
       <img src="/assets/img/logo-admin.png">
     </div>
 
-    <div class="search">
-      <div class="field">
-        <p class="control has-icons-left">
-          <input class="input" type="text" placeholder="Type to search">
-
-          <span class="icon is-small is-left">
-            <i class="fas fa-search"></i>
-          </span>
-        </p>
-      </div>
-    </div>
-
     <div class="navbar-menu">
       <router-link class="navbar-item" v-for="(item, i) in items"
           v-if="$root.can(item.permissions)"
