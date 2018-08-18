@@ -164,6 +164,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+
         App\Providers\AuthyApiServiceProvider::class,
 
         TwigBridge\ServiceProvider::class,
@@ -231,6 +233,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
 
         'Twig' => TwigBridge\Facade\Twig::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
