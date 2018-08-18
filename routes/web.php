@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return redirect('/admin/');
 });
+
+Route::get('/terms_of_service', 'MainController@termsOfService');
+
+Route::get('/terms_of_service.html', 'MainController@termsOfServiceHtml');
