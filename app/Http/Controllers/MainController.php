@@ -15,4 +15,14 @@ class MainController extends Controller
     {
         return view('docs.tos_html');
     }
+
+    public function privacyPolicy()
+    {
+        return view('docs.privacy_policy');
+    }
+
+    public function privacyPolicyHtml()
+    {
+        return view('docs.privacy_policy_html');
+    }
 }

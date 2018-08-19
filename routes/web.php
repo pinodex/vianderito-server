@@ -18,3 +18,7 @@ Route::get('/', function () {
 Route::get('/terms_of_service', 'MainController@termsOfService');
 
 Route::get('/terms_of_service.html', 'MainController@termsOfServiceHtml');
+
+Route::get('/privacy_policy', 'MainController@privacyPolicy');
+
+Route::get('/privacy_policy.html', 'MainController@privacyPolicyHtml');

@@ -1,0 +1,31 @@
+{% extends 'layout.admin' %}
+
+{% set page_title = 'Privacy Policy' %}
+
+{% block main %}
+  <div class="hero is-dark has-contents-below">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="has-text-centered">
+              <p><img src="/assets/img/logo-admin.png"></p>
+
+              <h1 class="title">Privacy Policy</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          {% include 'docs.privacy_policy_raw' %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
