@@ -21,9 +21,9 @@ class ProductController extends Controller
 
         $products = Product::search($query);
 
-        $products->with('frontInventory');
+        $products->has('frontInventory')->with('frontInventory');
 
-        return $products->paginate(10);
+        return $products->paginate(20);
     }
 
     /**
