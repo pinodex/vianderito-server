@@ -79,14 +79,14 @@ trait Picture
     {
         if ($this->picture_id) {
             return [
-                'image' => $this->getFileName($this->picture_id, 'image', true),
-                'thumbnail' => $this->getFileName($this->picture_id, 'thumbnail', true)
+                'image' => asset($this->getFileName($this->picture_id, 'image', true)),
+                'thumbnail' => asset($this->getFileName($this->picture_id, 'thumbnail', true))
             ];
         }
 
         return [
-            'image' => $this->getDefaultImage(),
-            'thumbnail' => $this->getDefaultThumbnail()
+            'image' => asset($this->getDefaultImage()),
+            'thumbnail' => asset($this->getDefaultThumbnail())
         ];
     }
 
