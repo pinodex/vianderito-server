@@ -19,11 +19,16 @@ class ProductController extends Controller
             ['id', 'name', 'manufacturer_id', 'category_id', 'upc']
         );
 
+        $perPage = (int) $request->input('per_page');
+
+        if ($perPage > 20) {
+            $perPage = 10;
+        }
+
         $products = Product::search($query);
+        $products->with('frontInventory');
 
-        $products->has('frontInventory')->with('frontInventory');
-
-        return $products->paginate(20);
+        return $products->paginate($perPage);
     }
 
     /**
