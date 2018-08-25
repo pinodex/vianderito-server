@@ -36,5 +36,9 @@ return [
     'users:create' => 'Created user :name',
     'users:edit' => 'Edited user :name',
     'users:set_avatar' => 'Set user avatar for :name',
-    'users:delete' => 'Deleted user :name'
+    'users:delete' => 'Deleted user :name',
+
+    'coupons:create' => 'Created coupon code :code',
+    'coupons:edit' => 'Edited coupon code :code',
+    'coupons:delete' => 'Deleted coupon code :code'
 ];

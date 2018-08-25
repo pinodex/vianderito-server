@@ -78,7 +78,7 @@ class CouponController extends Controller
         $model->syncSelections($data['selections']);
 
         $this->admin->user()->log('coupons:create', [
-            'name' => $model->name
+            'code' => $model->code
         ]);
 
         return $model;
@@ -106,7 +106,7 @@ class CouponController extends Controller
         $model->save();
 
         $this->admin->user()->log('coupons:edit', [
-            'name' => $model->name
+            'code' => $model->code
         ]);
 
         return $model;
@@ -124,7 +124,7 @@ class CouponController extends Controller
         $model->delete();
 
         $this->admin->user()->log('coupons:delete', [
-            'name' => $model->name
+            'code' => $model->code
         ]);
 
         return response('', 204);
