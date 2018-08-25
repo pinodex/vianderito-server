@@ -2,17 +2,20 @@
   <div class="columns">
     <div class="column is-4">
       <div class="field-group has-contents-below">
-        <div class="field">
-          <label class="label">Code</label>
+        <label class="label">Code</label>
 
-          <div class="control">
+        <div class="field has-addons">
+          <div class="control is-expanded">
             <input class="input" type="text" autocomplete="code" required
               :class="{ 'is-danger': errors.code }"
               v-model="model.code" />
           </div>
 
-          <p class="help is-danger" v-for="message in errors.name">{{ message }}</p>
+          <p class="control">
+            <button type="button" class="button" @click="generateCode()">Generate</button>
+          </p>
         </div>
+        <p class="help is-danger" v-for="message in errors.name">{{ message }}</p>
 
         <div class="field">
           <label class="label">Description</label>
@@ -217,6 +220,12 @@
 
       parseDate (date) {
         return moment(date).format('YYYY-MM-DDTHH:mm')
+      },
+
+      generateCode () {
+        this.model.code = Math.random().toString(36).substring(7).toUpperCase()
+
+        this.$forceUpdate()
       }
     }
   }
