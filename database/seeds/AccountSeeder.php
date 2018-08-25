@@ -1,10 +1,58 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Account;
+use App\Models\Group;
 
 class AccountSeeder extends Seeder
 {
+    private $accounts = [
+        'Administrator' => [
+            [
+                'first_name' => 'Admin',
+                'last_name' => 'Admin',
+                'username' => 'admin',
+                'password' => 'admin'
+            ]
+        ],
+
+        'Sales & Marketing' => [
+            [
+                'first_name' => 'Sales',
+                'last_name' => 'Sales',
+                'username' => 'sales',
+                'password' => 'sales'
+            ]
+        ],
+
+        'Inventory Manager' => [
+            [
+                'first_name' => 'Inventory',
+                'last_name' => 'Inventory',
+                'username' => 'inventory',
+                'password' => 'inventory'
+            ]
+        ],
+
+        'User Support' => [
+            [
+                'first_name' => 'Support',
+                'last_name' => 'Support',
+                'username' => 'support',
+                'password' => 'support'
+            ]
+        ],
+
+        'Audit' => [
+            [
+                'first_name' => 'Auditor',
+                'last_name' => 'Auditor',
+                'username' => 'auditor',
+                'password' => 'auditor'
+            ]
+        ]
+    ];
+
     /**
      * Run the database seeds.
      *
@@ -12,20 +60,17 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
-        $time = $GLOBALS['time'];
-        $adminId = $GLOBALS['admin_account_id'];
-        $groupAdminId = $GLOBALS['admin_group_id'];
+        foreach ($this->accounts as $groupName => $accounts) {
+            $group = Group::where('name', $groupName)->first();
 
-        DB::table('accounts')->insert([
-            'id'            => $adminId,
-            'group_id'      => $groupAdminId,
-            'first_name'    => 'Admin',
-            'last_name'     => 'Admin',
-            'username'      => 'admin',
-            'password'      => bcrypt('admin'),
-            'require_password_change'   => 0,
-            'created_at'    => $time,
-            'updated_at'    => $time
-        ]);
+            foreach ($accounts as $account) {
+                $account['require_password_change'] = false;
+
+                $model = Account::create($account);
+
+                $model->group()->associate($group);
+                $model->save();
+            }
+        }
     }
 }

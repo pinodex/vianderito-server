@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Inventory;
+
 class InventorySeeder extends BaseSeeder
 {
     /**
@@ -9,8 +11,6 @@ class InventorySeeder extends BaseSeeder
      */
     public function run()
     {
-        $time = $GLOBALS['time'];
-
         $path = storage_path('data/inventories.csv');
         $handle = fopen($path, 'r');
         $row = -1;
@@ -25,21 +25,16 @@ class InventorySeeder extends BaseSeeder
                 continue;
             }
 
-            $data[] = [
-                'id'                => (string) Uuid::generate(),
+            Inventory::create([
                 'eid'               => $eid,
                 'product_id'        => $this->getProductId($line[0]),
                 'stocks'            => $line[1],
                 'price'             => $line[2],
                 'batch_date'        => $line[3],
-                'expiration_date'   => $line[4],
-                'created_at'        => $time,
-                'updated_at'        => $time
-            ];
+                'expiration_date'   => $line[4]
+            ]);
 
             $eid++;
         }
-
-        DB::table('inventories')->insert($data);
     }
 }

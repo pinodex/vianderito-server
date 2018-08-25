@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Product;
+
 class ProductSeeder extends BaseSeeder
 {
     /**
@@ -9,8 +11,6 @@ class ProductSeeder extends BaseSeeder
      */
     public function run()
     {
-        $time = $GLOBALS['time'];
-
         $path = storage_path('data/products.csv');
         $handle = fopen($path, 'r');
         $row = -1;
@@ -24,17 +24,12 @@ class ProductSeeder extends BaseSeeder
                 continue;
             }
 
-            $data[] = [
-                'id'                => (string) Uuid::generate(),
+            Product::create([
                 'manufacturer_id'   => $this->getManufacturerId($line[3]),
                 'category_id'       => $this->getCategoryId($line[2]),
                 'name'              => $line[0],
-                'upc'               => $line[1],
-                'created_at'        => $time,
-                'updated_at'        => $time
-            ];
+                'upc'               => $line[1]
+            ]);
         }
-
-        DB::table('products')->insert($data);
     }
 }

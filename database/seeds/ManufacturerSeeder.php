@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Manufacturer;
 
 class ManufacturerSeeder extends Seeder
 {
@@ -11,8 +12,6 @@ class ManufacturerSeeder extends Seeder
      */
     public function run()
     {
-        $time = $GLOBALS['time'];
-
         $path = storage_path('data/manufacturers.csv');
         $handle = fopen($path, 'r');
         $row = -1;
@@ -26,15 +25,10 @@ class ManufacturerSeeder extends Seeder
                 continue;
             }
 
-            $data[] = [
-                'id'            => (string) Uuid::generate(),
-                'name'          => $line[0],
-                'code'          => $line[1],
-                'created_at'    => $time,
-                'updated_at'    => $time
-            ];
+            Manufacturer::create([
+                'name' => $line[0],
+                'code' => $line[1]
+            ]);
         }
-
-        DB::table('manufacturers')->insert($data);
     }
 }

@@ -1,10 +1,18 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Group;
 
 class GroupSeeder extends Seeder
 {
+    private $groups = [
+        ['name' => 'Administrator'],
+        ['name' => 'Sales & Marketing'],
+        ['name' => 'Inventory Manager'],
+        ['name' => 'User Support'],
+        ['name' => 'Audit']
+    ];
+
     /**
      * Run the database seeds.
      *
@@ -12,14 +20,8 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        $adminId = $GLOBALS['admin_group_id'];
-        $time = $GLOBALS['time'];
-
-        DB::table('groups')->insert([
-            'id'            => $adminId,
-            'name'          => 'Administrator',
-            'created_at'    => $time,
-            'updated_at'    => $time
-        ]);
+        foreach ($this->groups as $group) {
+            Group::create($group);
+        }
     }
 }

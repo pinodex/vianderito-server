@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Permission;
 
 class PermissionSeeder extends Seeder
 {
@@ -95,22 +95,18 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $data = [];
-        $time = $GLOBALS['time'];
 
-        // Flatten data
         foreach ($this->data as $group) {
             foreach ($group['items'] as $id => $entry) {
                 $data[] = [
                     'id'            => $id,
                     'name'          => $entry[0],
                     'category'      => $group['name'],
-                    'description'   => $entry[1],
-                    'created_at'    => $time,
-                    'updated_at'    => $time
+                    'description'   => $entry[1]
                 ];
             }
         }
 
-        DB::table('permissions')->insert($data);
+        Permission::insert($data);
     }
 }

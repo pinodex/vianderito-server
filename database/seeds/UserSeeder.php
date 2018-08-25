@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -11,16 +12,11 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $time = $GLOBALS['time'];
-        
-        DB::table('users')->insert([
-            'id' => (string) Uuid::generate(),
+        User::create([
             'name' => 'Sample User',
             'username' => 'user',
-            'password' => bcrypt('password'),
-            'is_verified' => true,
-            'created_at'    => $time,
-            'updated_at'    => $time
+            'password' => 'password',
+            'is_verified' => true
         ]);
     }
 }

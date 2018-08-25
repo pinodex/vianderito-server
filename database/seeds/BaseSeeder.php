@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Manufacturer;
+use App\Models\Category;
+use App\Models\Product;
 
 class BaseSeeder extends Seeder {
 
@@ -16,7 +19,7 @@ class BaseSeeder extends Seeder {
             return $this->manufacturerMap[$key];
         }
 
-        $query = DB::table('manufacturers')
+        $query = Manufacturer::query()
             ->where('name', $key)
             ->orWhere('code', $key)
             ->first();
@@ -34,7 +37,7 @@ class BaseSeeder extends Seeder {
             return $this->categoryMap[$name];
         }
 
-        $query = DB::table('categories')->where('name', $name)->first();
+        $query = Category::where('name', $name)->first();
 
         if ($query) {
             return $this->categoryMap[$name] = $query->id;
@@ -49,7 +52,7 @@ class BaseSeeder extends Seeder {
             return $this->productMap[$upc];
         }
 
-        $query = DB::table('products')->where('upc', $upc)->first();
+        $query = Product::where('upc', $upc)->first();
 
         if ($query) {
             return $this->productMap[$upc] = $query->id;

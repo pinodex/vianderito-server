@@ -11,8 +11,6 @@ class CouponSeeder extends BaseSeeder
      */
     public function run()
     {
-        $time = $GLOBALS['time'];
-
         $path = storage_path('data/coupons.csv');
         $handle = fopen($path, 'r');
         $row = -1;
