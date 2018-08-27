@@ -40,6 +40,7 @@ Route::group(['prefix' => 'store', 'namespace' => 'Store'], function () {
 
     Route::group(['prefix' => 'products'], function () {
         Route::get('/', 'ProductController@index');
+        Route::get('/names', 'ProductController@names');
         Route::get('/{model}', 'ProductController@view');
         Route::get('/upc/{upc}', 'ProductController@viewUpc');
     });

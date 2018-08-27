@@ -32,6 +32,21 @@ class ProductController extends Controller
     }
 
     /**
+     * Model names for autocomplete
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
+    public function names(Request $request)
+    {
+        $products = Product::select('name')
+            ->get()
+            ->pluck('name');
+
+        return $products;
+    }
+
+    /**
      * View specific product
      * 
      * @param  Product $model Product model
