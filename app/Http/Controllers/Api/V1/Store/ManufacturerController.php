@@ -15,7 +15,7 @@ class ManufacturerController extends Controller
      */
     public function index()
     {
-        $manufacturers = Manufacturer::query();
+        $manufacturers = Manufacturer::query()->withCount('products');
 
         return $manufacturers->get();
     }

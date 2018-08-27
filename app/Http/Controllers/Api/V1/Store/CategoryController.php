@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::query();
+        $categories = Category::query()->withCount('products');
 
         return $categories->get();
     }
