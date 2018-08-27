@@ -36,7 +36,15 @@
       </b-table-column>
       
       <b-table-column field="last_login_at" label="Last login at" sortable>
-        {{ props.row.last_login_at ? props.row.last_login_at : 'None recorded' }}
+        <template v-if="props.row.last_login_at">
+          <span :title="props.row.last_login_at | moment('MMM DD, YYYY hh:mm A')">
+            {{ props.row.last_login_at | moment('from') }}
+          </span>
+        </template>
+
+        <template v-else>
+          None Recorded
+        </template>
       </b-table-column>
       
       <b-table-column class="is-fit">

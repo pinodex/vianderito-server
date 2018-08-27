@@ -41,8 +41,7 @@
             </p>
 
             <p class="is-size-6 has-contents-below">
-              {{ user.last_login_at ? (user.last_login_at | moment('MMM DD, YYYY hh:mm A'))
-                 : 'None recorded' }}
+              {{ user.last_login_at | moment('MMM DD, YYYY hh:mm A') }}
             </p>
           </div>
         </div>

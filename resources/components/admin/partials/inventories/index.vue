@@ -42,15 +42,15 @@
       </b-table-column>
 
       <b-table-column field="batch_date" label="Batch Date" sortable>
-        {{ props.row.batch_date }}
+        {{ props.row.batch_date | moment('MMM DD, YYYY') }}
       </b-table-column>
 
       <b-table-column field="expiration_date" label="Expiration" sortable>
-        {{ props.row.expiration_date }}
+        {{ props.row.expiration_date | moment('MMM DD, YYYY') }}
       </b-table-column>
 
       <b-table-column field="created_at" label="Date Added" sortable>
-        {{ props.row.created_at }}
+        {{ props.row.created_at | moment('MMM DD, YYYY hh:mm A') }}
       </b-table-column>
       
       <b-table-column class="is-fit">

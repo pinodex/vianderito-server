@@ -51,8 +51,6 @@ const app = new Vue({
   mounted () {
     if (this.account) {
       setInterval(() => this.checkSession(), 5000)
-
-      this.$on('router:start', () => this.checkPermissions())
     }
   },
 

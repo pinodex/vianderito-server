@@ -44,11 +44,23 @@
       </b-table-column>
       
       <b-table-column field="created_at" label="Created at" sortable>
-        {{ props.row.created_at ? props.row.created_at : 'None recorded' }}
+        <template v-if="props.row.created_at">
+          {{ props.row.created_at | moment('MMM DD, YYYY hh:mm A') }}
+        </template>
+
+        <template v-else>
+          None Recorded
+        </template>
       </b-table-column>
       
       <b-table-column field="last_login_at" label="Last login at" sortable>
-        {{ props.row.last_login_at ? props.row.last_login_at : 'None recorded' }}
+        <template v-if="props.row.last_login_at">
+          {{ props.row.last_login_at | moment('MMM DD, YYYY hh:mm A') }}
+        </template>
+
+        <template v-else>
+          None Recorded
+        </template>
       </b-table-column>
       
       <b-table-column class="is-fit">

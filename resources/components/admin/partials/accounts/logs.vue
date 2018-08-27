@@ -12,7 +12,11 @@
       <b-table-column label="Action">{{ props.row.description }}</b-table-column>
       <b-table-column label="IP Address">{{ props.row.ip_address }}</b-table-column>
       <b-table-column label="Browser">{{ props.row.browser }}</b-table-column>
-      <b-table-column label="Date &amp; Time">{{ new Date(props.row.created_at).toLocaleString() }}</b-table-column>
+      <b-table-column label="Date &amp; Time">
+        <span :title="props.row.created_at | moment('MMM DD, YYYY hh:mm A')">
+          {{ props.row.created_at | moment('from') }}
+        </span>
+      </b-table-column>
     </template>
   </b-table>
 </template>

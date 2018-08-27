@@ -16,11 +16,11 @@
       </b-table-column>
       
       <b-table-column field="validity_start" label="Validity Start" sortable>
-        {{ props.row.validity_start }}
+        {{ props.row.validity_start | moment('MMM DD, YYYY hh:mm A') }}
       </b-table-column>
 
       <b-table-column field="validity_end" label="Validity End" sortable>
-        {{ props.row.validity_end }}
+        {{ props.row.validity_end | moment('MMM DD, YYYY hh:mm A') }}
       </b-table-column>
       
       <b-table-column class="is-fit">
