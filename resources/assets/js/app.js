@@ -54,9 +54,6 @@ const app = new Vue({
 
       this.$on('router:start', () => this.checkPermissions())
     }
-
-    this.$on('session:evaluate_permissions', () =>
-     this.checkPermissions())
   },
 
   methods: {
@@ -84,15 +81,14 @@ const app = new Vue({
 
             this.haltSessionCheck = true
           }
-        })
-    },
 
-    checkPermissions () {
-      this.$http.get('/admin/permissions')
-        .then(response => {
-          if (this.account.group) {
-            this.account.group.permissions = response.data
+          if (!response.data.admin.is_enabled) {
+            this.$emit('session:fail', 'account_disabled')
+
+            this.haltSessionCheck = true
           }
+
+          this.account = response.data.admin
         })
     },
 

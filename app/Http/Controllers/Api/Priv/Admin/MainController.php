@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Priv\Admin;
 use Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Exceptions\AccountDisabledException;
 
 class MainController extends Controller
 {
@@ -25,7 +26,13 @@ class MainController extends Controller
     {
         $credentials = $request->only(['id', 'password']);
 
-        $login = $this->admin->attempt($credentials);
+        try {
+            $login = $this->admin->attempt($credentials);
+        } catch (AccountDisabledException $e) {
+            return response([
+                'error' => 'Account has been disabled'
+            ], 403);
+        }
 
         if ($login) {
             $this->admin->user()->log('account:login');

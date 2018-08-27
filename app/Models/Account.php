@@ -44,7 +44,8 @@ class Account extends Authenticatable
     ];
 
     public $casts = [
-        'require_password_change' => 'bool'
+        'require_password_change' => 'bool',
+        'is_enabled' => 'bool'
     ];
 
     protected $dates = [

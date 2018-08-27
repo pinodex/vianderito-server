@@ -10,6 +10,8 @@ return [
     'accounts:set_avatar' => 'Set account avatar for :name',
     'accounts:delete' => 'Deleted account :name',
     'accounts:reset_password' => 'Reset password for account :name',
+    'accounts:enable' => 'Enable account :name',
+    'accounts:disable' => 'Disable account :name',
 
     'groups:create' => 'Created group :name',
     'groups:edit' => 'Edited group :name',

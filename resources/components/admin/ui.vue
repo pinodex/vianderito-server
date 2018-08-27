@@ -73,6 +73,23 @@
                 </p>
               </div>
             </template>
+
+            <template v-if="errorReason == 'account_disabled'">
+              <p class="is-size-4 has-contents-below">Your account has been disabled.</p>
+
+              <div class="field">
+                <p class="control has-text-centered">
+                  <a href="#" class="button is-primary is-rounded"
+                    @click.prevent="logout">
+                    <span class="icon">
+                      <i class="fas fa-sign-in-alt"></i>
+                    </span>
+
+                    <span>Log out</span>
+                  </a>
+                </p>
+              </div>
+            </template>
           </div>
         </div>
       </section>
@@ -85,6 +102,8 @@
   import sidebar from '@admin/elements/sidebar'
 
   export default {
+    inject: ['$auth'],
+
     components: { navbar, sidebar },
 
     data () {
@@ -165,7 +184,19 @@
       }
     },
 
+    methods: {
+      logout () {
+        this.$auth.logout()
+          .finally(() => location.href = '/admin/')
+      }
+    },
+
     mounted () {
+      if (!this.$root.account.is_enabled) {
+        this.hasFatalError = true
+        this.errorReason = 'account_disabled'
+      }
+
       this.$root.$on('session:fail', reason => {
         this.hasFatalError = true
         this.errorReason = reason

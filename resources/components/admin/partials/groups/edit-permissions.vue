@@ -93,8 +93,7 @@
               message: 'Changes to group permissions has been saved',
               type: 'is-success'
             })
-
-            this.$root.$emit('session:evaluate_permissions')
+            
             this.close()
           })
           .finally(() => this.isLoading = false)

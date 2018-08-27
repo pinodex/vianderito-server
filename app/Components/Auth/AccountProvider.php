@@ -14,6 +14,7 @@ namespace App\Components\Auth;
 use Hash;
 use Carbon\Carbon;
 use App\Models\Account;
+use App\Exceptions\AccountDisabledException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as BaseUserProvider;
 
@@ -43,6 +44,10 @@ class AccountProvider implements BaseUserProvider
     {
         if ($user->password === null) {
             return false;
+        }
+
+        if (!$user->is_enabled) {
+            throw new AccountDisabledException();
         }
         
         if (Hash::check($credentials['password'], $user->password)) {

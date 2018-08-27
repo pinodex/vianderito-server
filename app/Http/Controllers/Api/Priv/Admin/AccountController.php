@@ -18,6 +18,7 @@ class AccountController extends Controller
             'browse_accounts'   => ['index', 'view'],
             'create_account'    => ['create'],
             'edit_account'      => ['edit', 'avatar'],
+            'status_account'    => ['enable', 'disable'],
             'delete_account'    => ['delete']
         ]);
     }
@@ -164,6 +165,40 @@ class AccountController extends Controller
         return [
             'generated_password' => $password
         ];
+    }
+
+    /**
+     * Enable account action
+     * 
+     * @param  Request $request Request object
+     * @param  Model   $model   Model
+     * @return mixed
+     */
+    public function enable(Request $request, Model $model)
+    {
+        $model->is_enabled = true;
+        $model->save();
+
+        $this->admin->user()->log('accounts:enable', [
+            'name' => $model->name
+        ]);
+    }
+
+    /**
+     * Disable account action
+     * 
+     * @param  Request $request Request object
+     * @param  Model   $model   Model
+     * @return mixed
+     */
+    public function disable(Request $request, Model $model)
+    {
+        $model->is_enabled = false;
+        $model->save();
+
+        $this->admin->user()->log('accounts:disable', [
+            'name' => $model->name
+        ]);
     }
 
     /**

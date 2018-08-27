@@ -67,6 +67,28 @@
               <div class="dropdown-menu">
                 <div class="dropdown-content">
                   <a href="#" class="dropdown-item"
+                    @click.prevent="enableModel(props.row)"
+                    v-if="$root.can('status_account') && !props.row.is_enabled">
+
+                    <span class="icon is-small">
+                      <i class="fa fa-check"></i>
+                    </span>
+
+                    <span>Enable Account</span>
+                  </a>
+
+                  <a href="#" class="dropdown-item"
+                    @click.prevent="disableModel(props.row)"
+                    v-if="$root.can('status_account') && props.row.is_enabled">
+
+                    <span class="icon is-small">
+                      <i class="fa fa-times"></i>
+                    </span>
+
+                    <span>Disable Account</span>
+                  </a>
+
+                  <a href="#" class="dropdown-item"
                     @click.prevent="deleteModel(props.row)"
                     v-if="$root.can('delete_account')">
                     
@@ -193,6 +215,42 @@
                   type: 'is-danger'
                 })
                 this.refresh()
+              })
+          }
+        })
+      },
+
+      disableModel (model) {
+        this.$dialog.confirm({
+          type: 'is-warning',
+          message: `Disable account ${model.name}?`,
+          onConfirm: () => {
+            this.$account.disable(model.id)
+              .then(response => {
+                model.is_enabled = false
+
+                this.$toast.open({
+                  message: `Account ${model.name} has been disabled`,
+                  type: 'is-success'
+                })
+              })
+          }
+        })
+      },
+
+      enableModel (model) {
+        this.$dialog.confirm({
+          type: 'is-warning',
+          message: `Enable account ${model.name}?`,
+          onConfirm: () => { 
+            this.$account.enable(model.id)
+              .then(response => {
+                model.is_enabled = true
+                
+                this.$toast.open({
+                  message: `Account ${model.name} has been enabled`,
+                  type: 'is-success'
+                })
               })
           }
         })

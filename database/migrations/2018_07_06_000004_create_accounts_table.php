@@ -26,6 +26,7 @@ class CreateAccountsTable extends Migration
             $table->string('password', 60)->nullable();
 
             $table->boolean('require_password_change')->default(1);
+            $table->boolean('is_enabled')->default(1);
 
             $table->timestamps();
             $table->timestamp('last_login_at')->nullable();

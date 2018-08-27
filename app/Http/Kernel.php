@@ -60,6 +60,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'broadcast' => \App\Http\Middleware\Broadcast::class,
         'guard' => \App\Http\Middleware\UseGuard::class,
-        'require_password_change' => \App\Http\Middleware\RequirePasswordChange::class
+        'require_password_change' => \App\Http\Middleware\RequirePasswordChange::class,
+        'allow_enabled' => \App\Http\Middleware\AllowEnabled::class
     ];
 }

@@ -17,7 +17,7 @@ Route::group([
 
         Route::get('/permissions', 'MainController@permissions');
 
-        Route::group(['middleware' => 'auth:admin'], function () {
+        Route::group(['middleware' => ['auth:admin', 'allow_enabled']], function () {
             Route::get('/', 'MainController@index');
 
             Route::group(['as' => 'accounts.', 'prefix' => 'accounts'], function () {
@@ -29,6 +29,10 @@ Route::group([
                 
                 Route::post('/{model}/avatar', 'AccountController@avatar');
                 Route::post('/{model}/reset_password', 'AccountController@resetPassword');
+
+                Route::post('/{model}/enable', 'AccountController@enable');
+                Route::post('/{model}/disable', 'AccountController@disable');
+
                 Route::get('/{model}/logs', 'AccountController@logs');
 
                 Route::post('/create', 'AccountController@create');

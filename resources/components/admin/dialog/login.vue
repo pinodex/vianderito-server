@@ -7,7 +7,7 @@
     <form @submit.prevent="login()">
       <div class="field">
         <p class="help is-danger has-text-centered"
-          v-if="hasError">Invalid username and/or password.</p>
+          v-if="hasError">{{ errorMessage }}</p>
       </div>
 
       <div class="field">
@@ -90,6 +90,8 @@
           .catch(error => {
             this.isLoading = false
             this.hasError = true
+
+            this.errorMessage = error.response.data.error
           })
       }
     }

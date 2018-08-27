@@ -18,7 +18,6 @@ class CreatePermissionsTable extends Migration
             $table->string('category');
             $table->string('name');
             $table->string('description');
-            $table->timestamps();
         });
     }
 

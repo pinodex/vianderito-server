@@ -12,7 +12,8 @@ class PermissionSeeder extends Seeder
                 'browse_accounts' => ['Browse Accounts', 'Allow browsing of accounts'],
                 'create_account' => ['Create Account', 'Allow creation of account'],
                 'delete_account' => ['Delete Account', 'Allow deletion account'],
-                'edit_account' => ['Edit Account', 'Allow editing of account']
+                'edit_account' => ['Edit Account', 'Allow editing of account'],
+                'status_account' => ['Account Status', 'Modify status of account']
             ]
         ],
 
