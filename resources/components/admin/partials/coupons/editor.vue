@@ -100,10 +100,13 @@
         <div class="field">
           <label class="label">Validity Start Date</label>
 
-          <input class="input" type="datetime-local" required
-              :max="dates.validity_end"
-              :class="{ 'is-danger': errors.validity_start }"
-              v-model="dates.validity_start" />
+          <datetime
+            input-class="input"
+            type="datetime"
+            v-model="dates.validity_start"
+            :use12-hour="true"
+            :min-datetime="now"
+            :max-datetime="dates.validity_end" />
 
           <p class="help is-danger" v-for="message in errors.validity_start">{{ message }}</p>
         </div>
@@ -111,10 +114,12 @@
         <div class="field">
           <label class="label">Validity End</label>
 
-          <input class="input" type="datetime-local" required
-              :min="dates.validity_start"
-              :class="{ 'is-danger': errors.validity_end }"
-              v-model="dates.validity_end" />
+          <datetime
+            input-class="input"
+            type="datetime"
+            v-model="dates.validity_end"
+            :use12-hour="true"
+            :min-datetime="dates.validity_start" />
 
           <p class="help is-danger" v-for="message in errors.validity_end">{{ message }}</p>
         </div>
@@ -180,6 +185,8 @@
 
     data () {
       return {
+        now: null,
+
         dates: {
           validity_start: null,
           validity_end: null
@@ -190,6 +197,8 @@
     },
 
     mounted () {
+      this.now = (new Date()).toISOString()
+
       if (this.model.validity_start) {
         this.dates.validity_start = this.parseDate(this.model.validity_start)
       }

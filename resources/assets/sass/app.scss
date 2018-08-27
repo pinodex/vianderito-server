@@ -2,6 +2,8 @@ $navbar-height:             52px;
 $navbar-height-extended:    72px;
 $primary:                   #4289a5;
 
+@import '~vue-datetime/dist/vue-datetime.css';
+
 html, body {
   background: #eee;
   font-size: 14px;
@@ -230,6 +232,16 @@ a {
 
 .table .is-fit {
   width: 1%;
+}
+
+.vdatetime-popup {
+  border-radius: 3px;
+}
+
+.vdatetime-popup__header,
+.vdatetime-calendar__month__day--selected > span > span,
+.vdatetime-calendar__month__day--selected:hover > span > span {
+  background: $primary;
 }
 
 /*
