@@ -22,6 +22,7 @@ class CreateAccountsTable extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name');
 
+            $table->string('email');
             $table->string('username');
             $table->string('password', 60)->nullable();
 

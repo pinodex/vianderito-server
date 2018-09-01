@@ -27,6 +27,7 @@
         <p>Below are the login credentials for {{ name }}</p>
 
         <p>
+          Email Address: {{ model.email }}<br />
           Username: {{ model.username }}<br />
           Password: {{ generated_password }}
         </p>

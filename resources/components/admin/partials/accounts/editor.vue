@@ -75,6 +75,24 @@
 
       <div class="field is-horizontal">
         <div class="field-label">
+          <label class="label">Email Address</label>
+        </div>
+
+        <div class="field-body">
+          <div class="field">
+            <p class="control">
+              <input class="input" type="text" name="email" autocomplete="email" required
+                :class="{ 'is-danger': errors.email }"
+                v-model="model.email" />
+            </p>
+
+            <p class="help is-danger" v-for="message in errors.email">{{ message }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label">
           <label class="label">Group</label>
         </div>
 

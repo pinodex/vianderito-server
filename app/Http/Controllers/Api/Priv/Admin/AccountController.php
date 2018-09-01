@@ -32,7 +32,7 @@ class AccountController extends Controller
     public function index(Request $request)
     {
         $query = $request->only(
-            ['first_name', 'middle_name', 'last_name', 'username', 'group_id']
+            ['first_name', 'middle_name', 'last_name', 'username', 'email', 'group_id']
         );
 
         $models = Model::search($query);
@@ -55,7 +55,7 @@ class AccountController extends Controller
     public function create(SaveModel $request)
     {
         $data = $request->only(
-            ['first_name', 'middle_name', 'last_name', 'username', 'group_id']
+            ['first_name', 'middle_name', 'last_name', 'username', 'email', 'group_id']
         );
 
         $model = new Model($data);
@@ -108,7 +108,7 @@ class AccountController extends Controller
     public function edit(SaveModel $request, Model $model)
     {
         $data = $request->only(
-            ['first_name', 'middle_name', 'last_name', 'username', 'group_id']
+            ['first_name', 'middle_name', 'last_name', 'username', 'email', 'group_id']
         );
 
         $model->fill($data);

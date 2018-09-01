@@ -12,7 +12,8 @@ class AccountSeeder extends Seeder
                 'first_name' => 'Admin',
                 'last_name' => 'Admin',
                 'username' => 'admin',
-                'password' => 'admin'
+                'password' => 'admin',
+                'email' => 'admin@vianderito.xyz'
             ]
         ],
 
@@ -21,7 +22,8 @@ class AccountSeeder extends Seeder
                 'first_name' => 'Sales',
                 'last_name' => 'Sales',
                 'username' => 'sales',
-                'password' => 'sales'
+                'password' => 'sales',
+                'email' => 'sales@vianderito.xyz'
             ]
         ],
 
@@ -30,7 +32,8 @@ class AccountSeeder extends Seeder
                 'first_name' => 'Inventory',
                 'last_name' => 'Inventory',
                 'username' => 'inventory',
-                'password' => 'inventory'
+                'password' => 'inventory',
+                'email' => 'inventory@vianderito.xyz'
             ]
         ],
 
@@ -39,7 +42,8 @@ class AccountSeeder extends Seeder
                 'first_name' => 'Support',
                 'last_name' => 'Support',
                 'username' => 'support',
-                'password' => 'support'
+                'password' => 'support',
+                'email' => 'support@vianderito.xyz'
             ]
         ],
 
@@ -48,7 +52,8 @@ class AccountSeeder extends Seeder
                 'first_name' => 'Auditor',
                 'last_name' => 'Auditor',
                 'username' => 'auditor',
-                'password' => 'auditor'
+                'password' => 'auditor',
+                'email' => 'auditor@vianderito.xyz'
             ]
         ]
     ];

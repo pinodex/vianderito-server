@@ -35,6 +35,10 @@ class SaveAccount extends FormRequest
                     'unique:accounts,username,' . $model->id,
                     'regex:/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/u'
                 ],
+                'email' => [
+                    'email',
+                    'unique:accounts,email,' . $model->id
+                ],
                 'group_id'      => 'required|exists:groups,id'
             ];
         }
@@ -47,6 +51,10 @@ class SaveAccount extends FormRequest
                 'required',
                 'unique:accounts',
                 'regex:/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/u'
+            ],
+            'email' => [
+                'email',
+                'unique:accounts,email'
             ],
             'group_id'      => 'required|exists:groups,id'
         ];

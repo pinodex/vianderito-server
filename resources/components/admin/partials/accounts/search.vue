@@ -33,6 +33,14 @@
     </div>
 
     <div class="field">
+      <label class="label">Email Address</label>
+      
+      <div class="control">
+        <input class="input" type="text" v-model="query.email" autocomplete="email" />
+      </div>
+    </div>
+
+    <div class="field">
       <label class="label">Group</label>
       
       <div class="control">

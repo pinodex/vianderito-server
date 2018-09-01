@@ -27,7 +27,8 @@ class Account extends Authenticatable
         'first_name',
         'middle_name',
         'last_name',
-        'username'
+        'username',
+        'email'
     ];
 
     public $with = [
