@@ -11,6 +11,7 @@ use App\Traits\LastLogin;
 use App\Traits\Picture;
 use App\Traits\Search;
 use Webpatser\Uuid\Uuid;
+use Carbon\Carbon;
 
 class Account extends Authenticatable
 {
@@ -112,6 +113,31 @@ class Account extends Authenticatable
     }
 
     /**
+     * Request password change on model
+     */
+    public function requestPasswordReset()
+    {
+        $this->passwordResets()->create([
+            'token' => str_random(16),
+            'expires_at' => Carbon::now()->addMinutes(30)
+        ]);
+    }
+
+    /**
+     * Find password reset request
+     * 
+     * @param  string $id    Request ID
+     * @param  string $token Request token
+     * @return AccountPasswordReset
+     */
+    public function findPasswordResetRequest($token)
+    {
+        return $this->passwordResets()
+            ->where('token', $token)
+            ->first();
+    }
+
+    /**
      * Check if account has permission of id
      * 
      * @param  [type] $permission Permission id
@@ -150,5 +176,13 @@ class Account extends Authenticatable
     public function logs()
     {
         return $this->hasMany(AccountLog::class);
+    }
+
+    /**
+     * Get password resets
+     */
+    public function passwordResets()
+    {
+        return $this->hasMany(AccountPasswordReset::class);
     }
 }

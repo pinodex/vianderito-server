@@ -13,6 +13,10 @@ Route::group([
         Route::post('/login', 'MainController@login');
         Route::post('/logout', 'MainController@logout');
 
+        Route::post('/request_password_reset', 'MainController@requestPasswordReset');
+
+        Route::post('/reset_password/{account}', 'MainController@resetPassword');
+
         Route::post('/change_password', 'MainController@changePassword');
 
         Route::get('/permissions', 'MainController@permissions');

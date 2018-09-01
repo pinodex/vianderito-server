@@ -13,6 +13,8 @@
 
 Route::get('/', 'MainController@index')->name('index');
 
-Route::match(['GET', 'POST'], 'login', 'MainController@login')->name('login');
+Route::get('login', 'MainController@login')->name('login');
+
+Route::get('password_reset/{account}', 'MainController@passwordReset')->name('passwordReset');
 
 Route::get('/{any}', 'MainController@index')->where('any', '.*');

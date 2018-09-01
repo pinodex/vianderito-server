@@ -6,6 +6,7 @@ use Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exceptions\AccountDisabledException;
+use App\Models\Account;
 
 class MainController extends Controller
 {
@@ -92,6 +93,63 @@ class MainController extends Controller
         $this->admin->user()->log('account:change_password');
 
         return response('', 204);
+    }
+
+    /**
+     * Request password change action
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
+    public function requestPasswordReset(Request $request)
+    {
+        $data = $request->only(['email']);
+
+        $account = Account::where('email', $data['email'])->first();
+
+        if ($account) {
+            $account->requestPasswordReset();
+        }
+
+        return response('', 202);
+    }
+
+    /**
+     * Reset password action
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
+    public function resetPassword(Request $request, Account $account)
+    {
+        $data = $request->only(['token', 'new_password']);
+
+        $resetRequest = $account->findPasswordResetRequest($data['token']);
+
+        if (!$resetRequest) {
+            return response()->json([
+                'message' => 'Password reset cannot completed'
+            ], 403);
+        }
+
+        if ($resetRequest->hasExpired()) {
+            return response()->json([
+                'message' => 'The password reset link has expired'
+            ], 403);
+        }
+
+        if (strlen($data['new_password']) < 8) {
+            return response()->json([
+                'message' => 'Password should be at least 8 characters'
+            ], 403);
+        }
+
+        $account->password = $data['new_password'];
+        $account->save();
+
+        $resetRequest->delete();
+
+        return response('', 202);
     }
 
     /**
