@@ -27,17 +27,21 @@
         </a>
       </p>
 
-      <h2 class="subtitle">Password Reset</h2>
+      <p class="is-size-5">Password Reset</p>
+      <p class="has-contents-below">Set a new password for your account.</p>
 
-      <div class="notification" :class="{ 'is-danger': hasError }">
+      <div class="notification is-danger" v-if="errorMessage">
         <p>{{ errorMessage }}</p>
       </div>
 
       <div class="field">
         <div class="control">
           <input class="input" type="password" placeholder="New Password"
+            :class="{ 'is-danger': errors.new_password }"
             v-model="credentials.new_password">
         </div>
+
+        <p class="help is-danger" v-for="message in errors.new_password">{{ message }}</p>
       </div>
 
       <div class="field">
@@ -104,19 +108,22 @@
           new_password: ''
         },
 
+        errors: {},
+
         isNotMatch: false,
         passwordConfirm: '',
 
         isLoading: false,
         isCompleted: false,
-        hasError: false,
 
-        errorMessage: 'Set a new password for your account'
+        errorMessage: null
       }
     },
 
-    watch: {
-      passwordConfirm () {
+    mounted () {
+      this.$watch(vm => [this.credentials.new_password,
+        this.passwordConfirm].join(), val => {
+
         if (this.passwordConfirm &&
           this.credentials.new_password != this.passwordConfirm) {
           
@@ -126,28 +133,30 @@
         }
 
         this.isNotMatch = false
-      }
+      })
     },
 
     methods: {
       resetPassword () {
         this.isLoading = true
+        
+        this.errorMessage = ''
+        this.errors = {}
 
-        let params = this.credentials
+        this.credentials.token = this.$route.query.token
 
-        params.token = this.$route.query.token
-
-        this.$auth.resetPassword(this.id, params)
+        this.$auth.resetPassword(this.id, this.credentials)
           .then(response => {
-            this.hasError = false
             this.isCompleted = true
           })
           .catch(error => {
-            this.isLoading = false
-            this.hasError = true
+            if (error.response.status == 422)
+              this.errors = error.response.data.errors
 
-            this.errorMessage = error.response.data.message
+            if (error.response.status == 403)
+              this.errorMessage = error.response.data.message
           })
+          .finally(() => this.isLoading = false)
       }
     }
   }

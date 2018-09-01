@@ -22,15 +22,36 @@
             </div>
           </div>
 
-          <meteredpassword label="New Password"
-            @input="newPasswordInput" />
+          <div class="field">
+            <label class="label">New Password</label>
+            
+            <div class="control">
+              <input class="input" type="password" v-model="model.new_password"
+                :class="{ 'is-danger': errors.new_password }" />
+            </div>
+
+            <p class="help is-danger" v-for="message in errors.new_password">{{ message }}</p>
+          </div>
+
+          <div class="password-meter-container">
+            <passwordMeter :password="model.new_password" />
+          </div>
+
+          <div class="field">
+            <label class="label">Confirm Password</label>
+            
+            <div class="control">
+              <input class="input" type="password" v-model="passwordConfirm" />
+            </div>
+
+            <p class="help is-danger" v-if="isNotMatch">Password does not match</p>
+          </div>
 
           <div class="field">
             <div class="control">
               <button type="submit" class="button is-primary is-fullwidth"
-                :class="{ 'is-loading': isLoading }">
-                Change Password
-              </button>
+                :class="{ 'is-loading': isLoading }"
+                :disabled="passwordConfirm.length && isNotMatch">Change Password</button>
             </div>
           </div>
         </form>
@@ -48,10 +69,10 @@
 </style>
 
 <script>
-  import meteredpassword from '@admin/partials/metered-password'
+  import passwordMeter from '@admin/partials/password-meter'
 
   export default {
-    components: { meteredpassword },
+    components: { passwordMeter },
 
     inject: ['$auth'],
 
@@ -62,9 +83,30 @@
           new_password: ''
         },
 
+        errors: {},
+
+        passwordConfirm: '',
+
         isLoading: false,
+        isNotMatch: false,
         message: ''
       }
+    },
+
+    mounted () {
+      this.$watch(vm => [this.model.new_password,
+        this.passwordConfirm].join(), val => {
+
+        if (this.passwordConfirm &&
+          this.model.new_password != this.passwordConfirm) {
+          
+          this.isNotMatch = true
+
+          return
+        }
+
+        this.isNotMatch = false
+      })
     },
 
     methods: {
@@ -74,6 +116,7 @@
 
       submit () {
         this.isLoading = true
+        this.errors = {}
 
         this.$auth.changePassword(this.model)
           .then(response => {
@@ -88,7 +131,11 @@
           .catch(error => {
             this.isLoading = false
 
-            this.message = error.response.data.message
+            if (error.response.status == 422)
+              this.errors = error.response.data.errors
+
+            if (error.response.status == 403)
+              this.message = error.response.data.message
           })
       }
     }

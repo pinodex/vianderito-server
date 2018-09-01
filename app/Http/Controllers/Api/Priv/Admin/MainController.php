@@ -6,6 +6,7 @@ use Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exceptions\AccountDisabledException;
+use App\Http\Requests\NewPassword;
 use App\Models\Account;
 
 class MainController extends Controller
@@ -66,7 +67,7 @@ class MainController extends Controller
      * 
      * @return mixed
      */
-    public function changePassword(Request $request) {
+    public function changePassword(NewPassword $request) {
         $data = $request->only(['current_password', 'new_password']);
 
         $account = $this->admin->user();
@@ -76,13 +77,7 @@ class MainController extends Controller
         if (!$check) {
             return response()->json([
                 'message' => 'Current password does not match'
-            ], 422);
-        }
-
-        if (strlen($data['new_password']) < 8) {
-            return response()->json([
-                'message' => 'Password must be at least 8 characters'
-            ], 422);
+            ], 403);
         }
 
         $account->password = $data['new_password'];
@@ -120,7 +115,7 @@ class MainController extends Controller
      * @param  Request $request Request object
      * @return mixed
      */
-    public function resetPassword(Request $request, Account $account)
+    public function resetPassword(NewPassword $request, Account $account)
     {
         $data = $request->only(['token', 'new_password']);
 
@@ -135,12 +130,6 @@ class MainController extends Controller
         if ($resetRequest->hasExpired()) {
             return response()->json([
                 'message' => 'The password reset link has expired'
-            ], 403);
-        }
-
-        if (strlen($data['new_password']) < 8) {
-            return response()->json([
-                'message' => 'Password should be at least 8 characters'
             ], 403);
         }
 
