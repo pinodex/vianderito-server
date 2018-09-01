@@ -37,7 +37,8 @@ class AccountProvider implements BaseUserProvider
 
     public function retrieveByCredentials(array $credentials)
     {
-        return Account::where('username', $credentials['id'])->first();
+        return Account::where('username', $credentials['id'])
+            ->orWhere('email', $credentials['id'])->first();
     }
 
     public function validateCredentials(Authenticatable $user, array $credentials)

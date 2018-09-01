@@ -12,8 +12,8 @@
 
       <div class="field">
         <div class="control">
-          <input class="input" type="text" name="username"
-            autocomplete="username" placeholder="Username"
+          <input class="input" type="text" name="id"
+            autocomplete="username" placeholder="Username or Email"
             v-model="credentials.id"
             :class="{ 'is-danger': hasError }"
             :disabled="isLoading">
