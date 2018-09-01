@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api\Priv\Admin;
 
 use Hash;
+use Mail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exceptions\AccountDisabledException;
+use App\Mail\AccountPasswordResetRequest;
+use App\Mail\AccountNewPasswordSet;
 use App\Http\Requests\NewPassword;
 use App\Models\Account;
 
@@ -85,6 +88,8 @@ class MainController extends Controller
         
         $account->save();
 
+        Mail::to($account)->send(new AccountNewPasswordSet($request, $account));
+
         $this->admin->user()->log('account:change_password');
 
         return response('', 204);
@@ -103,7 +108,10 @@ class MainController extends Controller
         $account = Account::where('email', $data['email'])->first();
 
         if ($account) {
-            $account->requestPasswordReset();
+            $resetRequest = $account->requestPasswordReset();
+
+            Mail::to($account)->send(
+                new AccountPasswordResetRequest($request, $account, $resetRequest));
         }
 
         return response('', 202);
@@ -137,6 +145,8 @@ class MainController extends Controller
         $account->save();
 
         $resetRequest->delete();
+
+        Mail::to($account)->send(new AccountNewPasswordSet($request, $account));
 
         return response('', 202);
     }

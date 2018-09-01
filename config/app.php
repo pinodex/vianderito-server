@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Manila',
 
     /*
     |--------------------------------------------------------------------------
@@ -171,6 +171,7 @@ return [
         TwigBridge\ServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Sichikawa\LaravelSendgridDriver\SendgridTransportServiceProvider::class,
 
         /*
          * Package Service Providers...

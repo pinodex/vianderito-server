@@ -69,8 +69,11 @@
             <div class="control">
               <input class="input" type="text" name="email"
                 autocomplete="email" placeholder="Email Address"
+                :class="{ 'is-danger': errorMessage }"
                 v-model="assist.email">
             </div>
+
+            <p class="help is-danger" v-if="errorMessage">{{ errorMessage }}</p>
           </div>
 
           <div class="field">
@@ -124,6 +127,7 @@
         isLoading: false,
         isLoggedIn: false,
         hasError: false,
+        errorMessage: '',
 
         isAssist: false,
         isAssistCompleted: false
@@ -151,9 +155,13 @@
 
       submitAssistant () {
         this.isLoading = true
+        this.errorMessage = ''
 
         this.$auth.requestPasswordReset(this.assist)
           .then(response => this.isAssistCompleted = true)
+          .catch(error => {
+            this.errorMessage = error.response.data.message
+          })
           .finally(() => this.isLoading = false)
       },
 

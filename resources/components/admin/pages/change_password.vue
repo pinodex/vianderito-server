@@ -134,7 +134,7 @@
             if (error.response.status == 422)
               this.errors = error.response.data.errors
 
-            if (error.response.status == 403)
+            if (error.response.status != 422)
               this.message = error.response.data.message
           })
       }

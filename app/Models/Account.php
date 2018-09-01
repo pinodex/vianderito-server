@@ -117,7 +117,7 @@ class Account extends Authenticatable
      */
     public function requestPasswordReset()
     {
-        $this->passwordResets()->create([
+        return $this->passwordResets()->create([
             'token' => str_random(16),
             'expires_at' => Carbon::now()->addMinutes(30)
         ]);
