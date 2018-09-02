@@ -30,7 +30,7 @@ class ManufacturerController extends Controller
     public function index(Request $request)
     {
         $query = $request->only(
-            ['id', 'name']
+            ['id', 'name', 'code']
         );
 
         $models = Model::search($query);

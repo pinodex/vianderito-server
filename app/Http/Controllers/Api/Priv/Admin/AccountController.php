@@ -32,7 +32,7 @@ class AccountController extends Controller
     public function index(Request $request)
     {
         $query = $request->only(
-            ['first_name', 'middle_name', 'last_name', 'username', 'email', 'group_id']
+            ['fullname', 'first_name', 'middle_name', 'last_name', 'username', 'email', 'group_id']
         );
 
         $models = Model::search($query);

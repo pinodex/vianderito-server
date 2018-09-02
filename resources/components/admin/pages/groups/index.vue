@@ -10,6 +10,12 @@
           </div>
 
           <div class="level-right">
+            <div class="level-item" v-if="$root.can('browse_groups')">
+              <div class="field">
+                <namesearch :query="query" module="groups"></namesearch>
+              </div>
+            </div>
+
             <div class="level-item">
               <div class="field is-grouped">
                 <p class="control">
@@ -29,22 +35,6 @@
         </div>
 
         <groups :query="query"></groups>
-      </div>
-
-      <div class="column is-3" v-if="$root.can('browse_groups')">
-         <div class="panel">
-          <div class="panel-heading">
-            <span class="icon is-small">
-              <i class="fa fa-search"></i>
-            </span>
-
-            <span>Search</span>
-          </div>
-
-          <div class="panel-block">
-            <search :query="query"></search>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -82,13 +72,14 @@
 
 <script>
   import groups from '@admin/partials/groups/index'
-  import search from '@admin/partials/groups/search'
   import create from '@admin/partials/groups/create'
   import edit from '@admin/partials/groups/edit'
   import editPermissions from '@admin/partials/groups/edit-permissions'
 
+  import namesearch from '@admin/partials/namesearch'
+
   export default {
-    components: { groups, search, create, edit, editPermissions },
+    components: { groups, create, edit, editPermissions, namesearch },
 
     data () {
       return {

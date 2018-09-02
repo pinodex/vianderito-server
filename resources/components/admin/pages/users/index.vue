@@ -10,18 +10,17 @@
           </div>
 
           <div class="level-right">
-            <div class="level-item">
-              <div class="field is-grouped">
+            <div class="level-item" v-if="$root.can('browse_users')">
+              <div class="field has-addons">
+                <namesearch :query="query" module="users"></namesearch>
+
                 <p class="control">
-                  <button class="button is-rounded"
+                  <button class="button is-rounded" type="button" title="More..." 
                     :class="{ 'is-warning': isSearchActive }"
-                    @click="searchVisible = true"
-                    v-if="$root.can('browse_users')">
+                    @click="searchVisible = true">
                     <span class="icon">
-                      <i class="fa fa-search"></i>
+                      <i class="fa fa-ellipsis-h"></i>
                     </span>
-                    
-                    <span>Search</span>
                   </button>
                 </p>
               </div>
@@ -60,8 +59,10 @@
   import search from '@admin/partials/users/search'
   import edit from '@admin/partials/users/edit'
 
+  import namesearch from '@admin/partials/namesearch'
+
   export default {
-    components: { users, search, edit },
+    components: { users, search, edit, namesearch },
 
     data () {
       return {

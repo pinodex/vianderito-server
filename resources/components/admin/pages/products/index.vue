@@ -10,21 +10,24 @@
           </div>
 
           <div class="level-right">
-            <div class="level-item">
-              <div class="field is-grouped">
+            <div class="level-item" v-if="$root.can('browse_products')">
+              <div class="field has-addons">
+                <namesearch :query="query" module="products"></namesearch>
+
                 <p class="control">
-                  <button class="button is-rounded"
+                  <button class="button is-rounded" title="More..."
                     :class="{ 'is-warning': isSearchActive }"
-                    @click="searchVisible = true"
-                    v-if="$root.can('browse_products')">
+                    @click="searchVisible = true">
                     <span class="icon">
-                      <i class="fa fa-search"></i>
+                      <i class="fa fa-ellipsis-h"></i>
                     </span>
-                    
-                    <span>Search</span>
                   </button>
                 </p>
+              </div>
+            </div>
 
+            <div class="level-item">
+              <div class="field">
                 <p class="control">
                   <router-link class="button is-primary is-rounded"
                     :to="{ name: 'products.add' }"
@@ -62,8 +65,10 @@
   import products from '@admin/partials/products/index'
   import search from '@admin/partials/products/search'
 
+  import namesearch from '@admin/partials/namesearch'
+
   export default {
-    components: { products, search },
+    components: { products, search, namesearch },
 
     data () {
       return {

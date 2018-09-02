@@ -10,6 +10,22 @@
           </div>
 
           <div class="level-right">
+            <div class="level-item" v-if="$root.can('browse_manufacturers')">
+              <div class="field has-addons">
+                <namesearch :query="query" module="manufacturers"></namesearch>
+
+                <p class="control">
+                  <button class="button is-rounded" type="button" title="More..." 
+                    :class="{ 'is-warning': isSearchActive }"
+                    @click="searchVisible = true">
+                    <span class="icon">
+                      <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                  </button>
+                </p>
+              </div>
+            </div>
+
             <div class="level-item">
               <div class="field is-grouped">
                 <p class="control">
@@ -29,22 +45,6 @@
         </div>
 
         <manufacturers :query="query"></manufacturers>
-      </div>
-
-      <div class="column is-3" v-if="$root.can('browse_manufacturers')">
-         <div class="panel">
-          <div class="panel-heading">
-            <span class="icon is-small">
-              <i class="fa fa-search"></i>
-            </span>
-
-            <span>Search</span>
-          </div>
-
-          <div class="panel-block">
-            <search :query="query"></search>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -67,6 +67,16 @@
         </div>
       </div>
     </b-modal>
+
+    <b-modal :active.sync="searchVisible" :width="360">
+      <div class="modal-box">
+        <h1 class="modal-header">Search Manufacturer</h1>
+
+        <div class="modal-body">
+          <search :query="query"></search>
+        </div>
+      </div>
+    </b-modal>
   </section>
 </template>
 
@@ -76,8 +86,10 @@
   import create from '@admin/partials/manufacturers/create'
   import edit from '@admin/partials/manufacturers/edit'
 
+  import namesearch from '@admin/partials/namesearch'
+
   export default {
-    components: { manufacturers, search, create, edit },
+    components: { manufacturers, search, create, edit, namesearch },
 
     data () {
       return {
@@ -86,6 +98,8 @@
           edit: false
         },
 
+        searchVisible: false,
+        isSearchActive: false,
         mountedModel: null,
         query: {}
       }
@@ -103,6 +117,22 @@
           this.$root.$emit('manufacturers:query'), 1)
       })
 
+      this.$root.$on('manufacturers:query', data => {
+        this.isSearchActive = false
+        
+        for (var key in this.query) {
+          if (this.query.hasOwnProperty(key)) {
+            if (key == 'with') continue
+
+            if (this.query[key].length > 0) {
+              this.isSearchActive = true
+            }
+          }
+        }
+
+        this.searchVisible = false
+      })
+
       this.$root.$on('manufacturers:edit', model => {
         this.modal.edit = true
 
@@ -111,6 +141,8 @@
     },
 
     beforeDestroy () {
+      this.$root.$off('manufacturers:query')
+
       this.$root.$off('manufacturers:query:clear')
 
       this.$root.$off('manufacturers:edit')
