@@ -88,6 +88,10 @@ return [
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
 
+    'lt' => [
+        'numeric' => 'The :attribute must be less than :value'
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

@@ -88,7 +88,8 @@ class InventoryController extends Controller
     public function create(SaveModel $request)
     {
         $data = $request->only([
-            'eid', 'product_id', 'stocks', 'price', 'batch_date', 'expiration_date'
+            'eid', 'product_id', 'stocks', 'critical_stocks',
+            'price', 'batch_date', 'expiration_date'
         ]);
 
         $model = Model::create($data);
@@ -112,7 +113,8 @@ class InventoryController extends Controller
     public function edit(SaveModel $request, Model $model)
     {
         $data = $request->only([
-            'stocks', 'price', 'batch_date', 'expiration_date'
+            'eid', 'product_id', 'stocks', 'critical_stocks',
+            'price', 'batch_date', 'expiration_date'
         ]);
 
         $model->fill($data);

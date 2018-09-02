@@ -29,6 +29,7 @@ class InventorySeeder extends BaseSeeder
                 'eid'               => $eid,
                 'product_id'        => $this->getProductId($line[0]),
                 'stocks'            => $line[1],
+                'critical_stocks'   => '5',
                 'price'             => $line[2],
                 'batch_date'        => $line[3],
                 'expiration_date'   => $line[4]

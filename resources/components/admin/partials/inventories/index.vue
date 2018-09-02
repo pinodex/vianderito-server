@@ -6,7 +6,7 @@
     :loading="isLoading"
     :mobile-cards="false"
     :hoverable="true"
-
+    :row-class="getRowClass"
     @page-change="onPageChange">
 
     <template slot-scope="props">
@@ -38,7 +38,7 @@
       </b-table-column>
 
       <b-table-column field="price" label="Price" class="has-text-right" sortable>
-        {{ props.row.price }}
+        {{ props.row.price | currency('₱') }}
       </b-table-column>
 
       <b-table-column field="batch_date" label="Batch Date" sortable>
@@ -151,6 +151,16 @@
           .finally(() => {
             this.isLoading = false
           })
+      },
+
+      getRowClass (row, i) {
+        let _class = []
+
+        if (row.stocks <= row.critical_stocks) {
+          _class.push('is-danger')
+        }
+
+        return _class
       },
 
       onPageChange (page) {

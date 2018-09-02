@@ -19,6 +19,7 @@ class CreateInventoryTable extends Migration
             $table->integer('eid');
 
             $table->integer('stocks');
+            $table->integer('critical_stocks');
             $table->decimal('price', 6, 2);
 
             $table->date('batch_date');

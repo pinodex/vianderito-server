@@ -29,6 +29,7 @@ class SaveInventory extends FormRequest
             'product_id'        => 'exists:products,id',
             'eid'               => 'required|numeric|unique:inventories,eid',
             'stocks'            => 'required|numeric',
+            'critical_stocks'   => 'required|numeric|lt:stocks',
             'price'             => 'required|regex:/^\d*(\.\d{1,2})?$/',
             
             'batch_date'        => [
