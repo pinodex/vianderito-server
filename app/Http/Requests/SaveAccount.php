@@ -25,25 +25,7 @@ class SaveAccount extends FormRequest
     {
         $model = $this->route()->parameter('model');
 
-        if ($model) {
-            return [
-                'first_name'    => 'required|regex:/^[\pL\s\-]+$/u',
-                'middle_name'   => 'nullable|regex:/^[\pL\s\-]+$/u',
-                'last_name'     => 'required|regex:/^[\pL\s\-]+$/u',
-                'username'      => [
-                    'required',
-                    'unique:accounts,username,' . $model->id,
-                    'regex:/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/u'
-                ],
-                'email' => [
-                    'email',
-                    'unique:accounts,email,' . $model->id
-                ],
-                'group_id'      => 'required|exists:groups,id'
-            ];
-        }
-
-        return [
+        $rules = [
             'first_name'    => 'required|regex:/^[\pL\s\-]+$/u',
             'middle_name'   => 'nullable|regex:/^[\pL\s\-]+$/u',
             'last_name'     => 'required|regex:/^[\pL\s\-]+$/u',
@@ -58,5 +40,20 @@ class SaveAccount extends FormRequest
             ],
             'group_id'      => 'required|exists:groups,id'
         ];
+
+        if ($model) {
+            $rules['username'] = [
+                'required',
+                'unique:accounts,username,' . $model->id,
+                'regex:/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/u'
+            ];
+
+            $rules['email'] = [
+                'email',
+                'unique:accounts,email,' . $model->id
+            ];
+        }
+
+        return $rules;
     }
 }

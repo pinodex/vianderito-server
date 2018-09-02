@@ -25,24 +25,7 @@ class SaveInventory extends FormRequest
     {
         $model = $this->route()->parameter('model');
 
-        if ($model) {
-            return [
-                'product_id'        => 'exists:products,id',
-                'eid'               => 'required|numeric|unique:inventories,eid,' . $model->id,
-                'stocks'            => 'required|numeric',
-                'price'             => 'required|regex:/^\d*(\.\d{1,2})?$/',
-                
-                'batch_date'        => [
-                    'required',
-                    'date',
-                    'before_or_equal:expiration_date'
-                ],
-
-                'expiration_date'   => 'required|date|after_or_equal:batch_date'
-            ];
-        }
-
-        return [
+        $rules = [
             'product_id'        => 'exists:products,id',
             'eid'               => 'required|numeric|unique:inventories,eid',
             'stocks'            => 'required|numeric',
@@ -56,5 +39,11 @@ class SaveInventory extends FormRequest
 
             'expiration_date'   => 'required|date|after_or_equal:batch_date'
         ];
+
+        if ($model) {
+            $rules['eid'] = 'required|numeric|unique:inventories,eid,' . $model->id;
+        }
+
+        return $rules;
     }
 }
