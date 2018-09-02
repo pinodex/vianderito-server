@@ -48,8 +48,7 @@
       </b-table-column>
       
       <b-table-column class="is-fit">
-        <div class="field has-addons"
-          v-if="$root.account.id != props.row.id">
+        <div class="field has-addons">
           <p class="control">
             <a href="#" class="button is-small"
               @click.prevent="editModel(props.row)"
