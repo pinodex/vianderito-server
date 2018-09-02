@@ -68,9 +68,11 @@
       <label class="label">Price</label>
 
       <div class="control">
-        <input class="input" type="number" step=".01" required
+        <input class="input" type="text" required
           :class="{ 'is-danger': errors.price }"
-          v-model="model.price" />
+          v-cleave="masks.numeral"
+          v-model="maskedPrice"
+          @input="e => model.price = e.target._vCleave.getRawValue()" />
       </div>
 
       <p class="help is-danger" v-for="message in errors.price">{{ message }}</p>
@@ -121,6 +123,9 @@
 <script>
   import debounce from 'debounce'
   import moment from 'moment'
+  
+  import cleave from '@directives/cleave'
+  import numeral from '@masks/numeral'
 
   const PRODUCT_RELATIONS = 'category,manufacturer'
 
@@ -129,16 +134,22 @@
 
     props: ['model', 'errors'],
 
+    directives: { cleave },
+
     data () {
       return {
         product: '',
         products: [],
         isProductsLoading: false,
 
+        maskedPrice: '',
+
         dates: {
           batch_date: null,
           expiration_date: null
-        }
+        },
+
+        masks: { numeral }
       }
     },
 
@@ -168,6 +179,10 @@
 
       if (this.model.expiration_date) {
         this.dates.expiration_date = this.parseDate(this.model.expiration_date)
+      }
+
+      if (this.model.price) {
+        this.maskedPrice = this.model.price
       }
     },
 

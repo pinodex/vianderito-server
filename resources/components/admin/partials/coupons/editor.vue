@@ -73,9 +73,11 @@
               <label class="label">Minimum Purchase Amount <small>(optional)</small></label>
 
               <div class="control">
-                <input class="input" type="number" min="0.00" step=".01"
+                <input class="input" type="text"
                   :class="{ 'is-danger': errors.discount_floor_price }"
-                  v-model="model.discount_floor_price" />
+                  v-cleave="masks.numeral"
+                  v-model="maskedFloorPrice"
+                  @input="e => model.discount_floor_price = e.target._vCleave.getRawValue()" />
               </div>
 
               <p class="help is-danger" v-for="message in errors.discount_floor_price">{{ message }}</p>
@@ -87,9 +89,11 @@
               <label class="label">Maximum Purchase Amount <small>(optional)</small></label>
 
               <div class="control">
-                <input class="input" type="number" min="0.00" step=".01"
+                <input class="input" type="text"
                   :class="{ 'is-danger': errors.discount_ceiling_price }"
-                  v-model="model.discount_ceiling_price" />
+                  v-cleave="masks.numeral"
+                  v-model="maskedCeilingPrice"
+                  @input="e => model.discount_ceiling_price = e.target._vCleave.getRawValue()" />
               </div>
 
               <p class="help is-danger" v-for="message in errors.discount_ceiling_price">{{ message }}</p>
@@ -172,6 +176,9 @@
   import debounce from 'debounce'
   import moment from 'moment'
 
+  import cleave from '@directives/cleave'
+  import numeral from '@masks/numeral'
+
   import productselector from './selectors/product'
   import manufacturerselector from './selectors/manufacturer'
   import categoryselector from './selectors/category'
@@ -180,6 +187,8 @@
   export default {
     components: { productselector,
       manufacturerselector, categoryselector, inventoryselector },
+
+    directives: { cleave },
 
     props: ['model', 'errors'],
 
@@ -191,6 +200,11 @@
           validity_start: null,
           validity_end: null
         },
+
+        masks: { numeral },
+
+        maskedFloorPrice: '',
+        maskedCeilingPrice: '',
 
         discountType: 'price'
       }
@@ -205,6 +219,14 @@
 
       if (this.model.validity_end) {
         this.dates.validity_end = this.parseDate(this.model.validity_end)
+      }
+
+      if (this.model.discount_ceiling_price) {
+        this.maskedCeilingPrice = this.model.discount_ceiling_price
+      }
+
+      if (this.model.discount_floor_price) {
+        this.maskedFloorPrice = this.model.discount_floor_price
       }
     },
 

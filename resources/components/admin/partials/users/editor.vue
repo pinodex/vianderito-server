@@ -65,7 +65,9 @@
             <p class="control">
               <input class="input" type="text" name="phone_number" autocomplete="phone-local"
                 :class="{ 'is-danger': errors.phone_number }"
-                v-model="model.phone_number" />
+                v-cleave="masks.phone"
+                v-model="maskedPhoneNumber"
+                @input="e => model.phone_number = e.target._vCleave.getRawValue()" />
             </p>
 
             <p class="help is-danger" v-for="message in errors.phone_number">{{ message }}</p>
@@ -137,15 +139,23 @@
 </style>
 
 <script>
+  import cleave from '@directives/cleave'
+  import phone from '@masks/phone'
+
   export default {
     inject: ['$group'],
 
     props: ['model', 'errors'],
 
+    directives: { cleave },
+
     data () {
       return {
         groups: [],
         groupsLoading: true,
+
+        masks: { phone },
+        maskedPhoneNumber: '',
 
         avatar: '/assets/img/default-avatar.png'
       }
@@ -154,6 +164,10 @@
     mounted () {
       if (this.model.picture) {
         this.avatar = this.model.picture.image
+      }
+
+      if (this.model.phone_number) {
+        this.maskedPhoneNumber = this.model.phone_number
       }
 
       this.$group.all()

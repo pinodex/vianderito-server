@@ -23,7 +23,9 @@ let config = {
 
   resolve: {
     alias: {
-      "@admin": path.resolve(__dirname, "resources/components/admin")
+      '@admin': path.resolve(__dirname, 'resources/components/admin'),
+      '@directives': path.resolve(__dirname, 'resources/assets/js/directives'),
+      '@masks': path.resolve(__dirname, 'resources/assets/js/masks')
     }
   }
 }
@@ -45,7 +47,7 @@ mix
 
   .extract([
     'vue', 'vue-router', 'vuex', 'vue-progressbar', 'vue2-filters', 'vue-moment',
-    'moment', 'axios', 'buefy', 'format-unicorn'
+    'moment', 'axios', 'buefy', 'format-unicorn', 'cleave.js'
   ])
 
   .disableNotifications()
