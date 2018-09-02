@@ -13,7 +13,7 @@
     </div>
 
     <div class="field">
-      <label class="label">Description</label>
+      <label class="label">Description (optional)</label>
 
       <div class="control">
         <textarea class="textarea" name="description"

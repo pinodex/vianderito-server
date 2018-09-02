@@ -21,7 +21,7 @@
 
       <div class="field is-horizontal">
         <div class="field-label">
-          <label class="label">Middle Name</label>
+          <label class="label">Middle Name <small>(optional)</small></label>
         </div>
 
         <div class="field-body">

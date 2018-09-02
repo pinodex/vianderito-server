@@ -18,7 +18,7 @@
         <p class="help is-danger" v-for="message in errors.name">{{ message }}</p>
 
         <div class="field">
-          <label class="label">Description</label>
+          <label class="label">Description (optional)</label>
 
           <div class="control">
             <textarea class="textarea"
