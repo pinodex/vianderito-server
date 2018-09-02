@@ -25,20 +25,18 @@ class SaveProduct extends FormRequest
     {
         $model = $this->route()->parameter('model');
 
-        if ($model) {
-            return [
-                'name'              => 'required',
-                'manufacturer_id'   => 'required|exists:manufacturers,id',
-                'category_id'       => 'required|exists:categories,id',
-                'upc'               => 'required|numeric|unique:products,upc,' . $model->id
-            ];
-        }
-
-        return [
-            'name'              => 'required',
+        $rules = [
+            'name'              => 'required|unique:products,name',
             'manufacturer_id'   => 'required|exists:manufacturers,id',
             'category_id'       => 'required|exists:categories,id',
             'upc'               => 'required|numeric|unique:products,upc'
         ];
+
+        if ($model) {
+            $rules['name'] = 'required|unique:products,name,' . $model->id;
+            $rules['upc'] = 'required|numeric|unique:products,upc,' . $model->id;
+        }
+
+        return $rules;
     }
 }

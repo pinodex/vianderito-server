@@ -23,8 +23,16 @@ class SaveGroup extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'    => 'required'
+        $model = $this->route()->parameter('model');
+
+        $rules = [
+            'name'    => 'required|unique:groups,name'
         ];
+
+        if ($model) {
+            $rules['name'] = 'required|unique:groups,name,' . $model->id;
+        }
+
+        return $rules;
     }
 }

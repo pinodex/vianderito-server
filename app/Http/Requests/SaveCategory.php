@@ -23,8 +23,16 @@ class SaveCategory extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'    => 'required'
+        $model = $this->route()->parameter('model');
+
+        $rules = [
+            'name'    => 'required|unique:categories,name'
         ];
+
+        if ($model) {
+            $rules['name'] = 'required|unique:categories,name,' . $model->id;
+        }
+
+        return $rules;
     }
 }
