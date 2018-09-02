@@ -70,10 +70,10 @@
         <div class="columns">
           <div class="column">
             <div class="field">
-              <label class="label">Minimum Amount</label>
+              <label class="label">Minimum Purchase Amount <small>(optional)</small></label>
 
               <div class="control">
-                <input class="input" type="number" min="0.00" step=".01" required
+                <input class="input" type="number" min="0.00" step=".01"
                   :class="{ 'is-danger': errors.discount_floor_price }"
                   v-model="model.discount_floor_price" />
               </div>
@@ -84,10 +84,10 @@
 
           <div class="column">
             <div class="field">
-              <label class="label">Maximum Amount</label>
+              <label class="label">Maximum Purchase Amount <small>(optional)</small></label>
 
               <div class="control">
-                <input class="input" type="number" min="0.00" step=".01" required
+                <input class="input" type="number" min="0.00" step=".01"
                   :class="{ 'is-danger': errors.discount_ceiling_price }"
                   v-model="model.discount_ceiling_price" />
               </div>
