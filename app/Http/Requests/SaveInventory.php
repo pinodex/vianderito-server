@@ -34,7 +34,7 @@ class SaveInventory extends FormRequest
             'batch_date'        => [
                 'required',
                 'date',
-                'before_or_equal:expiration_date'
+                'before_or_equal:' . date('Y-m-d')
             ],
 
             'expiration_date'   => 'required|date|after_or_equal:batch_date'

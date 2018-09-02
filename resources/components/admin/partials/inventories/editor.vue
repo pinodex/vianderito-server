@@ -87,7 +87,7 @@
             v-model="dates.batch_date"
             :date-formatter="formatDate"
             :date-parser="parseDate"
-            :max-date="dates.expiration_date" />
+            :max-date="batchDateMax" />
 
           <p class="help is-danger" v-for="message in errors.batch_date">{{ message }}</p>
         </div>
@@ -103,7 +103,7 @@
             v-model="dates.expiration_date"
             :date-formatter="formatDate"
             :date-parser="parseDate"
-            :min-date="dates.batch_date ? dates.batch_date : beforeToday" />
+            :min-date="expirationDateMin" />
 
           <p class="help is-danger" v-for="message in errors.expiration_date">{{ message }}</p>
         </div>
@@ -134,12 +134,27 @@
         product: '',
         products: [],
         isProductsLoading: false,
-        beforeToday: new Date(Date.now() - 86400000),
 
         dates: {
           batch_date: null,
           expiration_date: null
         }
+      }
+    },
+
+    computed: {
+      batchDateMax () {
+        return moment().toDate()
+      },
+
+      expirationDateMin () {
+        if (this.dates.batch_date) {
+          return moment(this.dates.batch_date)
+            .add(1, 'days')
+            .toDate()
+        }
+
+        return moment().toDate()
       }
     },
 
