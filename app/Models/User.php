@@ -60,14 +60,6 @@ class User extends Authenticatable implements JWTSubject
         static::creating(function ($model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
-
-        static::updating(function ($model) {
-            if ($model->getOriginal('email_address') !=
-                $model->getAttribute('email_address')) {
-                
-                $model->is_verified = false;
-            }
-        });
     }
 
     /**

@@ -61,6 +61,8 @@ class Kernel extends HttpKernel
         'broadcast' => \App\Http\Middleware\Broadcast::class,
         'guard' => \App\Http\Middleware\UseGuard::class,
         'require_password_change' => \App\Http\Middleware\RequirePasswordChange::class,
-        'allow_enabled' => \App\Http\Middleware\AllowEnabled::class
+        'allow_enabled' => \App\Http\Middleware\AllowEnabled::class,
+        'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+        'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
     ];
 }

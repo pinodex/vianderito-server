@@ -22,8 +22,22 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('refresh', 'AuthController@refresh');
 
     Route::post('register', 'AuthController@register');
+
+    Route::post('password', 'AuthController@password');
     
     Route::get('me', 'AuthController@me');
+
+});
+
+Route::group(['prefix' => 'profile'], function () {
+
+    Route::get('/', 'ProfileController@index');
+
+    Route::put('/', 'ProfileController@save');
+
+    Route::get('picture', 'ProfileController@picture');
+
+    Route::post('picture', 'ProfileController@setPicture');
 
 });
 

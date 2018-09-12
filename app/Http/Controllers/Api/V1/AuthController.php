@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegister;
+use App\Http\Requests\NewPassword;
 use App\Models\User as Model;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('jwt.auth')->only(['me', 'refresh', 'password']);
+    }
+
     /**
      * Login action
      * 
@@ -64,18 +73,40 @@ class AuthController extends Controller
     }
 
     /**
+     * Change password for a user
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
+    public function password(NewPassword $request)
+    {
+        $data = $request->only(['current_password', 'new_password']);
+
+        $user = $this->api->user();
+
+        $check = Hash::check($data['current_password'], $user->password);
+
+        if (!$check) {
+            return response()->json([
+                'message' => 'Current password does not match'
+            ], 403);
+        }
+
+        $user->password = $data['new_password'];
+
+        $user->save();
+
+        return response(null, 202);
+    }
+
+    /**
      * Get the authenticated User.
      *
      * @return \App\Models\User
      */
     public function me()
     {
-        $user = $this->api->user();
-
-        if ($user)
-            return $user;
-
-        return abort(401, 'Invalid credentials');
+        return $this->api->user();
     }
 
     /**
