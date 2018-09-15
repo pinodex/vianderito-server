@@ -11,7 +11,7 @@ use Jenssegers\Agent\Agent;
 use App\Models\PasswordReset;
 use App\Models\Account;
 
-class AccountPasswordResetRequest extends Mailable
+class AccountPasswordReset extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,7 +31,7 @@ class AccountPasswordResetRequest extends Mailable
      * Password reset model
      * @var PasswordReset
      */
-    private $passwordReset;
+    private $model;
 
     /**
      * Agent instance for request UA
@@ -44,14 +44,14 @@ class AccountPasswordResetRequest extends Mailable
      *
      * @return void
      */
-    public function __construct(Request $request, Account $account, PasswordReset $passwordReset)
+    public function __construct(PasswordReset $model)
     {
-        $this->request = $request;
-        $this->account = $account;
-        $this->passwordReset = $passwordReset;
+        $this->request = request();
+        $this->model = $model;
+        $this->account = $model->entity;
 
         $this->agent = new Agent();
-        $this->agent->setUserAgent($request->userAgent());
+        $this->agent->setUserAgent($this->request->userAgent());
     }
 
     /**
@@ -74,7 +74,7 @@ class AccountPasswordResetRequest extends Mailable
                 'device_name' => $deviceName,
                 'reset_link' => route('admin.passwordReset', [
                     'account' => $this->account,
-                    'token' => $this->passwordReset->token
+                    'token' => $this->model->token
                 ])
             ]);
     }

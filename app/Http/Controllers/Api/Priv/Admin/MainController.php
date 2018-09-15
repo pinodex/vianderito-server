@@ -7,7 +7,7 @@ use Mail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exceptions\AccountDisabledException;
-use App\Mail\AccountPasswordResetRequest;
+use App\Mail\AccountPasswordReset;
 use App\Mail\AccountNewPasswordSet;
 use App\Http\Requests\NewPassword;
 use App\Models\Account;
@@ -110,8 +110,7 @@ class MainController extends Controller
         if ($account) {
             $resetRequest = $account->requestPasswordReset();
 
-            Mail::to($account)->send(
-                new AccountPasswordResetRequest($request, $account, $resetRequest));
+            Mail::to($account)->send(new AccountPasswordReset($resetRequest));
         }
 
         return response('', 202);
