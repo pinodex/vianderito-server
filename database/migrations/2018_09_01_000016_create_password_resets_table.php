@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccountPasswordResetsTable extends Migration
+class CreatePasswordResetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateAccountPasswordResetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_password_resets', function (Blueprint $table) {
+        Schema::create('password_resets', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('account_id');
+
+            $table->uuid('entity_id');
+            $table->string('entity_type');
 
             $table->string('token');
 
@@ -23,8 +25,6 @@ class CreateAccountPasswordResetsTable extends Migration
 
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('account_id')->references('id')->on('accounts');
         });
     }
 
@@ -35,6 +35,6 @@ class CreateAccountPasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_password_resets');
+        Schema::dropIfExists('password_resets');
     }
 }

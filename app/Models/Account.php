@@ -6,16 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Scopes\OrderByCreateScope;
+use App\Traits\PasswordResettable;
 use App\Traits\PasswordHash;
 use App\Traits\LastLogin;
 use App\Traits\Picture;
 use App\Traits\Search;
 use Webpatser\Uuid\Uuid;
-use Carbon\Carbon;
 
 class Account extends Authenticatable
 {
     use SoftDeletes,
+        PasswordResettable,
         PasswordHash,
         LastLogin,
         Picture,
@@ -113,31 +114,6 @@ class Account extends Authenticatable
     }
 
     /**
-     * Request password change on model
-     */
-    public function requestPasswordReset()
-    {
-        return $this->passwordResets()->create([
-            'token' => str_random(16),
-            'expires_at' => Carbon::now()->addMinutes(30)
-        ]);
-    }
-
-    /**
-     * Find password reset request
-     * 
-     * @param  string $id    Request ID
-     * @param  string $token Request token
-     * @return AccountPasswordReset
-     */
-    public function findPasswordResetRequest($token)
-    {
-        return $this->passwordResets()
-            ->where('token', $token)
-            ->first();
-    }
-
-    /**
      * Check if account has permission of id
      * 
      * @param  [type] $permission Permission id
@@ -176,13 +152,5 @@ class Account extends Authenticatable
     public function logs()
     {
         return $this->hasMany(AccountLog::class);
-    }
-
-    /**
-     * Get password resets
-     */
-    public function passwordResets()
-    {
-        return $this->hasMany(AccountPasswordReset::class);
     }
 }

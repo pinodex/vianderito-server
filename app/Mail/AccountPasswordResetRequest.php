@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
-use App\Models\AccountPasswordReset;
+use App\Models\PasswordReset;
 use App\Models\Account;
 
 class AccountPasswordResetRequest extends Mailable
@@ -29,7 +29,7 @@ class AccountPasswordResetRequest extends Mailable
 
     /**
      * Password reset model
-     * @var AccountPasswordReset
+     * @var PasswordReset
      */
     private $passwordReset;
 
@@ -44,7 +44,7 @@ class AccountPasswordResetRequest extends Mailable
      *
      * @return void
      */
-    public function __construct(Request $request, Account $account, AccountPasswordReset $passwordReset)
+    public function __construct(Request $request, Account $account, PasswordReset $passwordReset)
     {
         $this->request = $request;
         $this->account = $account;

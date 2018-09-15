@@ -8,7 +8,7 @@ use App\Scopes\OrderByCreateScope;
 use Webpatser\Uuid\Uuid;
 use Carbon\Carbon;
 
-class AccountPasswordReset extends Model
+class PasswordReset extends Model
 {
     use SoftDeletes;
 
@@ -45,10 +45,10 @@ class AccountPasswordReset extends Model
     }
 
     /**
-     * Related Account model
+     * Related model
      */
-    public function account()
+    public function entity()
     {
-        return $this->belongsTo(Account::class);
+        return $this->morphTo();
     }
 }
