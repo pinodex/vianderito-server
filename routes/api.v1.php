@@ -29,14 +29,30 @@ Route::group(['prefix' => 'auth'], function () {
 
 });
 
+Route::group(['prefix' => 'password', 'namespace' => 'Password'], function () {
+
+    Route::post('reset/{user}', 'MainController@reset');
+
+    Route::group(['prefix' => 'request_reset'], function () {
+
+        Route::group(['prefix' => 'sms'], function () {
+            Route::post('start', 'SmsResetController@start');
+            Route::post('token', 'SmsResetController@token');
+        });
+
+        Route::group(['prefix' => 'email'], function () {
+            Route::post('start', 'EmailResetController@start');
+        });
+
+    });
+
+});
+
 Route::group(['prefix' => 'profile'], function () {
 
     Route::get('/', 'ProfileController@index');
-
     Route::put('/', 'ProfileController@save');
-
     Route::get('picture', 'ProfileController@picture');
-
     Route::post('picture', 'ProfileController@setPicture');
 
 });
