@@ -9,12 +9,14 @@ trait PasswordResettable
 {
     /**
      * Request password change on model
+     *
+     * @param int $validity Password token validity in minutes
      */
-    public function requestPasswordReset()
+    public function requestPasswordReset($validity = 30)
     {
         return $this->passwordResets()->create([
             'token' => str_random(16),
-            'expires_at' => Carbon::now()->addMinutes(30)
+            'expires_at' => Carbon::now()->addMinutes($validity)
         ]);
     }
 
@@ -29,6 +31,7 @@ trait PasswordResettable
     {
         return $this->passwordResets()
             ->where('token', $token)
+            ->where('expires_at', '>', Carbon::now())
             ->first();
     }
 

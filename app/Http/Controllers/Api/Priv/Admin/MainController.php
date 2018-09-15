@@ -135,12 +135,6 @@ class MainController extends Controller
             ], 403);
         }
 
-        if ($resetRequest->hasExpired()) {
-            return response()->json([
-                'message' => 'The password reset link has expired'
-            ], 403);
-        }
-
         $account->password = $data['new_password'];
         $account->save();
 
