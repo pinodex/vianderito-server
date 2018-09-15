@@ -62,7 +62,7 @@ class SmsResetController extends Controller
         $passwordReset = $user->requestPasswordReset();
 
         return [
-            'id' => $user->id, 
+            'user_id' => $user->id, 
             'token' => $passwordReset->token,
             'expires_at' => (string) $passwordReset->expires_at
         ];

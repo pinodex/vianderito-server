@@ -27,6 +27,8 @@ class EmailResetController extends Controller
 
         Mail::to($user)->send(new UserPasswordReset($passwordReset));
 
-        return response(null, 202);
+        return [
+            'user_id' => $user->id
+        ];
     }
 }
