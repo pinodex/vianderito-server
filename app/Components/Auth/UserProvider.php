@@ -38,11 +38,22 @@ class UserProvider implements BaseUserProvider
 
     public function retrieveByCredentials(array $credentials)
     {
-        return User::with($this->relations)
+        $query = User::with($this->relations)
             ->where('username', $credentials['id'])
-            ->orWhere('email_address', $credentials['id'])
-            ->orWhere('phone_number', $credentials['id'])
-            ->first();
+            ->orWhere('email_address', $credentials['id']);
+
+        $matches = [];
+
+        if (preg_match('/^(09|\+639)(\d{9})$/', $credentials['id'], $matches)) {
+            // Try to match against 09 and +63 formats of PH phone numbers
+            
+            if (count($matches) == 3) {
+                $query->orWhere('phone_number', '09' . $matches[2])
+                    ->orWhere('phone_number', '+63' . $matches[2]);
+            }
+        }
+
+        return $query->first();
     }
 
     public function validateCredentials(Authenticatable $user, array $credentials)
