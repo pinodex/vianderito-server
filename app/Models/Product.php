@@ -65,6 +65,21 @@ class Product extends Model
         return '/assets/img/generic-product-thumb.png';
     }
 
+    public function syncEpcs($epcs)
+    {
+        $models = [];
+
+        foreach ($epcs as $epc) {
+            $model = new ProductEpc;
+            $model->code = $epc['code'];
+            
+            $models[] = $model;
+        }
+
+        $this->epcs()->delete();
+        $this->epcs()->saveMany($models);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -78,6 +93,11 @@ class Product extends Model
     public function inventories()
     {
         return $this->hasMany(Inventory::class);
+    }
+
+    public function epcs()
+    {
+        return $this->hasMany(ProductEpc::class);
     }
 
     public function frontInventory()

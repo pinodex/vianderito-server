@@ -73,6 +73,8 @@ class ProductController extends Controller
      */
     public function view(Request $request, Model $model)
     {
+        $model->load('epcs');
+
         return $model;
     }
 
@@ -117,9 +119,11 @@ class ProductController extends Controller
      */
     public function create(SaveModel $request)
     {
-        $data = $request->only(['manufacturer_id', 'category_id', 'upc', 'name', 'description']);
+        $data = $request->only(['manufacturer_id', 'category_id', 'upc', 'name', 'description', 'epcs']);
 
         $model = Model::create($data);
+
+        $model->syncEpcs($data['epcs']);
 
         $this->admin->user()->log('products:create', [
             'name' => $model->name
@@ -137,10 +141,12 @@ class ProductController extends Controller
      */
     public function edit(SaveModel $request, Model $model)
     {
-        $data = $request->only(['manufacturer_id', 'category_id', 'upc', 'name', 'description']);
+        $data = $request->only(['manufacturer_id', 'category_id', 'upc', 'name', 'description', 'epcs']);
 
         $model->fill($data);
         $model->save();
+
+        $model->syncEpcs($data['epcs']);
 
         $this->admin->user()->log('products:edit', [
             'name' => $model->name

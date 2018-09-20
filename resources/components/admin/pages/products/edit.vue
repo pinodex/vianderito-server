@@ -36,17 +36,28 @@
         </form>
       </div>
     </div>
+
+    <b-modal :active.sync="manageEpcsModal" :width="400">
+      <div class="modal-box">
+        <h1 class="modal-header">Manage EPCs</h1>
+
+        <div class="modal-body">
+          <epcs :epcs="model.epcs"></epcs>
+        </div>
+      </div>
+    </b-modal>
   </section>
 </template>
 
 <script>
   import editor from '@admin/partials/products/editor'
   import productimage from '@admin/partials/products/image'
+  import epcs from '@admin/partials/products/epcs'
 
   export default {
     inject: ['$product'],
     
-    components: { editor, productimage },
+    components: { editor, productimage, epcs },
 
     data () {
       return {
@@ -55,7 +66,8 @@
 
         picture: null,
 
-        isFormLoading: false
+        isFormLoading: false,
+        manageEpcsModal: false
       }
     },
 
@@ -67,6 +79,12 @@
       this.$product.fetch(id)
         .then(response => this.model = response.data)
         .then(() => loadingComponent.close())
+
+      this.$root.$on('products:manage_epcs', () => this.manageEpcsModal = true)
+    },
+
+    beforeDestroy () {
+      this.$root.$off('products:manage_epcs')
     },
 
     methods: {

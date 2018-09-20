@@ -131,7 +131,7 @@
       refresh () {
         this.isLoading = true
 
-        this.query.with = 'category,manufacturer'
+        this.query.with = 'category,manufacturer,epcs'
 
         this.$product.get(this.query)
           .then(response => {

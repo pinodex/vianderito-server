@@ -12,16 +12,40 @@
       <p class="help is-danger" v-for="message in errors.name">{{ message }}</p>
     </div>
 
-    <div class="field">
-      <label class="label">UPC</label>
+    <div class="columns">
+      <div class="column">
+        <div class="field">
+          <label class="label">UPC</label>
 
-      <div class="control">
-        <input class="input" type="text" required
-          :class="{ 'is-danger': errors.upc }"
-          v-model="model.upc" />
+          <div class="control">
+            <input class="input" type="text" required
+              :class="{ 'is-danger': errors.upc }"
+              v-model="model.upc" />
+          </div>
+
+          <p class="help is-danger" v-for="message in errors.upc">{{ message }}</p>
+        </div>
       </div>
 
-      <p class="help is-danger" v-for="message in errors.upc">{{ message }}</p>
+      <div class="column">
+        <div class="field">
+          <label class="label">EPC</label>
+
+          <div class="control">
+            <button type="button" class="button is-inverted is-primary is-fullwidth" @click="manageEpcs">
+              <template v-if="model.epcs.length == 0">
+                Manage Product EPCs
+              </template>
+
+              <template v-else>
+                Manage Product EPCs ({{ model.epcs.length }})
+              </template>
+            </button>
+          </div>
+
+          <p class="help is-danger" v-for="message in errors.upc">{{ message }}</p>
+        </div>
+      </div>
     </div>
 
     <div class="field">
@@ -159,7 +183,11 @@
 
             this.isManufacturersLoading = false
           })
-      }, 500)
+      }, 500),
+
+      manageEpcs () {
+        this.$root.$emit('products:manage_epcs')
+      }
     }
   }
 </script>
