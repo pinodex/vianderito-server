@@ -12,6 +12,7 @@
         "jenssegers/agent": "^2.6",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "~1.0",
+        "pusher/pusher-php-server": "~3.0",
         "rcrowe/twigbridge": "^0.9.6",
         "s-ichikawa/laravel-sendgrid-driver": "^2.0",
         "sentry/sentry-laravel": "^0.10",

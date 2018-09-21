@@ -50,6 +50,21 @@ class Product extends Model
         });
     }
 
+    /**
+     * Get products by EPC
+     * 
+     * @param  array $codes Product EPCs
+     * @return array
+     */
+    public static function getProductsByEpcs($codes)
+    {
+        $epc = ProductEpc::with('product', 'product.frontInventory')
+            ->whereIn('code', $codes)
+            ->get();
+
+        return $epc;
+    }
+
     protected function getImageDimensions()
     {
         return [1280, 720];
@@ -65,6 +80,11 @@ class Product extends Model
         return '/assets/img/generic-product-thumb.png';
     }
 
+    /**
+     * Sync product to EPCs
+     * 
+     * @param  array $epcs Array of EPC codes
+     */
     public function syncEpcs($epcs)
     {
         $models = [];
