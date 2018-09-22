@@ -39,6 +39,10 @@ class DepartmentController extends Controller
             $models->with(explode(',', $relations));
         }
 
+        if ($request->input('trashed') == true) {
+            $models->onlyTrashed();
+        }
+
         $models->withCount('accounts');
 
         $result = $models->paginate(20);
@@ -133,6 +137,49 @@ class DepartmentController extends Controller
         $model->delete();
 
         $this->admin->user()->log('departments:delete', [
+            'name' => $model->name
+        ]);
+
+        return response('', 204);
+    }
+
+    /**
+     * Restore account action
+     * 
+     * @param  Request $request Request object
+     * @param  string   $id     Model id
+     * @return mixed
+     */
+    public function restore(Request $request, $id)
+    {
+        $model = Model::withTrashed()->findOrFail($id);
+
+        $model->restore();
+
+        $this->admin->user()->log('departments:restore', [
+            'name' => $model->name
+        ]);
+
+        return response('', 204);
+    }
+
+    /**
+     * Destroy account action
+     * 
+     * @param  Request $request Request object
+     * @param  string   $id     Model id
+     * @return mixed
+     */
+    public function destroy(Request $request, $id)
+    {
+        $model = Model::withTrashed()->findOrFail($id);
+
+        $model->accounts()->withTrashed()->update(['department_id' => null]);
+        $model->permissions()->sync([]);
+
+        $model->forceDelete();
+
+        $this->admin->user()->log('departments:destroy', [
             'name' => $model->name
         ]);
 

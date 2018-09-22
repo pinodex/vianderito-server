@@ -5,7 +5,10 @@
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <h1 class="title">Departments</h1>
+              <b-tabs @change="switchView">
+                <b-tab-item label="Departments"></b-tab-item>
+                <b-tab-item label="Archive"></b-tab-item>
+              </b-tabs>
             </div>
           </div>
 
@@ -123,6 +126,14 @@
       this.$root.$off('departments:query:clear')
       this.$root.$off('departments:edit')
       this.$root.$off('departments:edit_permissions')
+    },
+
+    methods: {
+      switchView (view) {
+        this.query.trashed = view
+
+        this.$root.$emit('departments:query')
+      }
     }
   }
 </script>

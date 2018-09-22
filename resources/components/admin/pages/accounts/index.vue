@@ -6,8 +6,8 @@
           <div class="level-left">
             <div class="level-item">
               <b-tabs @change="switchView">
-                <b-tab-item label="Accounts" icon="user"></b-tab-item>
-                <b-tab-item label="Archive" icon="trash-alt"></b-tab-item>
+                <b-tab-item label="Accounts"></b-tab-item>
+                <b-tab-item label="Archive"></b-tab-item>
               </b-tabs>
             </div>
           </div>

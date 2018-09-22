@@ -51,6 +51,9 @@ Route::group([
 
                 Route::patch('/{model}', 'DepartmentController@edit');
                 Route::delete('/{model}', 'DepartmentController@delete');
+
+                Route::post('/{model}/restore', 'DepartmentController@restore');
+                Route::post('/{model}/destroy', 'DepartmentController@destroy');
                 
                 Route::post('/{model}/avatar', 'DepartmentController@avatar');
                 Route::put('/{model}/permissions', 'DepartmentController@permissions');

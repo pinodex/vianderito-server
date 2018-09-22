@@ -1,6 +1,8 @@
 const ENDPOINT_GET = '/admin/departments',
       ENDPOINT_ALL = '/admin/departments/all',
       ENDPOINT_FETCH = '/admin/departments/{id}',
+      ENDPOINT_RESTORE = '/admin/departments/{id}/restore',
+      ENDPOINT_DESTROY = '/admin/departments/{id}/destroy',
       ENDPOINT_CREATE = '/admin/departments/create',
       ENDPOINT_SEARCH = '/admin/departments/search',
       ENDPOINT_PERMISSIONS = '/admin/departments/{id}/permissions'
@@ -37,6 +39,18 @@ export default class {
     let url = ENDPOINT_FETCH.formatUnicorn({ id })
     
     return this.$http.delete(url)
+  }
+
+  restore (id) {
+    let url = ENDPOINT_RESTORE.formatUnicorn({ id })
+
+    return this.$http.post(url)
+  }
+
+  destroy (id) {
+    let url = ENDPOINT_DESTROY.formatUnicorn({ id })
+
+    return this.$http.post(url)
   }
 
   setPermissions (id, ids = []) {

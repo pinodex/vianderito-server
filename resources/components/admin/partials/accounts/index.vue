@@ -102,7 +102,7 @@
             <p class="control">
               <a href="#" class="button is-small is-info"
                 @click.prevent="restoreModel(props.row)"
-                v-if="$root.can('edit_account')">
+                v-if="$root.can('delete_account')">
                   
                 <span class="icon is-small">
                   <i class="fa fa-check"></i>
