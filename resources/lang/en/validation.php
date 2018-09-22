@@ -92,6 +92,10 @@ return [
         'numeric' => 'The :attribute must be less than :value'
     ],
 
+    'gte' => [
+        'numeric' => 'The :attribute must be greater than or equal to :value'
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

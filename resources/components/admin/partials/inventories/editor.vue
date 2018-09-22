@@ -84,18 +84,38 @@
       </div>
     </div>
 
-    <div class="field">
-      <label class="label">Price</label>
+    <div class="columns">
+      <div class="column">
+        <div class="field">
+          <label class="label">Cost</label>
 
-      <div class="control">
-        <input class="input" type="text" required
-          :class="{ 'is-danger': errors.price }"
-          v-cleave="masks.numeral"
-          v-model="maskedPrice"
-          @input="e => model.price = e.target._vCleave.getRawValue()" />
+          <div class="control">
+            <input class="input" type="text" required
+              :class="{ 'is-danger': errors.cost }"
+              v-cleave="masks.numeral"
+              v-model="maskedCost"
+              @input="e => model.cost = String(e.target._vCleave.getRawValue())" />
+          </div>
+
+          <p class="help is-danger" v-for="message in errors.cost">{{ message }}</p>
+        </div>
       </div>
 
-      <p class="help is-danger" v-for="message in errors.price">{{ message }}</p>
+      <div class="column">
+        <div class="field">
+          <label class="label">Price</label>
+
+          <div class="control">
+            <input class="input" type="text" required
+              :class="{ 'is-danger': errors.price }"
+              v-cleave="masks.numeral"
+              v-model="maskedPrice"
+              @input="e => model.price = String(e.target._vCleave.getRawValue())" />
+          </div>
+
+          <p class="help is-danger" v-for="message in errors.price">{{ message }}</p>
+        </div>
+      </div>
     </div>
 
     <div class="columns">
@@ -165,6 +185,7 @@
         isProductsLoading: false,
 
         maskedPrice: '',
+        maskedCost: '',
 
         dates: {
           batch_date: null,
@@ -208,6 +229,12 @@
 
       if (this.model.price) {
         this.maskedPrice = this.model.price
+        this.model.price = String(this.model.price)
+      }
+
+      if (this.model.cost) {
+        this.maskedCost = this.model.cost
+        this.model.cost = String(this.model.cost)
       }
     },
 

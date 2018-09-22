@@ -37,6 +37,10 @@
         {{ props.row.stocks }}
       </b-table-column>
 
+      <b-table-column field="cost" label="Cost" class="has-text-right" sortable>
+        {{ props.row.cost | currency('₱') }}
+      </b-table-column>
+
       <b-table-column field="price" label="Price" class="has-text-right" sortable>
         {{ props.row.price | currency('₱') }}
       </b-table-column>

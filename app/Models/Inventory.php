@@ -20,6 +20,7 @@ class Inventory extends Model
         'eid',
         'stocks',
         'critical_stocks',
+        'cost',
         'price',
         'batch_date',
         'expiration_date'
@@ -30,6 +31,7 @@ class Inventory extends Model
     ];
 
     protected $casts = [
+        'cost' => 'float',
         'price' => 'float',
     ];
 

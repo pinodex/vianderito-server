@@ -93,7 +93,7 @@ class InventoryController extends Controller
     {
         $data = $request->only([
             'eid', 'product_id', 'stocks', 'critical_stocks',
-            'price', 'batch_date', 'expiration_date'
+            'cost', 'price', 'batch_date', 'expiration_date'
         ]);
 
         $model = Model::create($data);
@@ -118,7 +118,7 @@ class InventoryController extends Controller
     {
         $data = $request->only([
             'eid', 'product_id', 'stocks', 'critical_stocks',
-            'price', 'batch_date', 'expiration_date'
+            'cost', 'price', 'batch_date', 'expiration_date'
         ]);
 
         $model->fill($data);
