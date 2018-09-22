@@ -23,6 +23,8 @@
         :data="products"
         :loading="isProductsLoading"
         :open-on-focus="true"
+
+        @blur="validateProduct"
         @input="searchProduct"
         @select="option => model.product_id = option.id">
         
@@ -158,6 +160,8 @@
       return {
         product: '',
         products: [],
+        allProducts: [],
+
         isProductsLoading: false,
 
         maskedPrice: '',
@@ -189,7 +193,10 @@
 
     mounted () {
       this.$product.get({ with: PRODUCT_RELATIONS })
-        .then(response => this.products = response.data.data)
+        .then(response => {
+          this.products = response.data.data
+          this.allProducts = response.data.data
+        })
 
       if (this.model.batch_date) {
         this.dates.batch_date = this.parseDate(this.model.batch_date)
@@ -246,7 +253,13 @@
 
             this.isProductsLoading = false
           })
-      }, 500)
+      }, 500),
+
+      validateProduct () {
+        let product = this.allProducts.find(p => p.name == this.product)
+
+        this.model.product_id = product ? product.id : null
+      }
     }
   }
 </script>

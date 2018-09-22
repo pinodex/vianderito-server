@@ -71,6 +71,8 @@
         :data="suppliers"
         :loading="isSuppliersLoading"
         :open-on-focus="true"
+
+        @blur="validateSupplier"
         @input="searchSupplier"
         @select="option => model.supplier_id = option.id">
         
@@ -91,6 +93,8 @@
         :data="categories"
         :loading="isCategoriesLoading"
         :open-on-focus="true"
+
+        @blur="validateCategory"
         @input="searchCategory"
         @select="option => model.category_id = option.id">
         
@@ -124,6 +128,9 @@
         suppliers: [],
         categories: [],
 
+        allSuppliers: [],
+        allCategories: [],
+
         isSuppliersLoading: false,
         isCategoriesLoading: false,
 
@@ -133,10 +140,16 @@
 
     mounted () {
       this.$category.get()
-        .then(response => this.categories = response.data.data)
+        .then(response => {
+          this.categories = response.data.data
+          this.allCategories = response.data.data
+        })
 
       this.$supplier.get()
-        .then(response => this.suppliers = response.data.data)
+        .then(response => {
+          this.suppliers = response.data.data
+          this.allSuppliers = response.data.data
+        })
     },
 
     updated () {
@@ -184,6 +197,18 @@
             this.isSuppliersLoading = false
           })
       }, 500),
+
+      validateSupplier () {
+        let supplier = this.allSuppliers.find(s => s.name == this.supplier)
+
+        this.model.supplier_id = supplier ? supplier.id : null
+      },
+
+      validateCategory () {
+        let category = this.allCategories.find(s => s.name == this.category)
+
+        this.model.category_id = category ? category.id : null
+      },
 
       manageEpcs () {
         this.$root.$emit('products:manage_epcs')
