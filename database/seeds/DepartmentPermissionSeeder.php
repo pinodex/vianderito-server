@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Permission;
-use App\Models\Group;
+use App\Models\Department;
 
-class GroupPermissionSeeder extends Seeder
+class DepartmentPermissionSeeder extends Seeder
 {
     private $permissions = [
         'Sales & Marketing' => [
@@ -41,13 +41,13 @@ class GroupPermissionSeeder extends Seeder
     {
         $all = Permission::all()->pluck('id');
         
-        Group::where('name', 'Administrator')
+        Department::where('name', 'Administrator')
             ->first()
             ->permissions()
             ->sync($all);
 
-        foreach ($this->permissions as $groupName => $permissions) {
-            Group::where('name', $groupName)
+        foreach ($this->permissions as $departmentName => $permissions) {
+            Department::where('name', $departmentName)
                 ->first()
                 ->permissions()
                 ->sync($permissions);

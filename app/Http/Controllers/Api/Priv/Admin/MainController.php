@@ -151,6 +151,6 @@ class MainController extends Controller
      */
     public function permissions()
     {
-        return $this->admin->user()->group->permissions;
+        return $this->admin->user()->department->permissions;
     }
 }

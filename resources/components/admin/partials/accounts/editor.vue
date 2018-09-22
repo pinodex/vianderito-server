@@ -93,21 +93,21 @@
 
       <div class="field is-horizontal">
         <div class="field-label">
-          <label class="label">Group</label>
+          <label class="label">Department</label>
         </div>
 
         <div class="field-body">
           <div class="field">
-            <b-select name="group_id" v-model="model.group_id" expanded
-              :class="{ 'is-danger': errors.group_id }"
-              :loading="groupsLoading">
+            <b-select name="department_id" v-model="model.department_id" expanded
+              :class="{ 'is-danger': errors.department_id }"
+              :loading="departmentsLoading">
 
-              <option v-for="group in groups" :value="group.id">
-                {{ group.name }}
+              <option v-for="department in departments" :value="department.id">
+                {{ department.name }}
               </option>
             </b-select>
 
-            <p class="help is-danger" v-for="message in errors.group_id">{{ message }}</p>
+            <p class="help is-danger" v-for="message in errors.department_id">{{ message }}</p>
           </div>
         </div>
       </div>
@@ -164,14 +164,14 @@
 
 <script>
   export default {
-    inject: ['$group'],
+    inject: ['$department'],
 
     props: ['model', 'errors'],
 
     data () {
       return {
-        groups: [],
-        groupsLoading: true,
+        departments: [],
+        departmentsLoading: true,
 
         avatar: '/assets/img/default-avatar.png'
       }
@@ -182,9 +182,9 @@
         this.avatar = this.model.picture.image
       }
 
-      this.$group.all()
-        .then(response => this.groups = response.data)
-        .finally(() => this.groupsLoading = false)
+      this.$department.all()
+        .then(response => this.departments = response.data)
+        .finally(() => this.departmentsLoading = false)
     },
 
     methods: {

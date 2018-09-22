@@ -13,10 +13,10 @@ return [
     'accounts:enable' => 'Enable account :name',
     'accounts:disable' => 'Disable account :name',
 
-    'groups:create' => 'Created group :name',
-    'groups:edit' => 'Edited group :name',
-    'groups:set_permissions' => 'Set group permissions for :name',
-    'groups:delete' => 'Deleted group :name',
+    'departments:create' => 'Created department :name',
+    'departments:edit' => 'Edited department :name',
+    'departments:set_permissions' => 'Set department permissions for :name',
+    'departments:delete' => 'Deleted department :name',
 
     'categories:create' => 'Created category :name',
     'categories:edit' => 'Edited category :name',

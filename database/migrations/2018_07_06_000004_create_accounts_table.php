@@ -15,7 +15,7 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('group_id')->nullable();
+            $table->uuid('department_id')->nullable();
             $table->uuid('picture_id')->nullable();
 
             $table->string('first_name');
@@ -33,7 +33,7 @@ class CreateAccountsTable extends Migration
             $table->timestamp('last_login_at')->nullable();
             $table->softDeletes();
 
-            $table->foreign('group_id')->references('id')->on('groups');
+            $table->foreign('department_id')->references('id')->on('departments');
         });
     }
 

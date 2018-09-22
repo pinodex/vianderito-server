@@ -2,24 +2,18 @@
   <form @submit.prevent="submitRequest()">
     <editor :model="model" :errors="errors" />
 
-    <div class="level">
-      <div class="level-left"></div>
-      
-      <div class="level-right">
-        <div class="field">
-          <div class="control">
-            <button class="button is-fullwidth is-primary"
-              :disabled="isFormLoading"
-              :class="{ 'is-loading': isFormLoading }">
+    <div class="field">
+      <div class="control">
+        <button class="button is-primary is-fullwidth"
+          :disabled="isFormLoading"
+          :class="{ 'is-loading': isFormLoading }">
 
-              <span class="icon is-small">
-                <i class="fa fa-save"></i>
-              </span>
+          <span class="icon is-small">
+            <i class="fa fa-save"></i>
+          </span>
 
-              <span>Save Changes</span>
-            </button>
-          </div>
-        </div>
+          <span>Create Department</span>
+        </button>
       </div>
     </div>
   </form>
@@ -29,13 +23,14 @@
   import editor from './editor'
 
   export default {
-    inject: ['$group'],
+    inject: ['$department'],
     components: { editor },
-    props: ['model'],
 
     data () {
       return {
         isFormLoading: false,
+
+        model: {},
         errors: {}
       }
     },
@@ -45,16 +40,16 @@
         this.isFormLoading = true
         this.errors = {}
 
-        this.$group.update(this.model)
+        this.$department.create(this.model)
           .then(response => {
-            this.$root.$emit('groups:saved', this.model)
+            this.$root.$emit('departments:saved', this.model)
 
-            this.$parent.close()
-            
             this.$toast.open({
-              message: `Changes to ${this.model.name} has been saved`,
+              message: `${this.model.name} department has been added`,
               type: 'is-success'
             })
+
+            this.close()
           })
           .catch(error => {
             if (error.response.status == 422) {

@@ -2,18 +2,24 @@
   <form @submit.prevent="submitRequest()">
     <editor :model="model" :errors="errors" />
 
-    <div class="field">
-      <div class="control">
-        <button class="button is-primary is-fullwidth"
-          :disabled="isFormLoading"
-          :class="{ 'is-loading': isFormLoading }">
+    <div class="level">
+      <div class="level-left"></div>
+      
+      <div class="level-right">
+        <div class="field">
+          <div class="control">
+            <button class="button is-fullwidth is-primary"
+              :disabled="isFormLoading"
+              :class="{ 'is-loading': isFormLoading }">
 
-          <span class="icon is-small">
-            <i class="fa fa-save"></i>
-          </span>
+              <span class="icon is-small">
+                <i class="fa fa-save"></i>
+              </span>
 
-          <span>Create Group</span>
-        </button>
+              <span>Save Changes</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </form>
@@ -23,14 +29,13 @@
   import editor from './editor'
 
   export default {
-    inject: ['$group'],
+    inject: ['$department'],
     components: { editor },
+    props: ['model'],
 
     data () {
       return {
         isFormLoading: false,
-
-        model: {},
         errors: {}
       }
     },
@@ -40,16 +45,16 @@
         this.isFormLoading = true
         this.errors = {}
 
-        this.$group.create(this.model)
+        this.$department.update(this.model)
           .then(response => {
-            this.$root.$emit('groups:saved', this.model)
+            this.$root.$emit('departments:saved', this.model)
 
+            this.$parent.close()
+            
             this.$toast.open({
-              message: `${this.model.name} group has been added`,
+              message: `Changes to ${this.model.name} has been saved`,
               type: 'is-success'
             })
-
-            this.close()
           })
           .catch(error => {
             if (error.response.status == 422) {

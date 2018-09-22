@@ -18,12 +18,12 @@ class PermissionSeeder extends Seeder
         ],
 
         [
-            'name' => 'group',
+            'name' => 'department',
             'items' => [
-                'browse_groups' => ['Browse Groups', 'Allow browsing of groups'],
-                'create_group' => ['Create Group', 'Allow creation of group'],
-                'delete_group' => ['Delete Group', 'Allow deletion group'],
-                'edit_group' => ['Edit Group', 'Allow editing of group']
+                'browse_departments' => ['Browse Departments', 'Allow browsing of departments'],
+                'create_department' => ['Create Department', 'Allow creation of department'],
+                'delete_department' => ['Delete Department', 'Allow deletion department'],
+                'edit_department' => ['Edit Department', 'Allow editing of department']
             ]
         ],
 
@@ -97,12 +97,12 @@ class PermissionSeeder extends Seeder
     {
         $data = [];
 
-        foreach ($this->data as $group) {
-            foreach ($group['items'] as $id => $entry) {
+        foreach ($this->data as $department) {
+            foreach ($department['items'] as $id => $entry) {
                 $data[] = [
                     'id'            => $id,
                     'name'          => $entry[0],
-                    'category'      => $group['name'],
+                    'category'      => $department['name'],
                     'description'   => $entry[1]
                 ];
             }

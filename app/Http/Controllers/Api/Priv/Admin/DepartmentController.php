@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Api\Priv\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SaveGroup as SaveModel;
-use App\Models\Group as Model;
+use App\Http\Requests\SaveDepartment as SaveModel;
+use App\Models\Department as Model;
 
-class GroupController extends Controller
+class DepartmentController extends Controller
 {
     public function __construct()
     {
         parent::__construct();
 
         $this->acl([
-            'browse_groups'   => ['index', 'all'],
-            'create_group'    => ['create'],
-            'edit_group'      => ['edit', 'permissions'],
-            'delete_group'    => ['delete']
+            'browse_departments'   => ['index', 'all'],
+            'create_department'    => ['create'],
+            'edit_department'      => ['edit', 'permissions'],
+            'delete_department'    => ['delete']
         ]);
     }
 
@@ -69,7 +69,7 @@ class GroupController extends Controller
 
         $model = Model::create($data);
 
-        $this->admin->user()->log('groups:create', [
+        $this->admin->user()->log('departments:create', [
             'name' => $model->name
         ]);
 
@@ -90,7 +90,7 @@ class GroupController extends Controller
         $model->fill($data);
         $model->save();
 
-        $this->admin->user()->log('groups:edit', [
+        $this->admin->user()->log('departments:edit', [
             'name' => $model->name
         ]);
 
@@ -110,7 +110,7 @@ class GroupController extends Controller
 
         $model->permissions()->sync($ids);
 
-        $this->admin->user()->log('groups:set_permissions', [
+        $this->admin->user()->log('departments:set_permissions', [
             'name' => $model->name
         ]);
 
@@ -126,13 +126,13 @@ class GroupController extends Controller
      */
     public function delete(Request $request, Model $model)
     {
-        if ($model->id == $this->admin->user()->group->id) {
-            abort(422, 'You cannot delete your own group');
+        if ($model->id == $this->admin->user()->department->id) {
+            abort(422, 'You cannot delete your own department');
         }
 
         $model->delete();
 
-        $this->admin->user()->log('groups:delete', [
+        $this->admin->user()->log('departments:delete', [
             'name' => $model->name
         ]);
 

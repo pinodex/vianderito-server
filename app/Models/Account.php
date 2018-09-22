@@ -25,7 +25,7 @@ class Account extends Authenticatable
     public $incrementing = false;
 
     public $fillable = [
-        'group_id',
+        'department_id',
         'first_name',
         'middle_name',
         'last_name',
@@ -34,7 +34,7 @@ class Account extends Authenticatable
     ];
 
     public $with = [
-        'group'
+        'department'
     ];
 
     public $appends = [
@@ -122,10 +122,10 @@ class Account extends Authenticatable
     public function canDo($permission)
     {
         if (is_array($permission)) {
-            return $this->group->permissions()->whereIn('id', $permission)->first() != null;
+            return $this->department->permissions()->whereIn('id', $permission)->first() != null;
         }
 
-        return $this->group->permissions()->where('id', $permission)->first() != null;
+        return $this->department->permissions()->where('id', $permission)->first() != null;
     }
 
     /**
@@ -139,11 +139,11 @@ class Account extends Authenticatable
     }
 
     /**
-     * Get account group
+     * Get account department
      */
-    public function group()
+    public function department()
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsTo(Department::class);
     }
     
     /**

@@ -33,9 +33,9 @@ const router = new Router({
     },
 
     {
-      path: '/groups',
-      name: 'groups',
-      component: () => import('@admin/pages/groups/index')
+      path: '/departments',
+      name: 'departments',
+      component: () => import('@admin/pages/departments/index')
     },
 
     {

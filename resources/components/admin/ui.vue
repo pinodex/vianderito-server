@@ -127,10 +127,10 @@
           },
 
           {
-            route: { name: 'groups' },
+            route: { name: 'departments' },
             icon: 'fa fa-users',
-            text: 'Groups',
-            permissions: ['browse_groups']
+            text: 'Departments',
+            permissions: ['browse_departments']
           },
 
           {

@@ -38,7 +38,7 @@ class SaveAccount extends FormRequest
                 'email',
                 'unique:accounts,email'
             ],
-            'group_id'      => 'required|exists:groups,id'
+            'department_id'      => 'required|exists:departments,id'
         ];
 
         if ($model) {

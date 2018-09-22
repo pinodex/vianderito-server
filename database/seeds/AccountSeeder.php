@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Account;
-use App\Models\Group;
+use App\Models\Department;
 
 class AccountSeeder extends Seeder
 {
@@ -65,15 +65,15 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
-        foreach ($this->accounts as $groupName => $accounts) {
-            $group = Group::where('name', $groupName)->first();
+        foreach ($this->accounts as $departmentName => $accounts) {
+            $department = Department::where('name', $departmentName)->first();
 
             foreach ($accounts as $account) {
                 $account['require_password_change'] = false;
 
                 $model = Account::create($account);
 
-                $model->group()->associate($group);
+                $model->department()->associate($department);
                 $model->save();
             }
         }

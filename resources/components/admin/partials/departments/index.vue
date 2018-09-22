@@ -16,7 +16,7 @@
       </b-table-column>
       
       <b-table-column field="members" label="Members">
-        <router-link :to="{ name: 'accounts', query: { group_id: props.row.id } }">
+        <router-link :to="{ name: 'accounts', query: { department_id: props.row.id } }">
           {{ props.row.accounts_count }} {{ props.row.accounts_count | pluralize('member') }}
         </router-link>
       </b-table-column>
@@ -26,7 +26,7 @@
           <p class="control">
             <a href="#" class="button is-small"
               @click.prevent="editModel(props.row)"
-              v-if="$root.can('edit_group')">
+              v-if="$root.can('edit_department')">
                 
               <span class="icon is-small">
                 <i class="fa fa-edit"></i>
@@ -50,7 +50,7 @@
                 <div class="dropdown-content">
                   <a href="#" class="dropdown-item"
                     @click.prevent="editModelPermissions(props.row)"
-                    v-if="$root.can('edit_group')">
+                    v-if="$root.can('edit_department')">
                     
                     <span class="icon is-small">
                       <i class="fa fa-lock"></i>
@@ -61,7 +61,7 @@
 
                   <a href="#" class="dropdown-item"
                     @click.prevent="deleteModel(props.row)"
-                    v-if="$root.can('delete_group')">
+                    v-if="$root.can('delete_department')">
                     
                     <span class="icon is-small">
                       <i class="fa fa-trash"></i>
@@ -83,7 +83,7 @@
   let deferPageChange = false
 
   export default {
-    inject: ['$group'],
+    inject: ['$department'],
 
     props: {
       query: {
@@ -103,21 +103,21 @@
     mounted () {
       this.refresh()
 
-      this.$root.$on('groups:saved', model => this.refresh())
+      this.$root.$on('departments:saved', model => this.refresh())
 
-      this.$root.$on('groups:query', () => this.refresh())
+      this.$root.$on('departments:query', () => this.refresh())
     },
 
     beforeDestroy () {
-      this.$root.$off('groups:saved')
-      this.$root.$off('groups:query')
+      this.$root.$off('departments:saved')
+      this.$root.$off('departments:query')
     },
 
     methods: {
       refresh () {
         this.isLoading = true
 
-        this.$group.get(this.query)
+        this.$department.get(this.query)
           .then(response => {
             this._haltPageChangeEvent()
 
@@ -141,7 +141,7 @@
 
         this.isLoading = true
 
-        this.$group.get(query)
+        this.$department.get(query)
           .then(response => {
             this.result = response.data
           })
@@ -151,11 +151,11 @@
       },
 
       editModel (model) {
-        this.$root.$emit('groups:edit', model)
+        this.$root.$emit('departments:edit', model)
       },
 
       editModelPermissions (model) {
-        this.$root.$emit('groups:edit_permissions', model)
+        this.$root.$emit('departments:edit_permissions', model)
       },
 
       deleteModel (model) {
@@ -169,7 +169,7 @@
               this.result.data.splice(index, 1)
             }
 
-            this.$group.delete(model.id)
+            this.$department.delete(model.id)
               .then(response => {
                 this.$toast.open({
                   message: `${model.name} has been deleted`,

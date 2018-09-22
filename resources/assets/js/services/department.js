@@ -1,9 +1,9 @@
-const ENDPOINT_GET = '/admin/groups',
-      ENDPOINT_ALL = '/admin/groups/all',
-      ENDPOINT_FETCH = '/admin/groups/{id}',
-      ENDPOINT_CREATE = '/admin/groups/create',
-      ENDPOINT_SEARCH = '/admin/groups/search',
-      ENDPOINT_PERMISSIONS = '/admin/groups/{id}/permissions'
+const ENDPOINT_GET = '/admin/departments',
+      ENDPOINT_ALL = '/admin/departments/all',
+      ENDPOINT_FETCH = '/admin/departments/{id}',
+      ENDPOINT_CREATE = '/admin/departments/create',
+      ENDPOINT_SEARCH = '/admin/departments/search',
+      ENDPOINT_PERMISSIONS = '/admin/departments/{id}/permissions'
 
 export default class {
 

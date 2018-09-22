@@ -41,13 +41,13 @@
     </div>
 
     <div class="field">
-      <label class="label">Group</label>
+      <label class="label">Department</label>
       
       <div class="control">
         <div class="select is-fullwidth">
-          <select name="group_id" v-model="query.group_id" :disabled="groupsLoading">
-            <option v-for="group in groups" :value="group.id">
-              {{ group.name }}
+          <select name="department_id" v-model="query.department_id" :disabled="departmentsLoading">
+            <option v-for="department in departments" :value="department.id">
+              {{ department.name }}
             </option>
           </select>
         </div>
@@ -74,7 +74,7 @@
 
 <script>
   export default {
-    inject: ['$group'],
+    inject: ['$department'],
 
     props: {
       query: {
@@ -85,15 +85,15 @@
 
     data () {
       return {
-        groups: [],
-        groupsLoading: true
+        departments: [],
+        departmentsLoading: true
       }
     },
 
     mounted () {
-      this.$group.all()
-        .then(response => this.groups = response.data)
-        .finally(() => this.groupsLoading = false)
+      this.$department.all()
+        .then(response => this.departments = response.data)
+        .finally(() => this.departmentsLoading = false)
     },
 
     methods: {

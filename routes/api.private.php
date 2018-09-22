@@ -42,17 +42,17 @@ Route::group([
                 Route::post('/create', 'AccountController@create');
             });
 
-            Route::group(['as' => 'groups.', 'prefix' => 'groups'], function () {
-                Route::get('/', 'GroupController@index');
-                Route::get('/all', 'GroupController@all');
+            Route::group(['as' => 'departments.', 'prefix' => 'departments'], function () {
+                Route::get('/', 'DepartmentController@index');
+                Route::get('/all', 'DepartmentController@all');
 
-                Route::patch('/{model}', 'GroupController@edit');
-                Route::delete('/{model}', 'GroupController@delete');
+                Route::patch('/{model}', 'DepartmentController@edit');
+                Route::delete('/{model}', 'DepartmentController@delete');
                 
-                Route::post('/{model}/avatar', 'GroupController@avatar');
-                Route::put('/{model}/permissions', 'GroupController@permissions');
+                Route::post('/{model}/avatar', 'DepartmentController@avatar');
+                Route::put('/{model}/permissions', 'DepartmentController@permissions');
 
-                Route::post('/create', 'GroupController@create');
+                Route::post('/create', 'DepartmentController@create');
             });
 
             Route::group(['as' => 'permissions.', 'prefix' => 'permissions'], function () {

@@ -8,7 +8,7 @@ use App\Scopes\OrderByCreateScope;
 use App\Traits\Search;
 use Webpatser\Uuid\Uuid;
 
-class Group extends Model
+class Department extends Model
 {
     use SoftDeletes,
         Search;
@@ -42,7 +42,7 @@ class Group extends Model
 
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class, 'groups_permissions');
+        return $this->belongsToMany(Permission::class, 'departments_permissions');
     }
 
     public function accounts()

@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column is-4">
-      <div class="field-group has-contents-below">
+      <div class="field-department has-contents-below">
         <label class="label">Code</label>
 
         <div class="field has-addons">
@@ -142,7 +142,7 @@
           <supplierselector v-model="model.selections.suppliers"></supplierselector>
         </b-tab-item>
         
-        <b-tab-item label="Categories" icon="layer-group">
+        <b-tab-item label="Categories" icon="layer-department">
           <categoryselector v-model="model.selections.categories"></categoryselector>
         </b-tab-item>
         

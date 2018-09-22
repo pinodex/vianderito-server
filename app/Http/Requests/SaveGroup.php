@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaveGroup extends FormRequest
+class SaveDepartment extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,11 @@ class SaveGroup extends FormRequest
         $model = $this->route()->parameter('model');
 
         $rules = [
-            'name'    => 'required|unique:groups,name'
+            'name'    => 'required|unique:departments,name'
         ];
 
         if ($model) {
-            $rules['name'] = 'required|unique:groups,name,' . $model->id;
+            $rules['name'] = 'required|unique:departments,name,' . $model->id;
         }
 
         return $rules;

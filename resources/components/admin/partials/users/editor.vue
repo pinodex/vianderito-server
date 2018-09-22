@@ -143,7 +143,7 @@
   import phone from '@masks/phone'
 
   export default {
-    inject: ['$group'],
+    inject: ['$department'],
 
     props: ['model', 'errors'],
 
@@ -151,8 +151,8 @@
 
     data () {
       return {
-        groups: [],
-        groupsLoading: true,
+        departments: [],
+        departmentsLoading: true,
 
         masks: { phone },
         maskedPhoneNumber: '',
@@ -170,9 +170,9 @@
         this.maskedPhoneNumber = this.model.phone_number
       }
 
-      this.$group.all()
-        .then(response => this.groups = response.data)
-        .finally(() => this.groupsLoading = false)
+      this.$department.all()
+        .then(response => this.departments = response.data)
+        .finally(() => this.departmentsLoading = false)
     },
 
     methods: {

@@ -31,8 +31,8 @@
         </router-link>
       </b-table-column>
       
-      <b-table-column field="group" label="Group" sortable>
-        {{ props.row.group ? props.row.group.name : 'N/A' }}
+      <b-table-column field="department" label="Department" sortable>
+        {{ props.row.department ? props.row.department.name : 'N/A' }}
       </b-table-column>
       
       <b-table-column field="last_login_at" label="Last login at" sortable>
@@ -153,7 +153,7 @@
       refresh () {
         this.isLoading = true
 
-        this.query.with = 'group'
+        this.query.with = 'department'
 
         this.$account.get(this.query)
           .then(response => {

@@ -1,5 +1,5 @@
 <template>
-  <div class="field-group has-contents-below">
+  <div class="field-department has-contents-below">
     <div class="field">
       <label class="label">ID</label>
 

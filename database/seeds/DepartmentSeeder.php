@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Group;
+use App\Models\Department;
 
-class GroupSeeder extends Seeder
+class DepartmentSeeder extends Seeder
 {
-    private $groups = [
+    private $departments = [
         ['name' => 'Administrator'],
         ['name' => 'Sales & Marketing'],
         ['name' => 'Inventory Manager'],
@@ -20,8 +20,8 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        foreach ($this->groups as $group) {
-            Group::create($group);
+        foreach ($this->departments as $department) {
+            Department::create($department);
         }
     }
 }

@@ -44,15 +44,15 @@
               {{ account.last_login_at | moment('MMM DD, YYYY hh:mm A') }}
             </p>
 
-            <template v-if="account.group">
+            <template v-if="account.department">
               <hr />
 
               <p class="is-size-6 is-marginless has-text-dark">
-                <small><strong>Group</strong></small>
+                <small><strong>Department</strong></small>
               </p>
 
               <p class="is-size-6 has-contents-below">
-                {{ account.group.name }}
+                {{ account.department.name }}
               </p>
 
               <p class="is-size-6 is-marginless has-text-dark">
@@ -60,7 +60,7 @@
               </p>
 
               <ul class="is-size-6">
-                <li v-for="permission in account.group.permissions" :key="permission.id">
+                <li v-for="permission in account.department.permissions" :key="permission.id">
                   {{ permission.name }}
                 </li>
               </ul>

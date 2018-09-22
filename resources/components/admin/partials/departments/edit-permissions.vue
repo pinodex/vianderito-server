@@ -1,9 +1,9 @@
 <template>
   <section>
     <b-tabs>
-      <b-tab-item v-for="group in groups" :key="group" :label="group.toUpperCase()">
+      <b-tab-item v-for="department in departments" :key="department" :label="department.toUpperCase()">
         <b-table checkable
-          :data="permissions[group]"
+          :data="permissions[department]"
           :checked-rows.sync="model.permissions"
           :custom-is-checked="isChecked"
           :loading="isLoading">
@@ -49,12 +49,12 @@
 
 <script>
   export default {
-    inject: ['$permission', '$group'],
+    inject: ['$permission', '$department'],
     props: ['model'],
 
     data () {
       return {
-        groups: [],
+        departments: [],
         permissions: [],
         isLoading: false
       }
@@ -71,7 +71,7 @@
 
           this.permissions = data.groupBy('category')
 
-          this.groups = [...new Set(data.map(obj => obj.category))]
+          this.departments = [...new Set(data.map(obj => obj.category))]
 
           this.isLoading = false
         })
@@ -87,10 +87,10 @@
 
         let ids = this.model.permissions.map(item => item.id)
 
-        this.$group.setPermissions(this.model.id, ids)
+        this.$department.setPermissions(this.model.id, ids)
           .then(response => {
             this.$toast.open({
-              message: 'Changes to group permissions has been saved',
+              message: 'Changes to department permissions has been saved',
               type: 'is-success'
             })
             

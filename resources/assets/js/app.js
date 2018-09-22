@@ -92,7 +92,7 @@ const app = new Vue({
     },
 
     can (permission) {
-      if (!this.account.group) {
+      if (!this.account.department) {
         return false
       }
 
@@ -112,7 +112,7 @@ const app = new Vue({
         return false
       }
 
-      let index = this.account.group.permissions.findIndex(
+      let index = this.account.department.permissions.findIndex(
         item => item.id == permission)
 
       return index !== -1
