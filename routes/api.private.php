@@ -37,6 +37,9 @@ Route::group([
                 Route::post('/{model}/enable', 'AccountController@enable');
                 Route::post('/{model}/disable', 'AccountController@disable');
 
+                Route::post('/{model}/restore', 'AccountController@restore');
+                Route::post('/{model}/destroy', 'AccountController@destroy');
+
                 Route::get('/{model}/logs', 'AccountController@logs');
 
                 Route::post('/create', 'AccountController@create');

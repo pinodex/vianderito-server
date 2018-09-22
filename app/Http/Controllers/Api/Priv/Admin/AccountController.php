@@ -41,6 +41,10 @@ class AccountController extends Controller
             $models->with(explode(',', $relations));
         }
 
+        if ($request->input('trashed') == true) {
+            $models->onlyTrashed();
+        }
+
         $result = $models->paginate(20);
 
         return $result;
@@ -182,6 +186,8 @@ class AccountController extends Controller
         $this->admin->user()->log('accounts:enable', [
             'name' => $model->name
         ]);
+
+        return response('', 204);
     }
 
     /**
@@ -199,6 +205,8 @@ class AccountController extends Controller
         $this->admin->user()->log('accounts:disable', [
             'name' => $model->name
         ]);
+
+        return response('', 204);
     }
 
     /**
@@ -215,9 +223,48 @@ class AccountController extends Controller
         }
 
         $model->delete();
-        $model->deletePicture();
 
         $this->admin->user()->log('accounts:delete', [
+            'name' => $model->name
+        ]);
+
+        return response('', 204);
+    }
+
+    /**
+     * Restore account action
+     * 
+     * @param  Request $request Request object
+     * @param  string   $id     Model id
+     * @return mixed
+     */
+    public function restore(Request $request, $id)
+    {
+        $model = Model::withTrashed()->findOrFail($id);
+
+        $model->restore();
+
+        $this->admin->user()->log('accounts:restore', [
+            'name' => $model->name
+        ]);
+
+        return response('', 204);
+    }
+
+    /**
+     * Destroy account action
+     * 
+     * @param  Request $request Request object
+     * @param  string   $id     Model id
+     * @return mixed
+     */
+    public function destroy(Request $request, $id)
+    {
+        $model = Model::withTrashed()->findOrFail($id);
+
+        $model->forceDelete();
+
+        $this->admin->user()->log('accounts:destroy', [
             'name' => $model->name
         ]);
 

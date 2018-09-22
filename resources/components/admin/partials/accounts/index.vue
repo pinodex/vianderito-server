@@ -12,23 +12,7 @@
 
     <template slot-scope="props">
       <b-table-column field="name" label="Name" sortable>
-        <router-link class="media is-vcentered"
-          :to="{ name: 'accounts.view', params: { id: props.row.id }}">
-          <figure class="media-left">
-            <p class="image is-48x48 avatar">
-              <img :src="props.row.picture.thumbnail" />
-            </p>
-          </figure>
-
-          <div class="media-content">
-            <div class="content">
-              <p class="is-marginless">
-                <strong>{{ props.row.name }}</strong><br />
-                <small>@{{ props.row.username}}</small>
-              </p>
-            </div>
-          </div>
-        </router-link>
+        <name :model="props.row"></name>
       </b-table-column>
       
       <b-table-column field="department" label="Department" sortable>
@@ -48,78 +32,114 @@
       </b-table-column>
       
       <b-table-column class="is-fit">
-        <div class="field has-addons">
-          <p class="control">
-            <a href="#" class="button is-small"
-              @click.prevent="editModel(props.row)"
-              v-if="$root.can('edit_account')">
-                
-              <span class="icon is-small">
-                <i class="fa fa-edit"></i>
-              </span>
+        <template v-if="!props.row.deleted_at">
+          <div class="field has-addons">
+            <p class="control">
+              <a href="#" class="button is-small"
+                @click.prevent="editModel(props.row)"
+                v-if="$root.can('edit_account')">
+                  
+                <span class="icon is-small">
+                  <i class="fa fa-edit"></i>
+                </span>
 
-              <span>Edit</span>
-            </a>
-          </p>
-          <p class="control">
-            <div class="dropdown is-hoverable is-right">
-              <div class="dropdown-trigger">
-                <button class="button is-outlined is-small">
-                  <span class="icon is-small">
-                    <i class="fa fa-chevron-down"></i>
-                  </span>
-                </button>
-              </div>
-
-              <div class="dropdown-menu">
-                <div class="dropdown-content">
-                  <a href="#" class="dropdown-item"
-                    @click.prevent="enableModel(props.row)"
-                    v-if="$root.can('status_account') && !props.row.is_enabled">
-
+                <span>Edit</span>
+              </a>
+            </p>
+            <p class="control">
+              <div class="dropdown is-hoverable is-right">
+                <div class="dropdown-trigger">
+                  <button class="button is-outlined is-small">
                     <span class="icon is-small">
-                      <i class="fa fa-check"></i>
+                      <i class="fa fa-chevron-down"></i>
                     </span>
+                  </button>
+                </div>
 
-                    <span>Enable Account</span>
-                  </a>
+                <div class="dropdown-menu">
+                  <div class="dropdown-content">
+                    <a href="#" class="dropdown-item"
+                      @click.prevent="enableModel(props.row)"
+                      v-if="$root.can('status_account') && !props.row.is_enabled">
 
-                  <a href="#" class="dropdown-item"
-                    @click.prevent="disableModel(props.row)"
-                    v-if="$root.can('status_account') && props.row.is_enabled">
+                      <span class="icon is-small">
+                        <i class="fa fa-check"></i>
+                      </span>
 
-                    <span class="icon is-small">
-                      <i class="fa fa-times"></i>
-                    </span>
+                      <span>Enable Account</span>
+                    </a>
 
-                    <span>Disable Account</span>
-                  </a>
+                    <a href="#" class="dropdown-item"
+                      @click.prevent="disableModel(props.row)"
+                      v-if="$root.can('status_account') && props.row.is_enabled">
 
-                  <a href="#" class="dropdown-item"
-                    @click.prevent="deleteModel(props.row)"
-                    v-if="$root.can('delete_account')">
-                    
-                    <span class="icon is-small">
-                      <i class="fa fa-trash"></i>
-                    </span>
+                      <span class="icon is-small">
+                        <i class="fa fa-times"></i>
+                      </span>
 
-                    <span>Delete</span>
-                  </a>
+                      <span>Disable Account</span>
+                    </a>
+
+                    <a href="#" class="dropdown-item"
+                      @click.prevent="deleteModel(props.row)"
+                      v-if="$root.can('delete_account')">
+                      
+                      <span class="icon is-small">
+                        <i class="fa fa-trash"></i>
+                      </span>
+
+                      <span>Delete</span>
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </p>
-        </div>
+            </p>
+          </div>
+        </template>
+
+        <template v-else>
+          <div class="field is-grouped">
+            <p class="control">
+              <a href="#" class="button is-small is-info"
+                @click.prevent="restoreModel(props.row)"
+                v-if="$root.can('edit_account')">
+                  
+                <span class="icon is-small">
+                  <i class="fa fa-check"></i>
+                </span>
+
+                <span>Restore</span>
+              </a>
+            </p>
+
+             <p class="control">
+              <a href="#" class="button is-small is-danger"
+                @click.prevent="destroyModel(props.row)"
+                v-if="$root.can('delete_account')">
+                  
+                <span class="icon is-small">
+                  <i class="fa fa-trash-alt"></i>
+                </span>
+
+                <span>Destroy</span>
+              </a>
+            </p>
+          </div>
+        </template>
       </b-table-column>
     </template>
   </b-table>
 </template>
 
 <script>
+  import name from './name'
+
   let deferPageChange = false
 
   export default {
     inject: ['$account'],
+
+    components: { name },
 
     props: {
       query: {
@@ -256,6 +276,50 @@
                 
                 this.$toast.open({
                   message: `Account ${model.name} has been enabled`,
+                  type: 'is-success'
+                })
+              })
+          }
+        })
+      },
+
+      restoreModel (model) {
+        this.$dialog.confirm({
+          type: 'is-warning',
+          message: `Restore account ${model.name}?`,
+          onConfirm: () => {
+            let index = this.result.data.findIndex(a => a.id == model.id)
+
+            if (index > -1) {
+              this.result.data.splice(index, 1)
+            }
+            
+            this.$account.restore(model.id)
+              .then(response => {
+                this.$toast.open({
+                  message: `Account ${model.name} has been restored`,
+                  type: 'is-success'
+                })
+              })
+          }
+        })
+      },
+
+      destroyModel (model) {
+        this.$dialog.confirm({
+          type: 'is-danger',
+          message: `Delete account ${model.name} permanently?`,
+          onConfirm: () => { 
+            let index = this.result.data.findIndex(a => a.id == model.id)
+
+            if (index > -1) {
+              this.result.data.splice(index, 1)
+            }
+
+            this.$account.destroy(model.id)
+              .then(response => {                
+                this.$toast.open({
+                  message: `Account ${model.name} has been permanently deleted`,
                   type: 'is-success'
                 })
               })

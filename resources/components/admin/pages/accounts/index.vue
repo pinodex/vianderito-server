@@ -5,7 +5,10 @@
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <h1 class="title">Accounts</h1>
+              <b-tabs @change="switchView">
+                <b-tab-item label="Accounts" icon="user"></b-tab-item>
+                <b-tab-item label="Archive" icon="trash-alt"></b-tab-item>
+              </b-tabs>
             </div>
           </div>
 
@@ -123,7 +126,7 @@
         
         for (var key in this.query) {
           if (this.query.hasOwnProperty(key)) {
-            if (key == 'with') continue
+            if (key == 'with' || key == 'trashed') continue
 
             if (this.query[key].length > 0) {
               this.isSearchActive = true
@@ -145,6 +148,14 @@
       this.$root.$off('accounts:query:clear')
       
       this.$root.$off('accounts:edit')
+    },
+
+    methods: {
+      switchView (view) {
+        this.query.trashed = view
+
+        this.$root.$emit('accounts:query')
+      }
     }
   }
 </script>

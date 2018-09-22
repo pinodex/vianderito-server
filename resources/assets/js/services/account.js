@@ -4,6 +4,8 @@ const ENDPOINT_GET = '/admin/accounts',
       ENDPOINT_RESET = '/admin/accounts/{id}/reset_password',
       ENDPOINT_ENABLE = '/admin/accounts/{id}/enable',
       ENDPOINT_DISABLE = '/admin/accounts/{id}/disable',
+      ENDPOINT_RESTORE = '/admin/accounts/{id}/restore',
+      ENDPOINT_DESTROY = '/admin/accounts/{id}/destroy',
       ENDPOINT_LOGS = '/admin/accounts/{id}/logs',
       ENDPOINT_CREATE = '/admin/accounts/create',
       ENDPOINT_SEARCH = '/admin/accounts/search'
@@ -42,6 +44,18 @@ export default class {
     let url = ENDPOINT_FETCH.formatUnicorn({ id })
     
     return this.$http.delete(url)
+  }
+
+  restore (id) {
+    let url = ENDPOINT_RESTORE.formatUnicorn({ id })
+
+    return this.$http.post(url)
+  }
+
+  destroy (id) {
+    let url = ENDPOINT_DESTROY.formatUnicorn({ id })
+
+    return this.$http.post(url)
   }
 
   getLogs (id, params = {}) {
