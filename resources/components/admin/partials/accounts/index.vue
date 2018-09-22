@@ -12,7 +12,7 @@
 
     <template slot-scope="props">
       <b-table-column field="name" label="Name" sortable>
-        <name :model="props.row"></name>
+        <person :model="props.row"></person>
       </b-table-column>
       
       <b-table-column field="department" label="Department" sortable>
@@ -132,14 +132,14 @@
 </template>
 
 <script>
-  import name from './name'
+  import person from './person'
 
   let deferPageChange = false
 
   export default {
     inject: ['$account'],
 
-    components: { name },
+    components: { person },
 
     props: {
       query: {

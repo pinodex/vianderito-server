@@ -152,6 +152,9 @@ Route::group([
                 Route::get('/{model}', 'UserController@view');
                 Route::patch('/{model}', 'UserController@edit');
                 Route::delete('/{model}', 'UserController@delete');
+
+                Route::post('/{model}/restore', 'UserController@restore');
+                Route::post('/{model}/destroy', 'UserController@destroy');
                 
                 Route::post('/{model}/avatar', 'UserController@avatar');
                 Route::post('/{model}/reset_password', 'UserController@resetPassword');

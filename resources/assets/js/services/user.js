@@ -1,6 +1,8 @@
 const ENDPOINT_GET = '/admin/users',
       ENDPOINT_FETCH = '/admin/users/{id}',
       ENDPOINT_AVATAR = '/admin/users/{id}/avatar',
+      ENDPOINT_RESTORE = '/admin/users/{id}/restore',
+      ENDPOINT_DESTROY = '/admin/users/{id}/destroy',
       ENDPOINT_RESET = '/admin/users/{id}/reset_password',
       ENDPOINT_SEARCH = '/admin/users/search'
 
@@ -34,6 +36,18 @@ export default class {
     let url = ENDPOINT_FETCH.formatUnicorn({ id })
     
     return this.$http.delete(url)
+  }
+
+   restore (id) {
+    let url = ENDPOINT_RESTORE.formatUnicorn({ id })
+
+    return this.$http.post(url)
+  }
+
+  destroy (id) {
+    let url = ENDPOINT_DESTROY.formatUnicorn({ id })
+
+    return this.$http.post(url)
   }
 
   resetPassword (id) {

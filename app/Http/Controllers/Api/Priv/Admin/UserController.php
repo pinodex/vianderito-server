@@ -39,6 +39,10 @@ class UserController extends Controller
             $models->with(explode(',', $relations));
         }
 
+        if ($request->input('trashed') == true) {
+            $models->onlyTrashed();
+        }
+
         $result = $models->paginate(20);
 
         return $result;
@@ -95,6 +99,64 @@ class UserController extends Controller
         $model->save();
 
         $this->admin->user()->log('users:set_avatar', [
+            'name' => $model->name
+        ]);
+
+        return response('', 204);
+    }
+
+    /**
+     * Delete model action
+     * 
+     * @param  Request $request Request object
+     * @param  Model $model Model model
+     * @return mixed
+     */
+    public function delete(Request $request, Model $model)
+    {
+        $model->delete();
+
+        $this->admin->user()->log('users:delete', [
+            'name' => $model->name
+        ]);
+
+        return response('', 204);
+    }
+
+    /**
+     * Restore account action
+     * 
+     * @param  Request $request Request object
+     * @param  string   $id     Model id
+     * @return mixed
+     */
+    public function restore(Request $request, $id)
+    {
+        $model = Model::withTrashed()->findOrFail($id);
+
+        $model->restore();
+
+        $this->admin->user()->log('users:restore', [
+            'name' => $model->name
+        ]);
+
+        return response('', 204);
+    }
+
+    /**
+     * Destroy account action
+     * 
+     * @param  Request $request Request object
+     * @param  string   $id     Model id
+     * @return mixed
+     */
+    public function destroy(Request $request, $id)
+    {
+        $model = Model::withTrashed()->findOrFail($id);
+
+        $model->forceDelete();
+
+        $this->admin->user()->log('users:destroy', [
             'name' => $model->name
         ]);
 
