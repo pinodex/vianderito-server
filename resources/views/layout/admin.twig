@@ -29,6 +29,12 @@
 
   {% block foot %}{% endblock %}
 
+  <script>
+    var PUSHER = {
+      key: "{{ config('broadcasting.connections.pusher.key') }}"
+    }
+  </script>
+
   <script src="{{ mix('/assets/js/manifest.js') }}"></script>
   <script src="{{ mix('/assets/js/vendor.js') }}"></script>
   <script src="{{ mix('/assets/js/app.js') }}"></script>

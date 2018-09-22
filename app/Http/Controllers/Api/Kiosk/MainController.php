@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Kiosk;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Events\Kiosk\CartUpdate;
+use App\Events\TagReceive;
 use App\Models\Product;
 
 class MainController extends Controller
@@ -35,6 +36,24 @@ class MainController extends Controller
         $models = Product::getProductsByEpcs($epcs);
 
         event(new CartUpdate($models));
+        event(new TagReceive($epcs));
+
+        return response(null, 202);
+    }
+
+    /**
+     * Broadcast EPC
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
+    public function epcs(Request $request)
+    {
+        $ids = $request->input();
+
+        if (count($ids) > 0) {
+            event(new TagReceive($ids));
+        }
 
         return response(null, 202);
     }

@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import ProgressBar from 'vue-progressbar'
+import Pusher from 'pusher-js'
+import Echo from 'laravel-echo'
 import Moment from 'vue-moment'
 import Datetime from 'vue-datetime'
 import Filters from 'vue2-filters'
@@ -12,6 +14,14 @@ import services from './services'
 
 import './group-by'
 import '../../components/admin'
+
+window.Pusher = Pusher
+
+const echo = new Echo({
+  broadcaster: 'pusher',
+  key: PUSHER.key,
+  cluster: 'ap1'
+})
 
 require('promise.prototype.finally').shim()
 
@@ -34,6 +44,8 @@ Vue.use(Filters)
 Vue.prototype.$http = Axios.create({
   baseURL: '/papi/'
 })
+
+Vue.prototype.$echo = echo
 
 const app = new Vue({
   el: '#app',
