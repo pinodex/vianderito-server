@@ -126,6 +126,9 @@ Route::group([
                 Route::patch('/{model}', 'InventoryController@edit');
                 Route::delete('/{model}', 'InventoryController@delete');
 
+                Route::post('/{model}/restore', 'InventoryController@restore');
+                Route::post('/{model}/destroy', 'InventoryController@destroy');
+
                 Route::post('/create', 'InventoryController@create');
             });
 

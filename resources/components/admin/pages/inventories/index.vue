@@ -5,7 +5,10 @@
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <h1 class="title">Inventories</h1>
+              <b-tabs @change="switchView">
+                <b-tab-item label="Inventories"></b-tab-item>
+                <b-tab-item label="Archive"></b-tab-item>
+              </b-tabs>
             </div>
           </div>
 
@@ -115,6 +118,12 @@
     methods: {
       toggleSearch () {
         this.searchVisible = !this.searchVisible
+      },
+
+      switchView (view) {
+        this.query.trashed = view
+
+        this.$root.$emit('inventories:query')
       }
     }
   }

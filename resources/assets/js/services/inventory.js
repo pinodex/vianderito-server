@@ -1,6 +1,8 @@
 const ENDPOINT_GET = '/admin/inventories',
       ENDPOINT_GET_ID = '/admin/inventories/byId',
       ENDPOINT_FETCH = '/admin/inventories/{id}',
+      ENDPOINT_RESTORE = '/admin/inventories/{id}/restore',
+      ENDPOINT_DESTROY = '/admin/inventories/{id}/destroy',
       ENDPOINT_CREATE = '/admin/inventories/create',
       ENDPOINT_SEARCH = '/admin/inventories/search'
 
@@ -44,6 +46,18 @@ export default class {
     let url = ENDPOINT_FETCH.formatUnicorn({ id })
     
     return this.$http.delete(url)
+  }
+
+  restore (id) {
+    let url = ENDPOINT_RESTORE.formatUnicorn({ id })
+
+    return this.$http.post(url)
+  }
+
+  destroy (id) {
+    let url = ENDPOINT_DESTROY.formatUnicorn({ id })
+
+    return this.$http.post(url)
   }
 
 }
