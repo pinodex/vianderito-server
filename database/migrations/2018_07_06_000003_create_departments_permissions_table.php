@@ -19,8 +19,8 @@ class CreateDepartmentsPermissionsTable extends Migration
 
             $table->primary(['department_id', 'permission_id']);
 
-            $table->foreign('department_id')->references('id')->on('departments');
-            $table->foreign('permission_id')->references('id')->on('permissions');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
         });
     }
 

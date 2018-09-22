@@ -33,7 +33,7 @@ class CreateAccountsTable extends Migration
             $table->timestamp('last_login_at')->nullable();
             $table->softDeletes();
 
-            $table->foreign('department_id')->references('id')->on('departments');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');
         });
     }
 

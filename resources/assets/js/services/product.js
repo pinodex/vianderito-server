@@ -1,6 +1,8 @@
 const ENDPOINT_GET = '/admin/products',
       ENDPOINT_GET_ID = '/admin/products/byId',
       ENDPOINT_FETCH = '/admin/products/{id}',
+      ENDPOINT_RESTORE = '/admin/products/{id}/restore',
+      ENDPOINT_DESTROY = '/admin/products/{id}/destroy',
       ENDPOINT_PICTURE = '/admin/products/{id}/picture',
       ENDPOINT_CREATE = '/admin/products/create',
       ENDPOINT_SEARCH = '/admin/products/search'
@@ -45,6 +47,18 @@ export default class {
     let url = ENDPOINT_FETCH.formatUnicorn({ id })
     
     return this.$http.delete(url)
+  }
+
+  restore (id) {
+    let url = ENDPOINT_RESTORE.formatUnicorn({ id })
+
+    return this.$http.post(url)
+  }
+
+  destroy (id) {
+    let url = ENDPOINT_DESTROY.formatUnicorn({ id })
+
+    return this.$http.post(url)
   }
 
   setPicture(id, file) {

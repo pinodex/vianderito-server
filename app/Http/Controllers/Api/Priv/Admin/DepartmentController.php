@@ -174,9 +174,6 @@ class DepartmentController extends Controller
     {
         $model = Model::withTrashed()->findOrFail($id);
 
-        $model->accounts()->withTrashed()->update(['department_id' => null]);
-        $model->permissions()->sync([]);
-
         $model->forceDelete();
 
         $this->admin->user()->log('departments:destroy', [

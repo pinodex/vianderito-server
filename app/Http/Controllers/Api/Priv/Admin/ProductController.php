@@ -40,6 +40,10 @@ class ProductController extends Controller
             $models->with(explode(',', $relations));
         }
 
+        if ($request->input('trashed') == true) {
+            $models->onlyTrashed();
+        }
+
         $result = $models->paginate(20);
 
         return $result;
@@ -167,6 +171,46 @@ class ProductController extends Controller
         $model->delete();
 
         $this->admin->user()->log('products:delete', [
+            'name' => $model->name
+        ]);
+
+        return response('', 204);
+    }
+
+    /**
+     * Restore account action
+     * 
+     * @param  Request $request Request object
+     * @param  string   $id     Model id
+     * @return mixed
+     */
+    public function restore(Request $request, $id)
+    {
+        $model = Model::withTrashed()->findOrFail($id);
+
+        $model->restore();
+
+        $this->admin->user()->log('products:restore', [
+            'name' => $model->name
+        ]);
+
+        return response('', 204);
+    }
+
+    /**
+     * Destroy account action
+     * 
+     * @param  Request $request Request object
+     * @param  string   $id     Model id
+     * @return mixed
+     */
+    public function destroy(Request $request, $id)
+    {
+        $model = Model::withTrashed()->findOrFail($id);
+
+        $model->forceDelete();
+
+        $this->admin->user()->log('products:destroy', [
             'name' => $model->name
         ]);
 

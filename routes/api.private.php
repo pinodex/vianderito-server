@@ -75,6 +75,12 @@ Route::group([
                 Route::patch('/{model}', 'CategoryController@edit');
                 Route::delete('/{model}', 'CategoryController@delete');
 
+                Route::post('/{model}/restore', 'CategoryController@restore');
+                Route::post('/{model}/destroy', 'CategoryController@destroy');
+
+                Route::post('/{model}/restore', 'CategoryController@restore');
+                Route::post('/{model}/destroy', 'CategoryController@destroy');
+
                 Route::post('/create', 'CategoryController@create');
             });
 
@@ -87,6 +93,9 @@ Route::group([
 
                 Route::patch('/{model}', 'SupplierController@edit');
                 Route::delete('/{model}', 'SupplierController@delete');
+
+                Route::post('/{model}/restore', 'SupplierController@restore');
+                Route::post('/{model}/destroy', 'SupplierController@destroy');
 
                 Route::post('/create', 'SupplierController@create');
             });
@@ -101,6 +110,9 @@ Route::group([
 
                 Route::patch('/{model}', 'ProductController@edit');
                 Route::delete('/{model}', 'ProductController@delete');
+
+                Route::post('/{model}/restore', 'ProductController@restore');
+                Route::post('/{model}/destroy', 'ProductController@destroy');
 
                 Route::post('/create', 'ProductController@create');
             });

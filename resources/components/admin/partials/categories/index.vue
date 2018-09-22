@@ -15,52 +15,90 @@
       </b-table-column>
 
       <b-table-column field="name" label="Products" sortable>
-        <router-link :to="{ name: 'products', query: { category_id: props.row.id } }">
+        <template v-if="!props.row.deleted_at">
+          <router-link :to="{ name: 'products', query: { category_id: props.row.id } }">
+            {{ props.row.products_count }} {{ props.row.products_count | pluralize('product') }}
+          </router-link>
+        </template>
+
+        <template v-else>
           {{ props.row.products_count }} {{ props.row.products_count | pluralize('product') }}
-        </router-link>
+        </template>
       </b-table-column>
       
       <b-table-column class="is-fit">
-        <div class="field has-addons">
-          <p class="control">
-            <a href="#" class="button is-small"
-              @click.prevent="editModel(props.row)"
-              v-if="$root.can('edit_category')">
-                    
-              <span class="icon is-small">
-                <i class="fa fa-edit"></i>
-              </span>
+        <template v-if="!props.row.deleted_at">
+          <div class="field has-addons">
+            <p class="control">
+              <a href="#" class="button is-small"
+                @click.prevent="editModel(props.row)"
+                v-if="$root.can('edit_category')">
+                      
+                <span class="icon is-small">
+                  <i class="fa fa-edit"></i>
+                </span>
 
-              <span>Edit</span>
-            </a>
-          </p>
+                <span>Edit</span>
+              </a>
+            </p>
 
-          <p class="control">
-            <div class="dropdown is-hoverable is-right">
-              <div class="dropdown-trigger">
-                <button class="button is-outlined is-small">
-                  <span class="icon is-small">
-                    <i class="fa fa-chevron-down"></i>
-                  </span>
-                </button>
-              </div>
-
-              <div class="dropdown-menu">
-                <div class="dropdown-content">
-                  <a href="#" class="dropdown-item"
-                    @click.prevent="deleteModel(props.row)"
-                    v-if="$root.can('delete_category')">
+            <p class="control">
+              <div class="dropdown is-hoverable is-right">
+                <div class="dropdown-trigger">
+                  <button class="button is-outlined is-small">
                     <span class="icon is-small">
-                      <i class="fa fa-trash"></i>
+                      <i class="fa fa-chevron-down"></i>
                     </span>
+                  </button>
+                </div>
 
-                    <span>Delete</span>
-                  </a>
+                <div class="dropdown-menu">
+                  <div class="dropdown-content">
+                    <a href="#" class="dropdown-item"
+                      @click.prevent="deleteModel(props.row)"
+                      v-if="$root.can('delete_category')">
+                      <span class="icon is-small">
+                        <i class="fa fa-trash"></i>
+                      </span>
+
+                      <span>Delete</span>
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </p>
-        </div>
+            </p>
+          </div>
+        </template>
+
+        <template v-else>
+          <div class="field is-grouped">
+            <p class="control">
+              <a href="#" class="button is-small is-info"
+                @click.prevent="restoreModel(props.row)"
+                v-if="$root.can('delete_category')">
+                  
+                <span class="icon is-small">
+                  <i class="fa fa-check"></i>
+                </span>
+
+                <span>Restore</span>
+              </a>
+            </p>
+
+             <p class="control">
+              <a href="#" class="button is-small is-danger"
+                @click.prevent="destroyModel(props.row)"
+                v-if="$root.can('delete_category')">
+                  
+                <span class="icon is-small">
+                  <i class="fa fa-trash-alt"></i>
+                </span>
+
+                <span>Destroy</span>
+              </a>
+            </p>
+          </div>
+        </template>
       </b-table-column>
     </template>
   </b-table>
@@ -171,6 +209,50 @@
                   type: 'is-danger'
                 })
                 this.refresh()
+              })
+          }
+        })
+      },
+
+      restoreModel (model) {
+        this.$dialog.confirm({
+          type: 'is-warning',
+          message: `Restore category ${model.name}?`,
+          onConfirm: () => {
+            let index = this.result.data.findIndex(a => a.id == model.id)
+
+            if (index > -1) {
+              this.result.data.splice(index, 1)
+            }
+            
+            this.$category.restore(model.id)
+              .then(response => {
+                this.$toast.open({
+                  message: `Category ${model.name} has been restored`,
+                  type: 'is-success'
+                })
+              })
+          }
+        })
+      },
+
+      destroyModel (model) {
+        this.$dialog.confirm({
+          type: 'is-danger',
+          message: `Delete category ${model.name} permanently?`,
+          onConfirm: () => { 
+            let index = this.result.data.findIndex(a => a.id == model.id)
+
+            if (index > -1) {
+              this.result.data.splice(index, 1)
+            }
+
+            this.$category.destroy(model.id)
+              .then(response => {                
+                this.$toast.open({
+                  message: `Category ${model.name} has been permanently deleted`,
+                  type: 'is-success'
+                })
               })
           }
         })

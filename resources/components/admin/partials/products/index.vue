@@ -25,69 +25,109 @@
       </b-table-column>
 
       <b-table-column field="category" label="Category" sortable>
-        <router-link :to="{ name: 'categories', query: { id: props.row.category.id } }">
-          {{ props.row.category.name }}
-        </router-link>
+        <template v-if="props.row.category">
+          <router-link :to="{ name: 'categories', query: { id: props.row.category.id } }">
+            {{ props.row.category.name }}
+          </router-link>
+        </template>
+
+        <template v-else>N/A</template>
       </b-table-column>
 
       <b-table-column field="supplier" label="Supplier" sortable>
-        <router-link :to="{ name: 'suppliers', query: { id: props.row.supplier.id } }">
-          {{ props.row.supplier.name }}
-        </router-link>
+        <template v-if="props.row.supplier">
+          <router-link :to="{ name: 'suppliers', query: { id: props.row.supplier.id } }">
+            {{ props.row.supplier.name }}
+          </router-link>
+        </template>
+
+        <template v-else>N/A</template>
       </b-table-column>
       
       <b-table-column class="is-fit">
-        <div class="field has-addons">
-          <p class="control">
-            <router-link class="button is-small"
-              :to="{ name: 'products.edit', params: { id: props.row.id } }"
-              @click.prevent="editModel(props.row)"
-              v-if="$root.can('edit_product')">
-                    
-              <span class="icon is-small">
-                <i class="fa fa-edit"></i>
-              </span>
+        <template v-if="!props.row.deleted_at">
+          <div class="field has-addons">
+            <p class="control">
+              <router-link class="button is-small"
+                :to="{ name: 'products.edit', params: { id: props.row.id } }"
+                @click.prevent="editModel(props.row)"
+                v-if="$root.can('edit_product')">
+                      
+                <span class="icon is-small">
+                  <i class="fa fa-edit"></i>
+                </span>
 
-              <span>Edit</span>
-            </router-link>
-          </p>
+                <span>Edit</span>
+              </router-link>
+            </p>
 
-          <p class="control">
-            <div class="dropdown is-hoverable is-right">
-              <div class="dropdown-trigger">
-                <button class="button is-outlined is-small">
-                  <span class="icon is-small">
-                    <i class="fa fa-chevron-down"></i>
-                  </span>
-                </button>
-              </div>
-
-              <div class="dropdown-menu">
-                <div class="dropdown-content">
-                  <router-link class="dropdown-item"
-                    :to="{ name: 'inventories', query: { product_id: props.row.id } }"
-                    v-if="$root.can('browse_inventories')">
+            <p class="control">
+              <div class="dropdown is-hoverable is-right">
+                <div class="dropdown-trigger">
+                  <button class="button is-outlined is-small">
                     <span class="icon is-small">
-                      <i class="fa fa-boxes"></i>
+                      <i class="fa fa-chevron-down"></i>
                     </span>
+                  </button>
+                </div>
 
-                    <span>Inventories</span>
-                  </router-link>
+                <div class="dropdown-menu">
+                  <div class="dropdown-content">
+                    <router-link class="dropdown-item"
+                      :to="{ name: 'inventories', query: { product_id: props.row.id } }"
+                      v-if="$root.can('browse_inventories')">
+                      <span class="icon is-small">
+                        <i class="fa fa-boxes"></i>
+                      </span>
 
-                  <a href="#" class="dropdown-item"
-                    @click.prevent="deleteModel(props.row)"
-                    v-if="$root.can('delete_product')">
-                    <span class="icon is-small">
-                      <i class="fa fa-trash"></i>
-                    </span>
+                      <span>Inventories</span>
+                    </router-link>
 
-                    <span>Delete</span>
-                  </a>
+                    <a href="#" class="dropdown-item"
+                      @click.prevent="deleteModel(props.row)"
+                      v-if="$root.can('delete_product')">
+                      <span class="icon is-small">
+                        <i class="fa fa-trash"></i>
+                      </span>
+
+                      <span>Delete</span>
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </p>
-        </div>
+            </p>
+          </div>
+        </template>
+
+        <template v-else>
+          <div class="field is-grouped">
+            <p class="control">
+              <a href="#" class="button is-small is-info"
+                @click.prevent="restoreModel(props.row)"
+                v-if="$root.can('delete_product')">
+                  
+                <span class="icon is-small">
+                  <i class="fa fa-check"></i>
+                </span>
+
+                <span>Restore</span>
+              </a>
+            </p>
+
+             <p class="control">
+              <a href="#" class="button is-small is-danger"
+                @click.prevent="destroyModel(props.row)"
+                v-if="$root.can('delete_product')">
+                  
+                <span class="icon is-small">
+                  <i class="fa fa-trash-alt"></i>
+                </span>
+
+                <span>Destroy</span>
+              </a>
+            </p>
+          </div>
+        </template>
       </b-table-column>
     </template>
   </b-table>
@@ -200,6 +240,50 @@
                   type: 'is-danger'
                 })
                 this.refresh()
+              })
+          }
+        })
+      },
+
+      restoreModel (model) {
+        this.$dialog.confirm({
+          type: 'is-warning',
+          message: `Restore product ${model.name}?`,
+          onConfirm: () => {
+            let index = this.result.data.findIndex(a => a.id == model.id)
+
+            if (index > -1) {
+              this.result.data.splice(index, 1)
+            }
+            
+            this.$product.restore(model.id)
+              .then(response => {
+                this.$toast.open({
+                  message: `Product ${model.name} has been restored`,
+                  type: 'is-success'
+                })
+              })
+          }
+        })
+      },
+
+      destroyModel (model) {
+        this.$dialog.confirm({
+          type: 'is-danger',
+          message: `Delete product ${model.name} permanently?`,
+          onConfirm: () => { 
+            let index = this.result.data.findIndex(a => a.id == model.id)
+
+            if (index > -1) {
+              this.result.data.splice(index, 1)
+            }
+
+            this.$product.destroy(model.id)
+              .then(response => {                
+                this.$toast.open({
+                  message: `Product ${model.name} has been permanently deleted`,
+                  type: 'is-success'
+                })
               })
           }
         })

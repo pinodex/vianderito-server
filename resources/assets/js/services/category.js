@@ -1,6 +1,8 @@
 const ENDPOINT_GET = '/admin/categories',
       ENDPOINT_GET_ID = '/admin/categories/byId',
       ENDPOINT_FETCH = '/admin/categories/{id}',
+      ENDPOINT_RESTORE = '/admin/categories/{id}/restore',
+      ENDPOINT_DESTROY = '/admin/categories/{id}/destroy',
       ENDPOINT_CREATE = '/admin/categories/create',
       ENDPOINT_SEARCH = '/admin/categories/search'
 
@@ -44,6 +46,18 @@ export default class {
     let url = ENDPOINT_FETCH.formatUnicorn({ id })
     
     return this.$http.delete(url)
+  }
+
+  restore (id) {
+    let url = ENDPOINT_RESTORE.formatUnicorn({ id })
+
+    return this.$http.post(url)
+  }
+
+  destroy (id) {
+    let url = ENDPOINT_DESTROY.formatUnicorn({ id })
+
+    return this.$http.post(url)
   }
 
 }

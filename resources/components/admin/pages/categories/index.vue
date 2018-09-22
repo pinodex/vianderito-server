@@ -5,7 +5,10 @@
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <h1 class="title">Categories</h1>
+              <b-tabs @change="switchView">
+                <b-tab-item label="Categories"></b-tab-item>
+                <b-tab-item label="Archive"></b-tab-item>
+              </b-tabs>
             </div>
           </div>
 
@@ -105,6 +108,14 @@
       this.$root.$off('categories:query:clear')
 
       this.$root.$off('categories:edit')
+    },
+
+    methods: {
+      switchView (view) {
+        this.query.trashed = view
+
+        this.$root.$emit('categories:query')
+      }
     }
   }
 </script>

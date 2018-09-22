@@ -28,7 +28,7 @@ class CreateInventoryTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

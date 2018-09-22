@@ -39,6 +39,10 @@ class CategoryController extends Controller
             $models->with(explode(',', $relations));
         }
 
+        if ($request->input('trashed') == true) {
+            $models->onlyTrashed();
+        }
+
         $models->withCount('products');
 
         $result = $models->paginate(20);
@@ -140,6 +144,46 @@ class CategoryController extends Controller
         $model->delete();
 
         $this->admin->user()->log('categories:delete', [
+            'name' => $model->name
+        ]);
+
+        return response('', 204);
+    }
+
+    /**
+     * Restore account action
+     * 
+     * @param  Request $request Request object
+     * @param  string   $id     Model id
+     * @return mixed
+     */
+    public function restore(Request $request, $id)
+    {
+        $model = Model::withTrashed()->findOrFail($id);
+
+        $model->restore();
+
+        $this->admin->user()->log('category:restore', [
+            'name' => $model->name
+        ]);
+
+        return response('', 204);
+    }
+
+    /**
+     * Destroy account action
+     * 
+     * @param  Request $request Request object
+     * @param  string   $id     Model id
+     * @return mixed
+     */
+    public function destroy(Request $request, $id)
+    {
+        $model = Model::withTrashed()->findOrFail($id);
+
+        $model->forceDelete();
+
+        $this->admin->user()->log('category:destroy', [
             'name' => $model->name
         ]);
 

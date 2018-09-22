@@ -15,8 +15,8 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('supplier_id');
-            $table->uuid('category_id');
+            $table->uuid('supplier_id')->nullable();
+            $table->uuid('category_id')->nullable();
             $table->uuid('picture_id')->nullable();
             $table->char('upc', 15);
             $table->string('name');
@@ -25,8 +25,8 @@ class CreateProductsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('supplier_id')->references('id')->on('suppliers');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('set null');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
         });
     }
 
