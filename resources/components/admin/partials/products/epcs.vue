@@ -74,19 +74,16 @@
       return {
         model: {},
 
-        duplicateError: false,
-
-        kiosk: null
+        duplicateError: false
       }
     },
 
     mounted () {
-      this.kiosk = this.$echo.channel('general')
-
-      this.kiosk.listen('.tag.receive', items => items.forEach(code => {
-        if (this.epcs.findIndex(epc => epc.code == code) == -1)
-          this.epcs.push({ code })
-      }))
+      this.$echo.channel('general')
+        .listen('.tag.receive', items => items.forEach(code => {
+          if (this.epcs.findIndex(epc => epc.code == code) == -1)
+            this.epcs.push({ code })
+        }))
     },
 
     methods: {
