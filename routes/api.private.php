@@ -137,6 +137,9 @@ Route::group([
                 Route::patch('/{model}', 'CouponController@edit');
                 Route::delete('/{model}', 'CouponController@delete');
 
+                Route::post('/{model}/restore', 'CouponController@restore');
+                Route::post('/{model}/destroy', 'CouponController@destroy');
+
                 Route::post('/create', 'CouponController@create');
             });
 

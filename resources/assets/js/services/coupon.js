@@ -1,5 +1,7 @@
 const ENDPOINT_GET = '/admin/coupons',
       ENDPOINT_FETCH = '/admin/coupons/{id}',
+      ENDPOINT_RESTORE = '/admin/coupons/{id}/restore',
+      ENDPOINT_DESTROY = '/admin/coupons/{id}/destroy',
       ENDPOINT_CREATE = '/admin/coupons/create',
       ENDPOINT_SEARCH = '/admin/coupons/search'
 
@@ -37,6 +39,18 @@ export default class {
     let url = ENDPOINT_FETCH.formatUnicorn({ id })
     
     return this.$http.delete(url)
+  }
+
+  restore (id) {
+    let url = ENDPOINT_RESTORE.formatUnicorn({ id })
+
+    return this.$http.post(url)
+  }
+
+  destroy (id) {
+    let url = ENDPOINT_DESTROY.formatUnicorn({ id })
+
+    return this.$http.post(url)
   }
 
 }

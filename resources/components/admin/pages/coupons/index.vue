@@ -5,7 +5,10 @@
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <h1 class="title">Coupons</h1>
+              <b-tabs @change="switchView">
+                <b-tab-item label="Coupons"></b-tab-item>
+                <b-tab-item label="Archive"></b-tab-item>
+              </b-tabs>
             </div>
           </div>
 
@@ -61,6 +64,14 @@
 
     beforeDestroy () {
       this.$root.$off('coupons:query:clear')
+    },
+
+    methods: {
+      switchView (view) {
+        this.query.trashed = view
+
+        this.$root.$emit('coupons:query')
+      }
     }
   }
 </script>

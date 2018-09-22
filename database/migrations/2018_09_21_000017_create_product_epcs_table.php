@@ -19,7 +19,7 @@ class CreateProductEpcsTable extends Migration
 
             $table->primary(['product_id', 'code']);
             
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

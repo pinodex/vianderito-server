@@ -24,46 +24,78 @@
       </b-table-column>
       
       <b-table-column class="is-fit">
-        <div class="field has-addons">
-          <p class="control">
-            <router-link class="button is-small"
-              :to="{ name: 'coupons.edit', params: { id: props.row.id } }"
-              v-if="$root.can('edit_coupon')">
-                
-              <span class="icon is-small">
-                <i class="fa fa-edit"></i>
-              </span>
+        <template v-if="!props.row.deleted_at">
+          <div class="field has-addons">
+            <p class="control">
+              <router-link class="button is-small"
+                :to="{ name: 'coupons.edit', params: { id: props.row.id } }"
+                v-if="$root.can('edit_coupon')">
+                  
+                <span class="icon is-small">
+                  <i class="fa fa-edit"></i>
+                </span>
 
-              <span>Edit</span>
-            </router-link>
-          </p>
-          <p class="control">
-            <div class="dropdown is-hoverable is-right">
-              <div class="dropdown-trigger">
-                <button class="button is-outlined is-small">
-                  <span class="icon is-small">
-                    <i class="fa fa-chevron-down"></i>
-                  </span>
-                </button>
-              </div>
-
-              <div class="dropdown-menu">
-                <div class="dropdown-content">
-                  <a href="#" class="dropdown-item"
-                    @click.prevent="deleteModel(props.row)"
-                    v-if="$root.can('delete_coupon')">
-                    
+                <span>Edit</span>
+              </router-link>
+            </p>
+            <p class="control">
+              <div class="dropdown is-hoverable is-right">
+                <div class="dropdown-trigger">
+                  <button class="button is-outlined is-small">
                     <span class="icon is-small">
-                      <i class="fa fa-trash"></i>
+                      <i class="fa fa-chevron-down"></i>
                     </span>
+                  </button>
+                </div>
 
-                    <span>Delete</span>
-                  </a>
+                <div class="dropdown-menu">
+                  <div class="dropdown-content">
+                    <a href="#" class="dropdown-item"
+                      @click.prevent="deleteModel(props.row)"
+                      v-if="$root.can('delete_coupon')">
+                      
+                      <span class="icon is-small">
+                        <i class="fa fa-trash"></i>
+                      </span>
+
+                      <span>Delete</span>
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </p>
-        </div>
+            </p>
+          </div>
+        </template>
+
+        <template v-else>
+          <div class="field is-grouped">
+            <p class="control">
+              <a href="#" class="button is-small is-info"
+                @click.prevent="restoreModel(props.row)"
+                v-if="$root.can('delete_coupon')">
+                  
+                <span class="icon is-small">
+                  <i class="fa fa-check"></i>
+                </span>
+
+                <span>Restore</span>
+              </a>
+            </p>
+
+             <p class="control">
+              <a href="#" class="button is-small is-danger"
+                @click.prevent="destroyModel(props.row)"
+                v-if="$root.can('delete_coupon')">
+                  
+                <span class="icon is-small">
+                  <i class="fa fa-trash-alt"></i>
+                </span>
+
+                <span>Destroy</span>
+              </a>
+            </p>
+          </div>
+        </template>
       </b-table-column>
     </template>
   </b-table>
@@ -166,6 +198,50 @@
                   type: 'is-danger'
                 })
                 this.refresh()
+              })
+          }
+        })
+      },
+
+      restoreModel (model) {
+        this.$dialog.confirm({
+          type: 'is-warning',
+          message: `Restore coupon ${model.code}?`,
+          onConfirm: () => {
+            let index = this.result.data.findIndex(a => a.id == model.id)
+
+            if (index > -1) {
+              this.result.data.splice(index, 1)
+            }
+            
+            this.$coupon.restore(model.id)
+              .then(response => {
+                this.$toast.open({
+                  message: `Coupon ${model.code} has been restored`,
+                  type: 'is-success'
+                })
+              })
+          }
+        })
+      },
+
+      destroyModel (model) {
+        this.$dialog.confirm({
+          type: 'is-danger',
+          message: `Delete coupon ${model.code} permanently?`,
+          onConfirm: () => { 
+            let index = this.result.data.findIndex(a => a.id == model.id)
+
+            if (index > -1) {
+              this.result.data.splice(index, 1)
+            }
+
+            this.$coupon.destroy(model.id)
+              .then(response => {                
+                this.$toast.open({
+                  message: `Coupon ${model.code} has been permanently deleted`,
+                  type: 'is-success'
+                })
               })
           }
         })

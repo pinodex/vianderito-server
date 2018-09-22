@@ -19,8 +19,11 @@ class CreateCouponsSuppliersTable extends Migration
 
             $table->primary(['coupon_id', 'supplier_id']);
 
-            $table->foreign('coupon_id')->references('id')->on('coupons');
-            $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->foreign('coupon_id')->references('id')->on('coupons')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('supplier_id')->references('id')->on('suppliers')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
