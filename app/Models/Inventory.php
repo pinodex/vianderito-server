@@ -19,6 +19,7 @@ class Inventory extends Model
         'product_id',
         'eid',
         'stocks',
+        'critical_stocks',
         'price',
         'batch_date',
         'expiration_date'
