@@ -90,6 +90,8 @@
     },
 
     mounted () {
+      this.$root.setPageTitle('Categories')
+
       this.$root.$on('categories:query:clear', () => {
         this.query = {}
 

@@ -47,6 +47,10 @@
       }
     },
 
+    mounted () {
+      this.$root.setPageTitle('Create Coupon')
+    },
+
     methods: {
       submitRequest () {
         this.isFormLoading = true

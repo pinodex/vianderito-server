@@ -88,6 +88,8 @@
     },
 
     mounted () {
+      this.$root.setPageTitle('Products')
+
       this.$root.$on('products:query:clear', () => {
         this.isSearchActive = false
         this.searchVisible = false

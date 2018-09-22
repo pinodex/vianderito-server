@@ -83,6 +83,8 @@
     },
 
     mounted () {
+      this.$root.setPageTitle('Inventories')
+
       this.$root.$on('inventories:query:clear', () => {
         this.isSearchActive = false
         this.searchVisible = false

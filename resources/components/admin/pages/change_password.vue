@@ -94,6 +94,8 @@
     },
 
     mounted () {
+      this.$root.setPageTitle('Change Password')
+
       this.$watch(vm => [this.model.new_password,
         this.passwordConfirm].join(), val => {
 

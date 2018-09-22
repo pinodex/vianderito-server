@@ -114,6 +114,8 @@
     },
 
     mounted () {
+      this.$root.setPageTitle('Accounts')
+      
       this.$root.$on('accounts:query:clear', () => {
         this.query = {}
 

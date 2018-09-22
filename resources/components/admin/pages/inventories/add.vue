@@ -46,6 +46,10 @@
       }
     },
 
+    mounted () {
+      this.$root.setPageTitle('Add Inventory')
+    },
+
     methods: {
       imageInput (value) {
         this.picture = value[0]

@@ -86,6 +86,8 @@
     },
 
     mounted () {
+      this.$root.setPageTitle('Users')
+
       this.$root.$on('users:query:clear', () => {
         this.isSearchActive = false
         this.searchVisible = false

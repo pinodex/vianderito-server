@@ -74,6 +74,8 @@
     },
 
     mounted () {
+      this.$root.setPageTitle('Add Product')
+
       this.$root.$on('products:manage_epcs', () => this.manageEpcsModal = true)
     },
 

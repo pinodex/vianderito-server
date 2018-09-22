@@ -47,13 +47,18 @@
     },
 
     mounted () {
+      this.$root.setPageTitle('Edit Inventory')
+
       const loadingComponent = this.$loading.open()
 
       let id = this.$route.params.id
 
       this.$inventory.fetch(id)
-        .then(response => this.model = response.data)
-        .then(() => loadingComponent.close())
+        .then(response => {
+          loadingComponent.close()
+          
+          this.model = response.data
+        })
     },
 
     methods: {

@@ -113,6 +113,8 @@
     },
 
     mounted () {
+      this.$root.setPageTitle('Suppliers')
+
       this.$root.$on('suppliers:query:clear', () => {
         this.query = {}
 

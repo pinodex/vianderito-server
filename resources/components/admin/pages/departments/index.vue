@@ -102,6 +102,8 @@
     },
 
     mounted () {
+      this.$root.setPageTitle('Departments')
+
       this.$root.$on('departments:query:clear', () => {
         this.query = {}
 

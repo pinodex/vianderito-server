@@ -52,8 +52,13 @@
       let id = this.$route.params.id
 
       this.$coupon.fetch(id)
-        .then(response => this.model = response.data)
-        .then(() => loadingComponent.close())
+        .then(response => {
+          loadingComponent.close()
+
+          this.model = response.data
+
+          this.$root.setPageTitle(`Edit Coupon ${this.model.code}`)
+        })
     },
 
     methods: {

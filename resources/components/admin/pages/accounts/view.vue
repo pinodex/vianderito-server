@@ -98,8 +98,13 @@
       let id = this.$route.params.id
 
       this.$account.fetch(id)
-        .then(response => this.account = response.data)
-        .then(() => loadingComponent.close())
+        .then(response => {
+          this.account = response.data
+
+          this.$root.setPageTitle(this.account.name)
+
+          loadingComponent.close()
+        })
     }
   }
 </script>

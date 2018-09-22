@@ -69,8 +69,13 @@
       let id = this.$route.params.id
 
       this.$user.fetch(id)
-        .then(response => this.user = response.data)
-        .then(() => loadingComponent.close())
+        .then(response => {
+          loadingComponent.close()
+
+          this.user = response.data
+
+          this.$root.setPageTitle(this.user.name)
+        })
     }
   }
 </script>

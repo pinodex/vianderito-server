@@ -77,8 +77,13 @@
       let id = this.$route.params.id
 
       this.$product.fetch(id)
-        .then(response => this.model = response.data)
-        .then(() => loadingComponent.close())
+        .then(response => {
+          loadingComponent.close()
+
+          this.model = response.data
+
+          this.$root.setPageTitle(`Edit ${this.model.name}`)
+        })
 
       this.$root.$on('products:manage_epcs', () => this.manageEpcsModal = true)
     },

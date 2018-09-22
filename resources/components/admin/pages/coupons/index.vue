@@ -54,6 +54,8 @@
     },
 
     mounted () {
+      this.$root.setPageTitle('Coupons')
+
       this.$root.$on('coupons:query:clear', () => {
         this.query = {}
 
