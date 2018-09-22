@@ -141,10 +141,10 @@
           },
 
           {
-            route: { name: 'manufacturers' },
+            route: { name: 'suppliers' },
             icon: 'fa fa-industry',
-            text: 'Manufacturers',
-            permissions: ['browse_manufacturers']
+            text: 'Suppliers',
+            permissions: ['browse_suppliers']
           },
 
           {

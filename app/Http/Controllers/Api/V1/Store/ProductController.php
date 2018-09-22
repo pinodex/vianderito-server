@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $query = $request->only(
-            ['id', 'name', 'manufacturer_id', 'category_id', 'upc']
+            ['id', 'name', 'supplier_id', 'category_id', 'upc']
         );
 
         $perPage = (int) $request->input('per_page');

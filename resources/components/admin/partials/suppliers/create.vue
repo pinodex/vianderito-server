@@ -12,7 +12,7 @@
             <i class="fa fa-save"></i>
           </span>
 
-          <span>Add Manufacturer</span>
+          <span>Add Supplier</span>
         </button>
       </div>
     </div>
@@ -23,7 +23,7 @@
   import editor from './editor'
 
   export default {
-    inject: ['$manufacturer'],
+    inject: ['$supplier'],
     components: { editor },
 
     data () {
@@ -40,12 +40,12 @@
         this.isFormLoading = true
         this.errors = {}
 
-        this.$manufacturer.create(this.model)
+        this.$supplier.create(this.model)
           .then(response => {
-            this.$root.$emit('manufacturers:saved', this.model)
+            this.$root.$emit('suppliers:saved', this.model)
 
             this.$toast.open({
-              message: `${this.model.name} manufacturer has been added`,
+              message: `${this.model.name} supplier has been added`,
               type: 'is-success'
             })
 

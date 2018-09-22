@@ -31,7 +31,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $query = $request->only(
-            ['id', 'name', 'manufacturer_id', 'category_id', 'upc']
+            ['id', 'name', 'supplier_id', 'category_id', 'upc']
         );
 
         $models = Model::search($query);
@@ -119,7 +119,7 @@ class ProductController extends Controller
      */
     public function create(SaveModel $request)
     {
-        $data = $request->only(['manufacturer_id', 'category_id', 'upc', 'name', 'description', 'epcs']);
+        $data = $request->only(['supplier_id', 'category_id', 'upc', 'name', 'description', 'epcs']);
 
         $model = Model::create($data);
 
@@ -141,7 +141,7 @@ class ProductController extends Controller
      */
     public function edit(SaveModel $request, Model $model)
     {
-        $data = $request->only(['manufacturer_id', 'category_id', 'upc', 'name', 'description', 'epcs']);
+        $data = $request->only(['supplier_id', 'category_id', 'upc', 'name', 'description', 'epcs']);
 
         $model->fill($data);
         $model->save();

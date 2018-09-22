@@ -25,7 +25,7 @@ class ProductSeeder extends BaseSeeder
             }
 
             Product::create([
-                'manufacturer_id'   => $this->getManufacturerId($line[3]),
+                'supplier_id'   => $this->getSupplierId($line[3]),
                 'category_id'       => $this->getCategoryId($line[2]),
                 'name'              => $line[0],
                 'upc'               => $line[1]

@@ -80,10 +80,10 @@ Route::group(['prefix' => 'store', 'namespace' => 'Store'], function () {
         Route::get('/{model}', 'CategoryController@view');
     });
 
-    Route::group(['prefix' => 'manufacturers'], function () {
-        Route::get('/', 'ManufacturerController@index');
-        Route::get('/{model}', 'ManufacturerController@view');
-        Route::get('/code/{code}', 'ManufacturerController@viewCode');
+    Route::group(['prefix' => 'suppliers'], function () {
+        Route::get('/', 'SupplierController@index');
+        Route::get('/{model}', 'SupplierController@view');
+        Route::get('/code/{code}', 'SupplierController@viewCode');
     });
 
 });

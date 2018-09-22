@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Manufacturer;
+use App\Models\Supplier;
 
-class ManufacturerSeeder extends Seeder
+class SupplierSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class ManufacturerSeeder extends Seeder
      */
     public function run()
     {
-        $path = storage_path('data/manufacturers.csv');
+        $path = storage_path('data/suppliers.csv');
         $handle = fopen($path, 'r');
         $row = -1;
 
@@ -25,7 +25,7 @@ class ManufacturerSeeder extends Seeder
                 continue;
             }
 
-            Manufacturer::create([
+            Supplier::create([
                 'name' => $line[0],
                 'code' => $line[1]
             ]);

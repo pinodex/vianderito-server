@@ -1,8 +1,8 @@
-const ENDPOINT_GET = '/admin/manufacturers',
-      ENDPOINT_GET_ID = '/admin/manufacturers/byId',
-      ENDPOINT_FETCH = '/admin/manufacturers/{id}',
-      ENDPOINT_CREATE = '/admin/manufacturers/create',
-      ENDPOINT_SEARCH = '/admin/manufacturers/search'
+const ENDPOINT_GET = '/admin/suppliers',
+      ENDPOINT_GET_ID = '/admin/suppliers/byId',
+      ENDPOINT_FETCH = '/admin/suppliers/{id}',
+      ENDPOINT_CREATE = '/admin/suppliers/create',
+      ENDPOINT_SEARCH = '/admin/suppliers/search'
 
 export default class {
 

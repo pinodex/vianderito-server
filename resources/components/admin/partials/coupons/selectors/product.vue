@@ -22,7 +22,7 @@
 
               <div class="media-content">
                 <h1 class="is-size-6">{{ props.option.name }} 
-                  {{ props.option.manufacturer.name ? '(' + props.option.manufacturer.name + ')' : '' }}
+                  {{ props.option.supplier.name ? '(' + props.option.supplier.name + ')' : '' }}
                 </h1>
                 <p class="is-size-7">{{ props.option.upc }}</p>
                 <p class="is-size-7">
@@ -56,7 +56,7 @@
           </router-link>
         </b-table-column>
 
-        <b-table-column label="Category &amp; Manufacturer">
+        <b-table-column label="Category &amp; Supplier">
           <p>
             <router-link :to="{ name: 'categories', query: { id: props.row.category.id } }">
               {{ props.row.category.name }}
@@ -64,8 +64,8 @@
           </p>
 
           <p>
-            <router-link :to="{ name: 'manufacturers', query: { id: props.row.manufacturer.id } }">
-              {{ props.row.manufacturer.name }}
+            <router-link :to="{ name: 'suppliers', query: { id: props.row.supplier.id } }">
+              {{ props.row.supplier.name }}
             </router-link>
           </p>
         </b-table-column>
@@ -96,7 +96,7 @@
 <script>
   import debounce from 'debounce'
   
-  const PRODUCT_RELATIONS = 'category,manufacturer'
+  const PRODUCT_RELATIONS = 'category,supplier'
 
   export default {
     inject: ['$product'],

@@ -61,23 +61,23 @@
     </div>
 
     <div class="field">
-      <label class="label">Manufacturer</label>
+      <label class="label">Supplier</label>
 
       <b-autocomplete
-        v-model="manufacturer"
-        placeholder="Search for manufacturer"
+        v-model="supplier"
+        placeholder="Search for supplier"
         field="name"
         
-        :data="manufacturers"
-        :loading="isManufacturersLoading"
+        :data="suppliers"
+        :loading="isSuppliersLoading"
         :open-on-focus="true"
-        @input="searchManufacturer"
-        @select="option => model.manufacturer_id = option.id">
+        @input="searchSupplier"
+        @select="option => model.supplier_id = option.id">
         
-        <template slot="empty">No results for {{ manufacturer }}</template>
+        <template slot="empty">No results for {{ supplier }}</template>
       </b-autocomplete>
 
-      <p class="help is-danger" v-for="message in errors.manufacturer_id">{{ message }}</p>
+      <p class="help is-danger" v-for="message in errors.supplier_id">{{ message }}</p>
     </div>
 
     <div class="field">
@@ -112,19 +112,19 @@
   import debounce from 'debounce'
 
   export default {
-    inject: ['$manufacturer', '$category'],
+    inject: ['$supplier', '$category'],
 
     props: ['model', 'errors'],
 
     data () {
       return {
-        manufacturer: '',
+        supplier: '',
         category: '',
 
-        manufacturers: [],
+        suppliers: [],
         categories: [],
 
-        isManufacturersLoading: false,
+        isSuppliersLoading: false,
         isCategoriesLoading: false,
 
         isLoaded: false
@@ -135,17 +135,17 @@
       this.$category.get()
         .then(response => this.categories = response.data.data)
 
-      this.$manufacturer.get()
-        .then(response => this.manufacturers = response.data.data)
+      this.$supplier.get()
+        .then(response => this.suppliers = response.data.data)
     },
 
     updated () {
       if (this.isLoaded)
         return
 
-      if (this.model.manufacturer_id && !this.manufacturer) {
-        this.$manufacturer.fetch(this.model.manufacturer_id)
-          .then(response => this.manufacturer = response.data.name)
+      if (this.model.supplier_id && !this.supplier) {
+        this.$supplier.fetch(this.model.supplier_id)
+          .then(response => this.supplier = response.data.name)
       }
 
       if (this.model.category_id && !this.category) {
@@ -171,17 +171,17 @@
           })
       }, 500),
 
-      searchManufacturer: debounce(function () {
-        this.manufacturers = []
-        this.isManufacturersLoading = true
+      searchSupplier: debounce(function () {
+        this.suppliers = []
+        this.isSuppliersLoading = true
 
-        let name = this.manufacturer
+        let name = this.supplier
 
-        this.$manufacturer.get({ name })
+        this.$supplier.get({ name })
           .then(response => {
-            this.manufacturers = response.data.data
+            this.suppliers = response.data.data
 
-            this.isManufacturersLoading = false
+            this.isSuppliersLoading = false
           })
       }, 500),
 

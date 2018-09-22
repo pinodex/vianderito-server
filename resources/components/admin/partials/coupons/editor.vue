@@ -138,8 +138,8 @@
           <productselector v-model="model.selections.products"></productselector>
         </b-tab-item>
         
-        <b-tab-item label="Manufacturers" icon="industry">
-          <manufacturerselector v-model="model.selections.manufacturers"></manufacturerselector>
+        <b-tab-item label="Suppliers" icon="industry">
+          <supplierselector v-model="model.selections.suppliers"></supplierselector>
         </b-tab-item>
         
         <b-tab-item label="Categories" icon="layer-group">
@@ -180,13 +180,13 @@
   import numeral from '@masks/numeral'
 
   import productselector from './selectors/product'
-  import manufacturerselector from './selectors/manufacturer'
+  import supplierselector from './selectors/supplier'
   import categoryselector from './selectors/category'
   import inventoryselector from './selectors/inventory'
 
   export default {
     components: { productselector,
-      manufacturerselector, categoryselector, inventoryselector },
+      supplierselector, categoryselector, inventoryselector },
 
     directives: { cleave },
 

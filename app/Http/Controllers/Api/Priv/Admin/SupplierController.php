@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Api\Priv\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SaveManufacturer as SaveModel;
-use App\Models\Manufacturer as Model;
+use App\Http\Requests\SaveSupplier as SaveModel;
+use App\Models\Supplier as Model;
 
-class ManufacturerController extends Controller
+class SupplierController extends Controller
 {
     public function __construct()
     {
         parent::__construct();
 
         $this->acl([
-            'browse_manufacturers'  => ['index', 'all'],
-            'create_manufacturer'   => ['create'],
-            'edit_manufacturer'     => ['edit'],
-            'delete_manufacturer'   => ['delete']
+            'browse_suppliers'  => ['index', 'all'],
+            'create_supplier'   => ['create'],
+            'edit_supplier'     => ['edit'],
+            'delete_supplier'   => ['delete']
         ]);
     }
 
@@ -100,7 +100,7 @@ class ManufacturerController extends Controller
 
         $model = Model::create($data);
 
-        $this->admin->user()->log('manufacturers:create', [
+        $this->admin->user()->log('suppliers:create', [
             'name' => $model->name
         ]);
 
@@ -121,7 +121,7 @@ class ManufacturerController extends Controller
         $model->fill($data);
         $model->save();
 
-        $this->admin->user()->log('manufacturers:edit', [
+        $this->admin->user()->log('suppliers:edit', [
             'name' => $model->name
         ]);
 
@@ -139,7 +139,7 @@ class ManufacturerController extends Controller
     {
         $model->delete();
 
-        $this->admin->user()->log('manufacturers:delete', [
+        $this->admin->user()->log('suppliers:delete', [
             'name' => $model->name
         ]);
 

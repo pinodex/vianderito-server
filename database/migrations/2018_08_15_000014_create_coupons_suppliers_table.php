@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCouponsManufacturersTable extends Migration
+class CreateCouponsSuppliersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateCouponsManufacturersTable extends Migration
      */
     public function up()
     {
-        Schema::create('coupons_manufacturers', function (Blueprint $table) {
+        Schema::create('coupons_suppliers', function (Blueprint $table) {
             $table->uuid('coupon_id');
-            $table->uuid('manufacturer_id');
+            $table->uuid('supplier_id');
 
-            $table->primary(['coupon_id', 'manufacturer_id']);
+            $table->primary(['coupon_id', 'supplier_id']);
 
             $table->foreign('coupon_id')->references('id')->on('coupons');
-            $table->foreign('manufacturer_id')->references('id')->on('manufacturers');
+            $table->foreign('supplier_id')->references('id')->on('suppliers');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateCouponsManufacturersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coupons_manufacturers');
+        Schema::dropIfExists('coupons_suppliers');
     }
 }

@@ -30,9 +30,9 @@
         </router-link>
       </b-table-column>
 
-      <b-table-column field="manufacturer" label="Manufacturer" sortable>
-        <router-link :to="{ name: 'manufacturers', query: { id: props.row.manufacturer.id } }">
-          {{ props.row.manufacturer.name }}
+      <b-table-column field="supplier" label="Supplier" sortable>
+        <router-link :to="{ name: 'suppliers', query: { id: props.row.supplier.id } }">
+          {{ props.row.supplier.name }}
         </router-link>
       </b-table-column>
       
@@ -131,7 +131,7 @@
       refresh () {
         this.isLoading = true
 
-        this.query.with = 'category,manufacturer,epcs'
+        this.query.with = 'category,supplier,epcs'
 
         this.$product.get(this.query)
           .then(response => {

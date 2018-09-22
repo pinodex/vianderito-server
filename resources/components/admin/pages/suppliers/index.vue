@@ -5,14 +5,14 @@
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <h1 class="title">Manufacturers</h1>
+              <h1 class="title">Suppliers</h1>
             </div>
           </div>
 
           <div class="level-right">
-            <div class="level-item" v-if="$root.can('browse_manufacturers')">
+            <div class="level-item" v-if="$root.can('browse_suppliers')">
               <div class="field has-addons">
-                <namesearch :query="query" module="manufacturers"></namesearch>
+                <namesearch :query="query" module="suppliers"></namesearch>
 
                 <p class="control">
                   <button class="button is-rounded" type="button" title="More..." 
@@ -31,12 +31,12 @@
                 <p class="control">
                   <button class="button is-primary is-rounded"
                     @click="modal.create = true"
-                    v-if="$root.can('create_manufacturer')">
+                    v-if="$root.can('create_supplier')">
                     <span class="icon">
                       <i class="fa fa-plus"></i>
                     </span>
                     
-                    <span>Add Manufacturer</span>
+                    <span>Add Supplier</span>
                   </button>
                 </p>
               </div>
@@ -44,13 +44,13 @@
           </div>
         </div>
 
-        <manufacturers :query="query"></manufacturers>
+        <suppliers :query="query"></suppliers>
       </div>
     </div>
 
     <b-modal :active.sync="modal.create" :width="400">
       <div class="modal-box">
-        <h1 class="modal-header">Add Manufacturer</h1>
+        <h1 class="modal-header">Add Supplier</h1>
 
         <div class="modal-body">
           <create></create>
@@ -60,7 +60,7 @@
 
     <b-modal :active.sync="modal.edit" :width="400">
       <div class="modal-box">
-        <h1 class="modal-header">Edit Manufacturer</h1>
+        <h1 class="modal-header">Edit Supplier</h1>
 
         <div class="modal-body">
           <edit :model="mountedModel"></edit>
@@ -70,7 +70,7 @@
 
     <b-modal :active.sync="searchVisible" :width="360">
       <div class="modal-box">
-        <h1 class="modal-header">Search Manufacturer</h1>
+        <h1 class="modal-header">Search Supplier</h1>
 
         <div class="modal-body">
           <search :query="query"></search>
@@ -81,15 +81,15 @@
 </template>
 
 <script>
-  import manufacturers from '@admin/partials/manufacturers/index'
-  import search from '@admin/partials/manufacturers/search'
-  import create from '@admin/partials/manufacturers/create'
-  import edit from '@admin/partials/manufacturers/edit'
+  import suppliers from '@admin/partials/suppliers/index'
+  import search from '@admin/partials/suppliers/search'
+  import create from '@admin/partials/suppliers/create'
+  import edit from '@admin/partials/suppliers/edit'
 
   import namesearch from '@admin/partials/namesearch'
 
   export default {
-    components: { manufacturers, search, create, edit, namesearch },
+    components: { suppliers, search, create, edit, namesearch },
 
     data () {
       return {
@@ -110,14 +110,14 @@
     },
 
     mounted () {
-      this.$root.$on('manufacturers:query:clear', () => {
+      this.$root.$on('suppliers:query:clear', () => {
         this.query = {}
 
         setTimeout(() => 
-          this.$root.$emit('manufacturers:query'), 1)
+          this.$root.$emit('suppliers:query'), 1)
       })
 
-      this.$root.$on('manufacturers:query', data => {
+      this.$root.$on('suppliers:query', data => {
         this.isSearchActive = false
         
         for (var key in this.query) {
@@ -133,7 +133,7 @@
         this.searchVisible = false
       })
 
-      this.$root.$on('manufacturers:edit', model => {
+      this.$root.$on('suppliers:edit', model => {
         this.modal.edit = true
 
         this.mountedModel = model
@@ -141,11 +141,11 @@
     },
 
     beforeDestroy () {
-      this.$root.$off('manufacturers:query')
+      this.$root.$off('suppliers:query')
 
-      this.$root.$off('manufacturers:query:clear')
+      this.$root.$off('suppliers:query:clear')
 
-      this.$root.$off('manufacturers:edit')
+      this.$root.$off('suppliers:edit')
     }
   }
 </script>

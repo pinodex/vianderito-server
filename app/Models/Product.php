@@ -19,7 +19,7 @@ class Product extends Model
     public $incrementing = false;
 
     public $fillable = [
-        'manufacturer_id',
+        'supplier_id',
         'category_id',
         'upc',
         'name',
@@ -105,9 +105,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function manufacturer()
+    public function supplier()
     {
-        return $this->belongsTo(Manufacturer::class);
+        return $this->belongsTo(Supplier::class);
     }
 
     public function inventories()

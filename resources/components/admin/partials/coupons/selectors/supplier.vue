@@ -3,7 +3,7 @@
     <form class="search-form">
       <div class="field">
         <b-autocomplete
-          placeholder="Search for manufacturer"
+          placeholder="Search for supplier"
           v-model="modelName"
           
           :data="models"
@@ -29,7 +29,7 @@
 
       <template slot-scope="props">
         <b-table-column label="Name">
-          <router-link :to="{ name: 'manufacturers', query: { id: props.row.id } }">
+          <router-link :to="{ name: 'suppliers', query: { id: props.row.id } }">
             <p>{{ props.row.name }}</p>
           </router-link>
         </b-table-column>
@@ -65,7 +65,7 @@
   import debounce from 'debounce'
 
   export default {
-    inject: ['$manufacturer'],
+    inject: ['$supplier'],
 
     props: ['value'],
 
@@ -96,11 +96,11 @@
     },
 
     mounted () {
-      this.$manufacturer.get()
+      this.$supplier.get()
         .then(response => this.models = response.data.data)
 
       if (this.value && this.value.length) {
-        this.$manufacturer.getById(this.value)
+        this.$supplier.getById(this.value)
           .then(response => this.selectedModels = response.data)
       }
     },
@@ -128,7 +128,7 @@
 
         let name = this.modelName
 
-        this.$manufacturer.get({ name })
+        this.$supplier.get({ name })
           .then(response => {
             this.models = response.data.data
 

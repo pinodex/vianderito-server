@@ -38,12 +38,12 @@ class PermissionSeeder extends Seeder
         ],
 
         [
-            'name' => 'manufacturer',
+            'name' => 'supplier',
             'items' => [
-                'browse_manufacturers' => ['Browse Manufacturers', 'Allow browsing of manufacturers'],
-                'create_manufacturer' => ['Create Manufacturer', 'Allow creation of manufacturer'],
-                'delete_manufacturer' => ['Delete Manufacturer', 'Allow deletion manufacturer'],
-                'edit_manufacturer' => ['Edit Manufacturer', 'Allow editing of manufacturer']
+                'browse_suppliers' => ['Browse Suppliers', 'Allow browsing of suppliers'],
+                'create_supplier' => ['Create Supplier', 'Allow creation of supplier'],
+                'delete_supplier' => ['Delete Supplier', 'Allow deletion supplier'],
+                'edit_supplier' => ['Edit Supplier', 'Allow editing of supplier']
             ]
         ],
 

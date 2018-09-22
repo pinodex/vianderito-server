@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaveManufacturer extends FormRequest
+class SaveSupplier extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +26,13 @@ class SaveManufacturer extends FormRequest
         $model = $this->route()->parameter('model');
 
         $rules = [
-            'name'    => 'required|unique:manufacturers,name',
-            'code'    => 'required|numeric|unique:manufacturers,code'
+            'name'    => 'required|unique:suppliers,name',
+            'code'    => 'required|numeric|unique:suppliers,code'
         ];
 
         if ($model) {
-            $rules['name'] = 'required|unique:manufacturers,name,' . $model->id;
-            $rules['code'] = 'required|numeric|unique:manufacturers,code,' . $model->id;
+            $rules['name'] = 'required|unique:suppliers,name,' . $model->id;
+            $rules['code'] = 'required|numeric|unique:suppliers,code,' . $model->id;
         }
 
         return $rules;

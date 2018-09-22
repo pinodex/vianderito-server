@@ -8,13 +8,13 @@ class GroupPermissionSeeder extends Seeder
 {
     private $permissions = [
         'Sales & Marketing' => [
-            'browse_products', 'browse_categories', 'browse_manufacturers', 'browse_inventories',
+            'browse_products', 'browse_categories', 'browse_suppliers', 'browse_inventories',
             'browse_coupons', 'create_coupon', 'delete_coupon', 'edit_coupon'
         ],
 
         'Inventory Manager' => [
             'browse_categories', 'create_category', 'delete_category', 'edit_category',
-            'browse_manufacturers', 'create_manufacturer', 'delete_manufacturer', 'edit_manufacturer',
+            'browse_suppliers', 'create_supplier', 'delete_supplier', 'edit_supplier',
             'browse_products', 'create_product', 'delete_product', 'edit_product',
             'browse_inventories', 'create_inventory', 'delete_inventory', 'edit_inventory'
         ],
@@ -26,7 +26,7 @@ class GroupPermissionSeeder extends Seeder
         'Audit' => [
             'browse_products',
             'browse_categories',
-            'browse_manufacturers',
+            'browse_suppliers',
             'browse_inventories',
             'browse_coupons'
         ]

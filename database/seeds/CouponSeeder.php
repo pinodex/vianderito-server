@@ -39,7 +39,7 @@ class CouponSeeder extends BaseSeeder
             
             $categories = [];
             $inventories = [];
-            $manufacturers = [];
+            $suppliers = [];
             $products = [];
 
             foreach (explode(' ', $line[9]) as $productUpc) {
@@ -48,14 +48,14 @@ class CouponSeeder extends BaseSeeder
                 }
             }
 
-            foreach (explode(' ', $line[10]) as $manufacturerCode) {
-                if ($id = $this->getManufacturerId($manufacturerCode)) {
-                    $manufacturers[] = $id;
+            foreach (explode(' ', $line[10]) as $supplierCode) {
+                if ($id = $this->getSupplierId($supplierCode)) {
+                    $suppliers[] = $id;
                 }
             }
 
             $model->products()->attach($products);
-            $model->manufacturers()->attach($manufacturers);
+            $model->suppliers()->attach($suppliers);
         }
     }
 }

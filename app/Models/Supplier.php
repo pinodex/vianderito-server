@@ -8,7 +8,7 @@ use App\Scopes\OrderByCreateScope;
 use Webpatser\Uuid\Uuid;
 use App\Traits\Search;
 
-class Manufacturer extends Model
+class Supplier extends Model
 {
     use SoftDeletes,
         Search;

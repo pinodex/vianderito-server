@@ -72,17 +72,17 @@ Route::group([
                 Route::post('/create', 'CategoryController@create');
             });
 
-            Route::group(['as' => 'manufacturers.', 'prefix' => 'manufacturers'], function () {
-                Route::get('/', 'ManufacturerController@index');
-                Route::get('/byId', 'ManufacturerController@byId');
-                Route::get('/all', 'ManufacturerController@all');
+            Route::group(['as' => 'suppliers.', 'prefix' => 'suppliers'], function () {
+                Route::get('/', 'SupplierController@index');
+                Route::get('/byId', 'SupplierController@byId');
+                Route::get('/all', 'SupplierController@all');
 
-                Route::get('/{model}', 'ManufacturerController@view');
+                Route::get('/{model}', 'SupplierController@view');
 
-                Route::patch('/{model}', 'ManufacturerController@edit');
-                Route::delete('/{model}', 'ManufacturerController@delete');
+                Route::patch('/{model}', 'SupplierController@edit');
+                Route::delete('/{model}', 'SupplierController@delete');
 
-                Route::post('/create', 'ManufacturerController@create');
+                Route::post('/create', 'SupplierController@create');
             });
 
             Route::group(['as' => 'products.', 'prefix' => 'products'], function () {

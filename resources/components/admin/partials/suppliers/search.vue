@@ -36,7 +36,7 @@
 
 <script>
   export default {
-    inject: ['$manufacturer'],
+    inject: ['$supplier'],
 
     props: {
       query: {
@@ -47,11 +47,11 @@
 
     methods: {
       clear () {
-        this.$root.$emit('manufacturers:query:clear')
+        this.$root.$emit('suppliers:query:clear')
       },
 
       search () {
-        this.$root.$emit('manufacturers:query', this.query)
+        this.$root.$emit('suppliers:query', this.query)
       }
     }
   }  

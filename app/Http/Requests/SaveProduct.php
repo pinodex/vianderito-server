@@ -27,7 +27,7 @@ class SaveProduct extends FormRequest
 
         $rules = [
             'name'              => 'required|unique:products,name',
-            'manufacturer_id'   => 'required|exists:manufacturers,id',
+            'supplier_id'   => 'required|exists:suppliers,id',
             'category_id'       => 'required|exists:categories,id',
             'upc'               => 'required|numeric|unique:products,upc'
         ];

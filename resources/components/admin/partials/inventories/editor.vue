@@ -36,7 +36,7 @@
 
             <div class="media-content">
               <h1 class="is-size-6">{{ props.option.name }} 
-                {{ props.option.manufacturer.name ? '(' + props.option.manufacturer.name + ')' : '' }}
+                {{ props.option.supplier.name ? '(' + props.option.supplier.name + ')' : '' }}
               </h1>
               <p class="is-size-7">{{ props.option.upc }}</p>
               <p class="is-size-7">
@@ -145,7 +145,7 @@
   import cleave from '@directives/cleave'
   import numeral from '@masks/numeral'
 
-  const PRODUCT_RELATIONS = 'category,manufacturer'
+  const PRODUCT_RELATIONS = 'category,supplier'
 
   export default {
     inject: ['$product'],

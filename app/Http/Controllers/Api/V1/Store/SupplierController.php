@@ -4,43 +4,43 @@ namespace App\Http\Controllers\Api\V1\Store;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Manufacturer;
+use App\Models\Supplier;
 
-class ManufacturerController extends Controller
+class SupplierController extends Controller
 {
     /**
-     * Manufacturer list
+     * Supplier list
      * 
      * @return mixed
      */
     public function index()
     {
-        $manufacturers = Manufacturer::query()->withCount('products');
+        $suppliers = Supplier::query()->withCount('products');
 
-        return $manufacturers->get();
+        return $suppliers->get();
     }
 
     /**
-     * View specific manufacturer
+     * View specific supplier
      * 
      * @param  Product $model Product model
      * @return Product
      */
-    public function view(Request $request, Manufacturer $model)
+    public function view(Request $request, Supplier $model)
     {
         return $model;
     }
 
     /**
-     * View specific manufacturer by code
+     * View specific supplier by code
      * 
      * @param  Product $model Product model
      * @return Product
      */
     public function viewCode(Request $request, $code)
     {
-        $manufacturer = Manufacturer::where('code', $code)->firstOrFail();
+        $supplier = Supplier::where('code', $code)->firstOrFail();
         
-        return $this->view($request, $manufacturer);
+        return $this->view($request, $supplier);
     }
 }

@@ -29,7 +29,7 @@
   import editor from './editor'
 
   export default {
-    inject: ['$manufacturer'],
+    inject: ['$supplier'],
     components: { editor },
     props: ['model'],
 
@@ -45,9 +45,9 @@
         this.isFormLoading = true
         this.errors = {}
 
-        this.$manufacturer.update(this.model)
+        this.$supplier.update(this.model)
           .then(response => {
-            this.$root.$emit('manufacturers:saved', this.model)
+            this.$root.$emit('suppliers:saved', this.model)
 
             this.$parent.close()
             

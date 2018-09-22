@@ -45,9 +45,9 @@ const router = new Router({
     },
 
     {
-      path: '/manufacturers',
-      name: 'manufacturers',
-      component: () => import('@admin/pages/manufacturers/index')
+      path: '/suppliers',
+      name: 'suppliers',
+      component: () => import('@admin/pages/suppliers/index')
     },
 
     {

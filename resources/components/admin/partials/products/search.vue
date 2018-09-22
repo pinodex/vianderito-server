@@ -17,20 +17,20 @@
     </div>
 
     <div class="field">
-      <label class="label">Manufacturer</label>
+      <label class="label">Supplier</label>
 
       <b-autocomplete
-        v-model="manufacturer"
-        placeholder="Search for manufacturer"
+        v-model="supplier"
+        placeholder="Search for supplier"
         field="name"
         
-        :data="manufacturers"
-        :loading="isManufacturersLoading"
+        :data="suppliers"
+        :loading="isSuppliersLoading"
         :open-on-focus="true"
-        @input="searchManufacturer"
-        @select="option => query.manufacturer_id = option.id">
+        @input="searchSupplier"
+        @select="option => query.supplier_id = option.id">
         
-        <template slot="empty">No results for {{ manufacturer }}</template>
+        <template slot="empty">No results for {{ supplier }}</template>
       </b-autocomplete>
     </div>
 
@@ -74,7 +74,7 @@
   import debounce from 'debounce'
 
   export default {
-    inject: ['$product', '$manufacturer', '$category'],
+    inject: ['$product', '$supplier', '$category'],
 
     props: {
       query: {
@@ -85,13 +85,13 @@
 
     data () {
       return {
-        manufacturer: '',
+        supplier: '',
         category: '',
 
-        manufacturers: [],
+        suppliers: [],
         categories: [],
 
-        isManufacturersLoading: false,
+        isSuppliersLoading: false,
         isCategoriesLoading: false
       }
     },
@@ -100,14 +100,14 @@
       this.$category.get()
         .then(response => this.categories = response.data.data)
 
-      this.$manufacturer.get()
-        .then(response => this.manufacturers = response.data.data)
+      this.$supplier.get()
+        .then(response => this.suppliers = response.data.data)
     },
 
     updated () {
-      if (this.query.manufacturer_id && !this.manufacturer) {
-        this.$manufacturer.fetch(this.query.manufacturer_id)
-          .then(response => this.manufacturer = response.data.name)
+      if (this.query.supplier_id && !this.supplier) {
+        this.$supplier.fetch(this.query.supplier_id)
+          .then(response => this.supplier = response.data.name)
       }
 
       if (this.query.category_id && !this.category) {
@@ -131,17 +131,17 @@
           })
       }, 500),
 
-      searchManufacturer: debounce(function () {
-        this.manufacturers = []
-        this.isManufacturersLoading = true
+      searchSupplier: debounce(function () {
+        this.suppliers = []
+        this.isSuppliersLoading = true
 
-        let name = this.manufacturer
+        let name = this.supplier
 
-        this.$manufacturer.get({ name })
+        this.$supplier.get({ name })
           .then(response => {
-            this.manufacturers = response.data.data
+            this.suppliers = response.data.data
 
-            this.isManufacturersLoading = false
+            this.isSuppliersLoading = false
           })
       }, 500),
 

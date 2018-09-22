@@ -35,7 +35,7 @@ class Coupon extends Model
 
     protected $selectables = [
         'products',
-        'manufacturers',
+        'suppliers',
         'inventories',
         'categories'
     ];
@@ -97,13 +97,13 @@ class Coupon extends Model
     }
 
     /**
-     * Manufacturer relation
+     * Supplier relation
      * 
      * @return BelongsToMany
      */
-    public function manufacturers()
+    public function suppliers()
     {
-        return $this->belongsToMany(Manufacturer::class, 'coupons_manufacturers');
+        return $this->belongsToMany(Supplier::class, 'coupons_suppliers');
     }
 
     /**

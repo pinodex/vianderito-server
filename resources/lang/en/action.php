@@ -22,9 +22,9 @@ return [
     'categories:edit' => 'Edited category :name',
     'categories:delete' => 'Deleted category :name',
 
-    'manufacturers:create' => 'Created manufacturer :name',
-    'manufacturers:edit' => 'Edited manufacturer :name',
-    'manufacturers:delete' => 'Deleted manufacturer :name',
+    'suppliers:create' => 'Created supplier :name',
+    'suppliers:edit' => 'Edited supplier :name',
+    'suppliers:delete' => 'Deleted supplier :name',
 
     'products:create' => 'Created product :name',
     'products:edit' => 'Edited product :name',

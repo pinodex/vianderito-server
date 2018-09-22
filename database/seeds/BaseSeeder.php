@@ -1,31 +1,31 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Manufacturer;
+use App\Models\Supplier;
 use App\Models\Category;
 use App\Models\Product;
 
 class BaseSeeder extends Seeder {
 
-    protected $manufacturerMap = [];
+    protected $supplierMap = [];
 
     protected $categoryMap = [];
 
     protected $productMap = [];
 
-    protected function getManufacturerId($key)
+    protected function getSupplierId($key)
     {
-        if (array_key_exists($key, $this->manufacturerMap)) {
-            return $this->manufacturerMap[$key];
+        if (array_key_exists($key, $this->supplierMap)) {
+            return $this->supplierMap[$key];
         }
 
-        $query = Manufacturer::query()
+        $query = Supplier::query()
             ->where('name', $key)
             ->orWhere('code', $key)
             ->first();
 
         if ($query) {
-            return $this->manufacturerMap[$key] = $query->id;
+            return $this->supplierMap[$key] = $query->id;
         }
 
         return null;

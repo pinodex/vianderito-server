@@ -19,7 +19,7 @@
       </b-table-column>
 
       <b-table-column field="name" label="Products" sortable>
-        <router-link :to="{ name: 'products', query: { manufacturer_id: props.row.id } }">
+        <router-link :to="{ name: 'products', query: { supplier_id: props.row.id } }">
           {{ props.row.products_count }} {{ props.row.products_count | pluralize('product') }}
         </router-link>
       </b-table-column>
@@ -29,7 +29,7 @@
           <p class="control">
             <a href="#" class="button is-small"
               @click.prevent="editModel(props.row)"
-              v-if="$root.can('edit_manufacturer')">
+              v-if="$root.can('edit_supplier')">
                     
               <span class="icon is-small">
                 <i class="fa fa-edit"></i>
@@ -53,7 +53,7 @@
                 <div class="dropdown-content">
                   <a href="#" class="dropdown-item"
                     @click.prevent="deleteModel(props.row)"
-                    v-if="$root.can('delete_manufacturer')">
+                    v-if="$root.can('delete_supplier')">
                     <span class="icon is-small">
                       <i class="fa fa-trash"></i>
                     </span>
@@ -74,7 +74,7 @@
   let deferPageChange = false
 
   export default {
-    inject: ['$manufacturer'],
+    inject: ['$supplier'],
 
     props: {
       query: {
@@ -94,21 +94,21 @@
     mounted () {
       this.refresh()
 
-      this.$root.$on('manufacturers:saved', model => this.refresh())
+      this.$root.$on('suppliers:saved', model => this.refresh())
 
-      this.$root.$on('manufacturers:query', () => this.refresh())
+      this.$root.$on('suppliers:query', () => this.refresh())
     },
 
     beforeDestroy () {
-      this.$root.$off('manufacturers:saved')
-      this.$root.$off('manufacturers:query')
+      this.$root.$off('suppliers:saved')
+      this.$root.$off('suppliers:query')
     },
 
     methods: {
       refresh () {
         this.isLoading = true
 
-        this.$manufacturer.get(this.query)
+        this.$supplier.get(this.query)
           .then(response => {
             this._haltPageChangeEvent()
 
@@ -132,7 +132,7 @@
 
         this.isLoading = true
 
-        this.$manufacturer.get(query)
+        this.$supplier.get(query)
           .then(response => {
             this.result = response.data
           })
@@ -142,11 +142,11 @@
       },
 
       editModel (model) {
-        this.$root.$emit('manufacturers:edit', model)
+        this.$root.$emit('suppliers:edit', model)
       },
 
       editModelPermissions (model) {
-        this.$root.$emit('manufacturers:edit_permissions', model)
+        this.$root.$emit('suppliers:edit_permissions', model)
       },
 
       deleteModel (model) {
@@ -160,7 +160,7 @@
               this.result.data.splice(index, 1)
             }
 
-            this.$manufacturer.delete(model.id)
+            this.$supplier.delete(model.id)
               .then(response => {
                 this.$toast.open({
                   message: `${model.name} has been deleted`,
