@@ -28,7 +28,9 @@ class ProductSeeder extends BaseSeeder
                 'supplier_id'   => $this->getSupplierId($line[3]),
                 'category_id'       => $this->getCategoryId($line[2]),
                 'name'              => $line[0],
-                'upc'               => $line[1]
+                'upc'               => $line[1],
+                'floor'             => 5,
+                'ceiling'           => 100
             ]);
         }
     }

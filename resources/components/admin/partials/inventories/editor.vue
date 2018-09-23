@@ -54,34 +54,16 @@
       <p class="help is-danger" v-for="message in errors.product_id">{{ message }}</p>
     </div>
 
-    <div class="columns">
-      <div class="column">
-        <div class="field">
-          <label class="label">Stocks</label>
+    <div class="field">
+      <label class="label">Stocks</label>
 
-          <div class="control">
-            <input class="input" type="number" required
-              :class="{ 'is-danger': errors.stocks }"
-              v-model.number="model.stocks" />
-          </div>
-
-          <p class="help is-danger" v-for="message in errors.stocks">{{ message }}</p>
-        </div>
+      <div class="control">
+        <input class="input" type="number" required
+          :class="{ 'is-danger': errors.stocks }"
+          v-model.number="model.stocks" />
       </div>
 
-      <div class="column">
-        <div class="field">
-          <label class="label">Crtical Stock Level</label>
-
-          <div class="control">
-            <input class="input" type="number" required
-              :class="{ 'is-danger': errors.critical_stocks }"
-              v-model.number="model.critical_stocks" />
-          </div>
-
-          <p class="help is-danger" v-for="message in errors.critical_stocks">{{ message }}</p>
-        </div>
-      </div>
+      <p class="help is-danger" v-for="message in errors.stocks">{{ message }}</p>
     </div>
 
     <div class="columns">

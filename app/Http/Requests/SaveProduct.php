@@ -27,9 +27,11 @@ class SaveProduct extends FormRequest
 
         $rules = [
             'name'              => 'required|unique:products,name',
-            'supplier_id'   => 'required|exists:suppliers,id',
+            'supplier_id'       => 'required|exists:suppliers,id',
             'category_id'       => 'required|exists:categories,id',
-            'upc'               => 'required|numeric|unique:products,upc'
+            'upc'               => 'required|numeric|unique:products,upc',
+            'floor'             => 'required|numeric|min:1',
+            'ceiling'           => 'required|numeric|gte:floor'
         ];
 
         if ($model) {

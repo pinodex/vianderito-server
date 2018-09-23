@@ -123,7 +123,10 @@ class ProductController extends Controller
      */
     public function create(SaveModel $request)
     {
-        $data = $request->only(['supplier_id', 'category_id', 'upc', 'name', 'description', 'epcs']);
+        $data = $request->only([
+            'supplier_id', 'category_id', 'upc', 'name',
+            'description', 'epcs', 'floor', 'ceiling'
+        ]);
 
         $model = Model::create($data);
 
@@ -145,7 +148,10 @@ class ProductController extends Controller
      */
     public function edit(SaveModel $request, Model $model)
     {
-        $data = $request->only(['supplier_id', 'category_id', 'upc', 'name', 'description', 'epcs']);
+        $data = $request->only([
+            'supplier_id', 'category_id', 'upc', 'name',
+            'description', 'epcs', 'floor', 'ceiling'
+        ]);
 
         $model->fill($data);
         $model->save();

@@ -81,7 +81,7 @@ class InventoryController extends Controller
     public function view(Request $request, Model $model)
     {
         $model->load('product');
-        
+
         return $model;
     }
 
@@ -94,7 +94,7 @@ class InventoryController extends Controller
     public function create(SaveModel $request)
     {
         $data = $request->only([
-            'eid', 'product_id', 'stocks', 'critical_stocks',
+            'eid', 'product_id', 'stocks',
             'cost', 'price', 'batch_date', 'expiration_date'
         ]);
 
@@ -119,7 +119,7 @@ class InventoryController extends Controller
     public function edit(SaveModel $request, Model $model)
     {
         $data = $request->only([
-            'eid', 'product_id', 'stocks', 'critical_stocks',
+            'eid', 'product_id', 'stocks',
             'cost', 'price', 'batch_date', 'expiration_date'
         ]);
 

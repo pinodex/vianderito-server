@@ -19,8 +19,12 @@ class CreateProductsTable extends Migration
             $table->uuid('category_id')->nullable();
             $table->uuid('picture_id')->nullable();
             $table->char('upc', 15);
+
             $table->string('name');
             $table->text('description')->nullable();
+
+            $table->integer('floor');
+            $table->integer('ceiling');
 
             $table->softDeletes();
             $table->timestamps();

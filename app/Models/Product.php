@@ -30,6 +30,11 @@ class Product extends Model
         'picture'
     ];
 
+    protected $casts = [
+        'floor' => 'integer',
+        'ceiling' => 'integer'
+    ];
+
     protected $dates = [
         'deleted_at'
     ];

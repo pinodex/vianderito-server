@@ -48,6 +48,36 @@
       </div>
     </div>
 
+    <div class="columns">
+      <div class="column">
+        <div class="field">
+          <label class="label">Floor Stock</label>
+
+          <div class="control">
+            <input class="input" type="number" required
+              :class="{ 'is-danger': errors.floor }"
+              v-model.number="model.floor" />
+          </div>
+
+          <p class="help is-danger" v-for="message in errors.floor">{{ message }}</p>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="field">
+          <label class="label">Ceiling Stock</label>
+
+          <div class="control">
+            <input class="input" type="number" required
+              :class="{ 'is-danger': errors.ceiling }"
+              v-model.number="model.ceiling" />
+          </div>
+
+          <p class="help is-danger" v-for="message in errors.ceiling">{{ message }}</p>
+        </div>
+      </div>
+    </div>
+
     <div class="field">
       <label class="label">Description (optional)</label>
 
