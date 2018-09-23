@@ -15,14 +15,14 @@ class CreateAccountsLogs extends Migration
     {
         Schema::create('accounts_logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->uuid('account_id');
+            $table->uuid('account_id')->nullable();
             $table->string('action');
             $table->text('params');
             $table->string('ip_address');
             $table->text('user_agent');
             $table->timestamps();
 
-            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('set null');
         });
     }
 
