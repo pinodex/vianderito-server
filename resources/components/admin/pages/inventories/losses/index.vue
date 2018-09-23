@@ -57,19 +57,19 @@
               </p>
 
               <p class="is-size-6 is-marginless has-text-dark">
+                <small><strong>Quantity</strong></small>
+              </p>
+
+              <p class="is-size-6 has-contents-below">
+                {{ inventory.quantity }}
+              </p>
+
+              <p class="is-size-6 is-marginless has-text-dark">
                 <small><strong>Stocks</strong></small>
               </p>
 
               <p class="is-size-6 has-contents-below">
                 {{ inventory.stocks }}
-              </p>
-
-              <p class="is-size-6 is-marginless has-text-dark">
-                <small><strong>Critical Stock Level</strong></small>
-              </p>
-
-              <p class="is-size-6 has-contents-below">
-                {{ inventory.critical_stocks }}
               </p>
 
               <p class="is-size-6 is-marginless has-text-dark">

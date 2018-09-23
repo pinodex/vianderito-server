@@ -18,7 +18,7 @@ class CreateInventoryTable extends Migration
             $table->uuid('product_id');
             $table->integer('eid');
 
-            $table->integer('stocks');
+            $table->integer('quantity');
             
             $table->decimal('cost', 8, 2);
             $table->decimal('price', 8, 2);

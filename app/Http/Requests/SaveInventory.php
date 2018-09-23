@@ -28,7 +28,7 @@ class SaveInventory extends FormRequest
         $rules = [
             'product_id'        => 'exists:products,id',
             'eid'               => 'required|numeric|unique:inventories,eid',
-            'stocks'            => 'required|numeric|min:1',
+            'quantity'          => 'required|numeric|min:1',
             'cost'              => 'required|regex:/^\d*(\.\d{1,2})?$/|min:1',
             'price'             => 'required|regex:/^\d*(\.\d{1,2})?$/|min:1|gte:cost',
             

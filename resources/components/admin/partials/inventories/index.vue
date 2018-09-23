@@ -33,8 +33,14 @@
         </section>
       </b-table-column>
 
-      <b-table-column field="stocks" label="Stocks" class="has-text-right" sortable>
-        {{ props.row.stocks }}
+      <b-table-column field="quantity" label="QTY" class="has-text-right" sortable>
+        <span>{{ props.row.quantity }}</span>
+      </b-table-column>
+
+      <b-table-column field="quantity" label="Stocks" sortable>
+        <span class="tag is-medium" :class="getRowStateClass(props.row)">
+          {{ props.row.stocks }}
+        </span>
       </b-table-column>
 
       <b-table-column field="cost" label="Cost" class="has-text-right" sortable>
@@ -183,6 +189,8 @@
       refresh () {
         this.isLoading = true
 
+        this.query.with = 'product'
+
         this.$inventory.get(this.query)
           .then(response => {
             this._haltPageChangeEvent()
@@ -199,13 +207,35 @@
       },
 
       getRowClass (row, i) {
-        let _class = []
+        let _class = ''
 
-        if (row.stocks <= row.critical_stocks) {
-          _class.push('is-danger')
+        if (row.stocks <= row.product.floor) {
+          _class = 'is-danger'
         }
 
-        return _class
+        return [_class]
+      },
+
+      getRowStateClass (row) {
+        let _class = ''
+
+        if (row.stocks - row.product.floor <= 5) {
+          _class = 'is-warning'
+        }
+
+        if (row.stocks <= row.product.floor) {
+          _class = 'is-danger'
+        }
+
+        if (row.stocks > row.product.ceiling) {
+          _class = 'is-info'
+        }
+
+        if (row.stocks == 0) {
+          _class = 'is-black'
+        }
+
+        return [_class]
       },
 
       onPageChange (page) {

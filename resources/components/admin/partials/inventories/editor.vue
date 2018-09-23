@@ -55,15 +55,15 @@
     </div>
 
     <div class="field">
-      <label class="label">Stocks</label>
+      <label class="label">Quantity</label>
 
       <div class="control">
         <input class="input" type="number" required
-          :class="{ 'is-danger': errors.stocks }"
-          v-model.number="model.stocks" />
+          :class="{ 'is-danger': errors.quantity }"
+          v-model.number="model.quantity" />
       </div>
 
-      <p class="help is-danger" v-for="message in errors.stocks">{{ message }}</p>
+      <p class="help is-danger" v-for="message in errors.quantity">{{ message }}</p>
     </div>
 
     <div class="columns">

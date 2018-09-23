@@ -18,8 +18,7 @@ class Inventory extends Model
     public $fillable = [
         'product_id',
         'eid',
-        'stocks',
-        'critical_stocks',
+        'quantity',
         'cost',
         'price',
         'batch_date',
@@ -33,6 +32,10 @@ class Inventory extends Model
     protected $casts = [
         'cost' => 'float',
         'price' => 'float',
+    ];
+
+    public $appends = [
+        'stocks'
     ];
 
     /**
@@ -69,5 +72,24 @@ class Inventory extends Model
     public function losses()
     {
         return $this->hasMany(InventoryLoss::class);
+    }
+
+    /**
+     * Get computed stocks
+     * 
+     * @return int
+     */
+    public function getStocksAttribute()
+    {
+        $totalLoss = 0;
+        $stocks = $this->quantity;
+
+        $this->losses->each(function (InventoryLoss $loss) use (&$totalLoss) {
+            $totalLoss += $loss->units;
+        });
+
+        $stocks -= $totalLoss;
+
+        return $stocks;
     }
 }

@@ -45,6 +45,13 @@
         </div>
 
         <inventories :query="query"></inventories>
+
+        <div class="tags legends">
+          <span class="tag is-medium">Normal</span>
+          <span class="tag is-black is-medium">No Stock</span>
+          <span class="tag is-danger is-medium">Critical</span>
+          <span class="tag is-info is-medium">Overstocked</span>
+        </div>
       </div>
     </div>
 
