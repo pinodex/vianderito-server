@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div class="columns stats">
+    <div class="columns is-hidden-mobile">
       <div class="column">
         <stat title="Users" :value="counts.users" background="/assets/img/users.svg" />
       </div>
@@ -56,6 +56,24 @@
       </div>
 
       <div class="column">
+        <stat title="Active Coupons" :value="counts.active_coupons" background="/assets/img/coupons.svg" />
+      </div>
+    </div>
+
+    <div class="columns is-mobile is-multiline is-hidden-tablet">
+      <div class="column is-half">
+        <stat title="Users" :value="counts.users" background="/assets/img/users.svg" />
+      </div>
+
+      <div class="column is-half">
+        <stat title="Products" :value="counts.products" background="/assets/img/products.svg" />
+      </div>
+
+      <div class="column is-half">
+        <stat title="Inventories" :value="counts.inventories" background="/assets/img/inventories.svg" />
+      </div>
+
+      <div class="column is-half">
         <stat title="Active Coupons" :value="counts.active_coupons" background="/assets/img/coupons.svg" />
       </div>
     </div>
