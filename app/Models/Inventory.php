@@ -51,6 +51,16 @@ class Inventory extends Model
         });
     }
 
+    /**
+     * Add where not expired clause
+     * 
+     * @return Builder
+     */
+    public static function whereNotExpired()
+    {
+        return self::where('expiration_date', '>', date('Y-m-d'));
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class);

@@ -67,8 +67,6 @@
         .then(response => {
           let data = response.data
 
-          console.log(response.data)
-
           this.permissions = data.groupBy('category')
 
           this.departments = [...new Set(data.map(obj => obj.category))]

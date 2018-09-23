@@ -24,6 +24,10 @@ Route::group([
         Route::group(['middleware' => ['auth:admin', 'allow_enabled']], function () {
             Route::get('/', 'MainController@index');
 
+            Route::group(['as' => 'stats.', 'prefix' => 'stats'], function () {
+                Route::get('/counts', 'StatsController@counts');
+            });
+
             Route::group(['as' => 'accounts.', 'prefix' => 'accounts'], function () {
                 Route::get('/', 'AccountController@index');
 

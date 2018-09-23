@@ -57,6 +57,18 @@ class Coupon extends Model
     }
 
     /**
+     * Add where coupon date is valid clause
+     * 
+     * @return Builder
+     */
+    public static function whereCouponDateValid()
+    {
+        $now = now();
+
+        return self::where('validity_start', '<', $now)->where('validity_end', '>', $now);
+    }
+
+    /**
      * Sync coupon eligibility selections
      * @param  array $selections Array of selections
      */

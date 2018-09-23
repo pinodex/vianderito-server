@@ -1,13 +1,126 @@
 <template>
-  <div>
-    Index
-  </div>
+  <section class="main-container">
+    <div class="columns is-gapless shortcuts"  v-if="$root.can(['create_product', 'create_inventory', 'create_category', 'create_supplier'])">
+      <div class="column is-2">
+        <div class="header">Quick Launch</div>
+      </div>
+
+      <div class="column">
+        <div class="level is-mobile">
+          <router-link class="level-item" :to="{ name: 'products.add' }" v-if="$root.can('create_product')">
+            <span class="icon is-small">
+              <i class="fa fa-box"></i>
+            </span>
+
+            <span>Add Product</span>
+          </router-link>
+
+          <router-link class="level-item" :to="{ name: 'inventories.add' }" v-if="$root.can('create_inventory')">
+            <span class="icon is-small">
+              <i class="fa fa-boxes"></i>
+            </span>
+
+            <span>Add Inventory</span>
+          </router-link>
+
+          <router-link class="level-item" :to="{ name: 'categories', hash: '#add' }" v-if="$root.can('create_category')">
+            <span class="icon is-small">
+              <i class="fa fa-layer-group"></i>
+            </span>
+
+            <span>Add Category</span>
+          </router-link>
+
+          <router-link class="level-item" :to="{ name: 'suppliers', hash: '#add' }" v-if="$root.can('create_supplier')">
+            <span class="icon is-small">
+              <i class="fa fa-industry"></i>
+            </span>
+
+            <span>Add Supplier</span>
+          </router-link>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns stats">
+      <div class="column">
+        <stat title="Users" :value="counts.users" background="/assets/img/users.svg" />
+      </div>
+
+      <div class="column">
+        <stat title="Products" :value="counts.products" background="/assets/img/products.svg" />
+      </div>
+
+      <div class="column">
+        <stat title="Inventories" :value="counts.inventories" background="/assets/img/inventories.svg" />
+      </div>
+
+      <div class="column">
+        <stat title="Active Coupons" :value="counts.active_coupons" background="/assets/img/coupons.svg" />
+      </div>
+    </div>
+  </section>
 </template>
 
+<style lang="scss" scoped>
+  .shortcuts {
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+
+    .header {
+      background: #52a4d5;
+      text-align: center;
+      padding: 1rem;
+      color: #fff;
+    }
+
+    .level {
+      height: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 0.5rem;
+      }
+      
+      .level-item {
+        padding: 1rem;
+      }
+    }
+
+    @media (max-width: 630px) {
+      .icon + span {
+        display: none;
+      }
+    }
+
+    .icon + span {
+      margin-left: 0.5rem;
+    }
+  }
+</style>
+
 <script>
+  import stat from '@admin/partials/stat'
+
   export default {
+    inject: ['$stats'],
+
+    components: { stat },
+
+    data () {
+      return {
+        counts: {}
+      }
+    },
+
     mounted () {
       this.$root.setPageTitle('Home')
+
+      this.$stats.counts().then(response => {
+        this.counts = response.data
+      })
     }
   }
 </script>

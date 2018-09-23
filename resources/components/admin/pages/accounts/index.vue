@@ -144,6 +144,10 @@
 
         this.mountedModel = model
       })
+
+      if (this.$route.hash == '#add') {
+        this.modal.create = true
+      }
     },
 
     beforeDestroy () {
