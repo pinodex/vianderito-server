@@ -102,6 +102,18 @@
         </div>
 
         <div class="field">
+          <label class="label">Maximum Coupon Use Limit</label>
+
+          <div class="control">
+            <input class="input" type="number" required
+              :class="{ 'is-danger': errors.quantity }"
+              v-model="model.quantity" />
+          </div>
+
+          <p class="help is-danger" v-for="message in errors.quantity">{{ message }}</p>
+        </div>
+
+        <div class="field">
           <label class="label">Validity Start Date</label>
 
           <datetime

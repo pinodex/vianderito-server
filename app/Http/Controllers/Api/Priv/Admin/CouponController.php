@@ -74,7 +74,7 @@ class CouponController extends Controller
         $data = $request->only([
             'code', 'description', 'validity_start', 'validity_end', 'discount_type',
             'discount_price', 'discount_percentage', 'discount_floor_price',
-            'discount_ceiling_price', 'selections'
+            'discount_ceiling_price', 'selections', 'quantity'
         ]);
 
         $model = Model::create($data);
@@ -100,7 +100,7 @@ class CouponController extends Controller
         $data = $request->only([
             'code', 'description', 'validity_start', 'validity_end', 'discount_type',
             'discount_price', 'discount_percentage', 'discount_floor_price',
-            'discount_ceiling_price', 'selections'
+            'discount_ceiling_price', 'selections', 'quantity'
         ]);
 
         $model->fill($data);

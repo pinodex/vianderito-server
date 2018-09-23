@@ -47,6 +47,7 @@ class SaveCoupon extends FormRequest
                     'nullable',
                     'regex:/^\d*(\.\d{1,2})?$/'
                 ],
+                'quantity'          => 'required|numeric|min:1',
                 'validity_start'    => 'required|date|before_or_equal:validity_end',
                 'validity_end'      => 'required|date|after_or_equal:validity_start'
             ];
@@ -73,6 +74,7 @@ class SaveCoupon extends FormRequest
                 'nullable',
                 'regex:/^\d*(\.\d{1,2})?$/'
             ],
+            'quantity'          => 'required|numeric|min:1',
             'validity_start'    => 'required|date|before_or_equal:validity_end',
             'validity_end'      => 'required|date|after_or_equal:validity_start'
         ];

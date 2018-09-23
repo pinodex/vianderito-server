@@ -26,6 +26,8 @@ class CreateCouponsTable extends Migration
             $table->decimal('discount_floor_price', 6, 2)->nullable();
             $table->decimal('discount_ceiling_price', 6, 2)->nullable();
 
+            $table->integer('quantity');
+
             $table->datetime('validity_start');
             $table->datetime('validity_end');
 

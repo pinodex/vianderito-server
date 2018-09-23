@@ -24,7 +24,8 @@ class Coupon extends Model
         'discount_floor_price',
         'discount_ceiling_price',
         'validity_start',
-        'validity_end'
+        'validity_end',
+        'quantity'
     ];
 
     protected $dates = [

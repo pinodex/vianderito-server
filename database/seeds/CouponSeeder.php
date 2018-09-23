@@ -32,7 +32,8 @@ class CouponSeeder extends BaseSeeder
                 'discount_floor_price'      => $line[5],
                 'discount_ceiling_price'    => $line[6],
                 'validity_start'            => $line[7],
-                'validity_end'              => $line[8]
+                'validity_end'              => $line[8],
+                'quantity'                  => 50
             ];
 
             $model = Coupon::create($entry);
