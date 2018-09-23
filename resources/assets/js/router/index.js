@@ -69,6 +69,12 @@ const router = new Router({
     },
 
     {
+      path: '/products/:id/losses',
+      name: 'products.losses',
+      component: () => import('@admin/pages/products/losses/index')
+    },
+
+    {
       path: '/inventories',
       name: 'inventories',
       component: () => import('@admin/pages/inventories/index')

@@ -82,6 +82,16 @@
                       <span>Inventories</span>
                     </router-link>
 
+                    <router-link class="dropdown-item"
+                      :to="{ name: 'products.losses', params: { id: props.row.id } }"
+                      v-if="$root.can('browse_inventories')">
+                      <span class="icon is-small">
+                        <i class="fa fa-exclamation-circle"></i>
+                      </span>
+
+                      <span>View Losses</span>
+                    </router-link>
+
                     <a href="#" class="dropdown-item"
                       @click.prevent="deleteModel(props.row)"
                       v-if="$root.can('delete_product')">

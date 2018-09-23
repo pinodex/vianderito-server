@@ -15,7 +15,10 @@ class InventoryLossController extends Controller
         parent::__construct();
 
         $this->acl([
-            'browse_inventories'       => ['index']
+            'browse_inventories'   => ['index'],
+            'create_inventory'     => ['create'],
+            'edit_inventory'       => ['edit'],
+            'delete_inventory'     => ['delete']
         ]);
     }
 

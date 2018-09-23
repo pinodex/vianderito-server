@@ -36,7 +36,7 @@
           <p class="control">
             <button class="button is-small is-danger" 
               @click.prevent="deleteModel(props.row)"
-              v-if="$root.can('edit_inventory')">
+              v-if="$root.can('delete_inventory')">
                       
               <span class="icon is-small">
                 <i class="fa fa-trash"></i>

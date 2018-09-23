@@ -118,6 +118,8 @@ Route::group([
                 Route::post('/{model}/restore', 'ProductController@restore');
                 Route::post('/{model}/destroy', 'ProductController@destroy');
 
+                Route::get('/{model}/losses', 'ProductController@losses');
+
                 Route::post('/create', 'ProductController@create');
             });
 

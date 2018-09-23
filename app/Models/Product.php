@@ -105,6 +105,20 @@ class Product extends Model
         $this->epcs()->saveMany($models);
     }
 
+    /**
+     * Get product losses
+     * 
+     * @return InventoryLoss[]
+     */
+    public function getLosses()
+    {
+        $inventoryIds = $this->inventories->pluck('id');
+
+        return InventoryLoss::with('inventory')
+            ->whereIn('inventory_id', $inventoryIds)
+            ->get();
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

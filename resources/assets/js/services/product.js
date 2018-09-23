@@ -4,6 +4,7 @@ const ENDPOINT_GET = '/admin/products',
       ENDPOINT_RESTORE = '/admin/products/{id}/restore',
       ENDPOINT_DESTROY = '/admin/products/{id}/destroy',
       ENDPOINT_PICTURE = '/admin/products/{id}/picture',
+      ENDPOINT_LOSSES = '/admin/products/{id}/losses',
       ENDPOINT_CREATE = '/admin/products/create',
       ENDPOINT_SEARCH = '/admin/products/search'
 
@@ -41,6 +42,12 @@ export default class {
     let id = data.id, url = ENDPOINT_FETCH.formatUnicorn({ id })
 
     return this.$http.patch(url, data)
+  }
+
+  getLosses (id) {
+    let url = ENDPOINT_LOSSES.formatUnicorn({ id })
+
+    return this.$http.get(url)
   }
 
   delete (id) {

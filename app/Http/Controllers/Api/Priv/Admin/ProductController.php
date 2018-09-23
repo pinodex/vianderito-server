@@ -15,10 +15,11 @@ class ProductController extends Controller
         parent::__construct();
 
         $this->acl([
-            'browse_products'   => ['index', 'all'],
-            'create_product'    => ['create'],
-            'edit_product'      => ['edit'],
-            'delete_product'    => ['delete']
+            'browse_products'       => ['index', 'all'],
+            'create_product'        => ['create'],
+            'edit_product'          => ['edit'],
+            'delete_product'        => ['delete'],
+            'browse_inventories'    => ['losses']
         ]);
     }
 
@@ -163,6 +164,18 @@ class ProductController extends Controller
         ]);
 
         return $model;
+    }
+
+    /**
+     * Get product losses
+     * 
+     * @param  Request $request Request object
+     * @param  Model   $model   Model model
+     * @return mixed
+     */
+    public function losses(Request $request, Model $model)
+    {
+        return $model->getLosses();
     }
 
     /**
