@@ -47,6 +47,10 @@ return [
     'inventories:restore' => 'Restore inventory :name',
     'inventories:destroy' => 'Permanently deleted inventory :name',
 
+    'inventory_losses:create' => 'Created inventory (#:eid) loss for :product of :units units',
+    'inventory_losses:edit' => 'Edited inventory (#:eid) loss for :product of :units units',
+    'inventory_losses:delete' => 'Deleted inventory (#:eid) loss for :product of :units units',
+
     'users:create' => 'Created user :name',
     'users:edit' => 'Edited user :name',
     'users:set_avatar' => 'Set user avatar for :name',

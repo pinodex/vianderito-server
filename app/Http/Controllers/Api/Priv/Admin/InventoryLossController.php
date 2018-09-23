@@ -42,7 +42,15 @@ class InventoryLossController extends Controller
     {
         $data = $request->only('units', 'remarks');
 
-        return $inventory->losses()->create($data);
+        $inventory->losses()->create($data);
+
+        $this->admin->user()->log('inventory_losses:create', [
+            'eid' => $inventory->eid,
+            'product' => $inventory->product->name,
+            'units' => $data['units']
+        ]);
+
+        return response(null, 202);
     }
 
     /**
@@ -59,6 +67,12 @@ class InventoryLossController extends Controller
         $model->fill($data);
         $model->save();
 
+        $this->admin->user()->log('inventory_losses:edit', [
+            'eid' => $inventory->eid,
+            'product' => $inventory->product->name,
+            'units' => $data['units']
+        ]);
+
         return response(null, 204);
     }
 
@@ -72,6 +86,12 @@ class InventoryLossController extends Controller
     public function delete(Request $request, Inventory $inventory, Model $model)
     {
         $model->delete();
+
+        $this->admin->user()->log('inventory_losses:delete', [
+            'eid' => $inventory->eid,
+            'product' => $inventory->product->name,
+            'units' => $model->units
+        ]);
 
         return response(null, 204);
     }

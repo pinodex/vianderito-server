@@ -24,9 +24,16 @@ class SaveInventoryLoss extends FormRequest
     public function rules()
     {
         $inventory = $this->route()->parameter('inventory');
+        $model = $this->route()->parameter('model');
+
+        $maxUnits = $inventory->stocks;
+
+        if ($model) {
+            $maxUnits += $model->units;
+        }
 
         return [
-            'units' => 'required|numeric|min:1|max:' . $inventory->stocks,
+            'units' => 'required|numeric|min:1|max:' . $maxUnits,
             'remarks' => 'required'
         ];
     }
