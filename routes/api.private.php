@@ -134,6 +134,14 @@ Route::group([
                 Route::post('/{model}/destroy', 'InventoryController@destroy');
 
                 Route::post('/create', 'InventoryController@create');
+
+                Route::group(['as' => 'losses.', 'prefix' => '{inventory}/losses/'], function () {
+                    Route::get('/', 'InventoryLossController@index');
+                    Route::post('/', 'InventoryLossController@create');
+
+                    Route::patch('/{model}', 'InventoryLossController@edit');
+                    Route::delete('/{model}', 'InventoryLossController@delete');
+                });
             });
 
             Route::group(['as' => 'coupons.', 'prefix' => 'coupons'], function () {

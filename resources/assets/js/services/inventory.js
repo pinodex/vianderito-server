@@ -3,6 +3,8 @@ const ENDPOINT_GET = '/admin/inventories',
       ENDPOINT_FETCH = '/admin/inventories/{id}',
       ENDPOINT_RESTORE = '/admin/inventories/{id}/restore',
       ENDPOINT_DESTROY = '/admin/inventories/{id}/destroy',
+      ENDPOINT_LOSSES = '/admin/inventories/{id}/losses',
+      ENDPOINT_LOSSES_SINGLE = '/admin/inventories/{id}/losses/{lid}',
       ENDPOINT_CREATE = '/admin/inventories/create',
       ENDPOINT_SEARCH = '/admin/inventories/search'
 
@@ -40,6 +42,30 @@ export default class {
     let id = data.id, url = ENDPOINT_FETCH.formatUnicorn({ id })
 
     return this.$http.patch(url, data)
+  }
+
+  getLosses (id) {
+    let url = ENDPOINT_LOSSES.formatUnicorn({ id })
+
+    return this.$http.get(url)
+  }
+
+  createLoss (id, data) {
+    let url = ENDPOINT_LOSSES.formatUnicorn({ id })
+
+    return this.$http.post(url, data)
+  }
+
+  updateLoss (id, lid, data) {
+    let url = ENDPOINT_LOSSES_SINGLE.formatUnicorn({ id, lid })
+
+    return this.$http.patch(url, data)
+  }
+
+  deleteLoss (id, lid) {
+    let url = ENDPOINT_LOSSES_SINGLE.formatUnicorn({ id, lid })
+
+    return this.$http.delete(url)
   }
 
   delete (id) {

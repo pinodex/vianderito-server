@@ -63,7 +63,6 @@
             <p class="control">
               <router-link class="button is-small"
                 :to="{ name: 'inventories.edit', params: { id: props.row.id } }"
-                @click.prevent="editModel(props.row)"
                 v-if="$root.can('edit_inventory')">
                       
                 <span class="icon is-small">
@@ -86,6 +85,16 @@
 
                 <div class="dropdown-menu">
                   <div class="dropdown-content">
+                    <router-link class="dropdown-item"
+                      :to="{ name: 'inventories.losses', params: { id: props.row.id } }"
+                      v-if="$root.can('browse_inventories')">
+                      <span class="icon is-small">
+                        <i class="fa fa-exclamation-circle"></i>
+                      </span>
+
+                      <span>Manage Losses</span>
+                    </router-link>
+
                     <a href="#" class="dropdown-item"
                       @click.prevent="deleteModel(props.row)"
                       v-if="$root.can('delete_inventory')">
@@ -215,14 +224,6 @@
           .finally(() => {
             this.isLoading = false
           })
-      },
-
-      editModel (model) {
-        this.$root.$emit('inventories:edit', model)
-      },
-
-      editModelPermissions (model) {
-        this.$root.$emit('inventories:edit_permissions', model)
       },
 
       deleteModel (model) {

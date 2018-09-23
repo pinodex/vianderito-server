@@ -34,7 +34,6 @@
                 <p class="control">
                   <router-link class="button is-primary is-rounded"
                     :to="{ name: 'products.add' }"
-                    @click="modal.create = true"
                     v-if="$root.can('create_product')">
                     <span class="icon">
                       <i class="fa fa-plus"></i>

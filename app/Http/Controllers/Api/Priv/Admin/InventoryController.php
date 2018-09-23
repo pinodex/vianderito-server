@@ -80,6 +80,8 @@ class InventoryController extends Controller
      */
     public function view(Request $request, Model $model)
     {
+        $model->load('product');
+        
         return $model;
     }
 

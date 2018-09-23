@@ -50,7 +50,6 @@
             <p class="control">
               <router-link class="button is-small"
                 :to="{ name: 'products.edit', params: { id: props.row.id } }"
-                @click.prevent="editModel(props.row)"
                 v-if="$root.can('edit_product')">
                       
                 <span class="icon is-small">
@@ -204,14 +203,6 @@
           .finally(() => {
             this.isLoading = false
           })
-      },
-
-      editModel (model) {
-        this.$root.$emit('products:edit', model)
-      },
-
-      editModelPermissions (model) {
-        this.$root.$emit('products:edit_permissions', model)
       },
 
       deleteModel (model) {
