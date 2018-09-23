@@ -143,7 +143,7 @@ class Product extends Model
     {
         $frontInventory = $this->hasOne(Inventory::class)
             ->orderBy('batch_date', 'ASC')
-            ->orderBy('expiration_date', 'ASC');
+            ->where('expiration_date', '>', date('Y-m-d'));
 
         return $frontInventory;
     }

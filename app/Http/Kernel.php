@@ -42,7 +42,8 @@ class Kernel extends HttpKernel
         ],
 
         'kiosk' => [
-            \App\Http\Middleware\KioskKey::class
+            \App\Http\Middleware\KioskKey::class,
+            'bindings'
         ]
     ];
 
