@@ -114,4 +114,8 @@ Route::group(['prefix' => 'gateway', 'namespace' => 'Gateway'], function () {
         Route::delete('/{model}', 'CustomerController@delete');
     });
 
+    Route::group(['prefix' => 'payment'], function () {
+        Route::post('/', 'PaymentController@create');
+    });
+
 });

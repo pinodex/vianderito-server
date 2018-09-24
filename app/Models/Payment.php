@@ -6,17 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use App\Scopes\OrderByCreateScope;
 use Webpatser\Uuid\Uuid;
 
-class Purchase extends Model
+class Payment extends Model
 {
     public $incrementing = false;
 
     public $fillable = [
+        'amount',
         'user_id',
-        'amount'
-    ];
-
-    public $with = [
-        'products'
+        'gateway_id',
+        'status'
     ];
 
     protected $casts = [
@@ -47,10 +45,5 @@ class Purchase extends Model
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);
-    }
-
-    public function products()
-    {
-        return $this->hasMany(PurchaseProduct::class);
     }
 }

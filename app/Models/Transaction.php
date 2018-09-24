@@ -79,6 +79,7 @@ class Transaction extends Model
             $purchase = Purchase::create();
             
             $purchase->user()->associate($user);
+            $purchase->transaction()->associate($this);
 
             $this->inventories->each(function (Inventory $inventory) use ($purchase) {
                 $purchaseProduct = new PurchaseProduct();
@@ -106,9 +107,30 @@ class Transaction extends Model
         return $purchase;
     }
 
+    /**
+     * Get total transaction amount
+     * 
+     * @return float
+     */
+    public function getTotal()
+    {
+        $total = 0;
+
+        $this->inventories->each(function ($inventory) use (&$total) {
+            $total += $inventory->subtotal;
+        });
+
+        return $total;
+    }
+
     public function inventories()
     {
         return $this->belongsToMany(Inventory::class, 'transactions_inventories')
             ->withPivot('quantity');
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
     }
 }
