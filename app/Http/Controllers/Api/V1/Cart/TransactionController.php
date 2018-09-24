@@ -41,6 +41,25 @@ class TransactionController extends Controller
     }
 
     /**
+     * Purchase transaction
+     * 
+     * @param  Request     $request     Request object
+     * @param  Transaction $transaction Transaction model
+     * @return mixed
+     */
+    public function purchase(Request $request, Transaction $model) {
+        if ($model->status != 'pending') {
+            abort(401);
+        }
+
+        $purchase = $model->moveToPurchases($this->api->user());
+
+        $purchase->load('products');
+
+        return $purchase;
+    }
+
+    /**
      * Delete transaction
      * 
      * @param  Request     $request     Request object

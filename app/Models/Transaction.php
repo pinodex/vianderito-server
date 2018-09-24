@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Scopes\OrderByCreateScope;
@@ -65,6 +66,44 @@ class Transaction extends Model
                     ]);
                 }
             });
+    }
+
+    /**
+     * Move transaction data to purchase
+     */
+    public function moveToPurchases(User $user)
+    {
+        $purchase = null;
+
+        DB::transaction(function () use (&$purchase, $user) {
+            $purchase = Purchase::create();
+            
+            $purchase->user()->associate($user);
+
+            $this->inventories->each(function (Inventory $inventory) use ($purchase) {
+                $purchaseProduct = new PurchaseProduct();
+
+                $purchaseProduct->purchase()->associate($purchase);
+                
+                $purchaseProduct->product_id = $inventory->product->id;
+                $purchaseProduct->name = $inventory->product->name;
+                $purchaseProduct->upc = $inventory->product->upc;
+                $purchaseProduct->price = $inventory->price;
+                $purchaseProduct->quantity = $inventory->pivot->quantity;
+                $purchaseProduct->subtotal = $inventory->subtotal;
+
+                $purchase->amount += $inventory->subtotal;
+
+                $purchaseProduct->save();
+            });
+
+            $this->status = 'complete';
+            $this->save();
+            
+            $purchase->save();
+        });
+
+        return $purchase;
     }
 
     public function inventories()
