@@ -45,7 +45,6 @@ class Transaction extends Model
 
         $ids = [];
         $quantites = [];
-        $inventoryIds = [];
 
         $data->each(function ($entry) use (&$ids, &$quantites) {
             $ids[] = $entry['product_id'];
@@ -53,21 +52,24 @@ class Transaction extends Model
             $quantites[$entry['product_id']] = $entry['quantity'];
         });
 
+        $this->inventories()->sync([]);
+
         Product::whereIn('id', $ids)->get()
-            ->each(function (Product $product) use (&$inventoryIds, $quantites) {
+            ->each(function (Product $product) use ($quantites) {
                 $quantity = $quantites[$product->id];
                 $inventory = $product->selectNextInventory($quantity);
 
                 if ($inventory) {
-                    $inventoryIds[] = $inventory->id;
+                    $this->inventories()->attach($inventory->id, [
+                        'quantity' => $quantity
+                    ]);
                 }
             });
-
-        $this->inventories()->sync($inventoryIds);
     }
 
     public function inventories()
     {
-        return $this->belongsToMany(Inventory::class, 'transactions_inventories');
+        return $this->belongsToMany(Inventory::class, 'transactions_inventories')
+            ->withPivot('quantity');
     }
 }

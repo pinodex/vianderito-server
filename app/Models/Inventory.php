@@ -35,7 +35,8 @@ class Inventory extends Model
     ];
 
     public $appends = [
-        'stocks'
+        'stocks',
+        'subtotal'
     ];
 
     /**
@@ -74,6 +75,12 @@ class Inventory extends Model
         return $this->hasMany(InventoryLoss::class);
     }
 
+    public function transactions()
+    {
+        return $this->belongsToMany(Transaction::class, 'transactions_inventories')
+            ->withPivot('quantity');
+    }
+
     /**
      * Get computed stocks
      * 
@@ -91,5 +98,21 @@ class Inventory extends Model
         $stocks -= $totalLoss;
 
         return $stocks;
+    }
+
+    /**
+     * Get subtotal
+     * 
+     * @return float
+     */
+    public function getSubtotalAttribute()
+    {
+        $subtotal = 0;
+
+        $this->transactions->each(function ($transaction) use (&$subtotal) {
+            $subtotal += $this->price * $transaction->pivot->quantity;
+        });
+
+        return $subtotal;
     }
 }

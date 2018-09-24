@@ -88,6 +88,14 @@ Route::group(['prefix' => 'store', 'namespace' => 'Store'], function () {
 
 });
 
+Route::group(['prefix' => 'cart', 'namespace' => 'Cart'], function () {
+
+    Route::group(['prefix' => 'transactions'], function () {
+        Route::get('/{model}', 'TransactionController@get');
+    });
+
+});
+
 Route::group(['prefix' => 'gateway', 'namespace' => 'Gateway'], function () {
 
     Route::group(['prefix' => 'client'], function () {

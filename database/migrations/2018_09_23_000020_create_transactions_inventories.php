@@ -17,6 +17,8 @@ class CreateTransactionsInventories extends Migration
             $table->uuid('transaction_id');
             $table->uuid('inventory_id');
 
+            $table->integer('quantity');
+
             $table->primary(['transaction_id', 'inventory_id']);
 
             $table->foreign('transaction_id')->references('id')->on('transactions')
