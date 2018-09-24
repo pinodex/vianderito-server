@@ -91,7 +91,7 @@ class Transaction extends Model
                 $purchaseProduct->upc = $inventory->product->upc;
                 $purchaseProduct->price = $inventory->price;
                 $purchaseProduct->quantity = $inventory->pivot->quantity;
-                $purchaseProduct->subtotal = $inventory->subtotal;
+                $purchaseProduct->subtotal = $inventory->price * $inventory->pivot->quantity;;
 
                 $purchase->amount += $inventory->subtotal;
 
@@ -105,22 +105,6 @@ class Transaction extends Model
         });
 
         return $purchase;
-    }
-
-    /**
-     * Get total transaction amount
-     * 
-     * @return float
-     */
-    public function getTotal()
-    {
-        $total = 0;
-
-        $this->inventories->each(function ($inventory) use (&$total) {
-            $total += $inventory->subtotal;
-        });
-
-        return $total;
     }
 
     public function inventories()

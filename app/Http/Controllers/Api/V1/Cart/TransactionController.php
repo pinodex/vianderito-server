@@ -28,9 +28,19 @@ class TransactionController extends Controller
             abort(401);
         }
 
+        $total = 0;
+
         $model->load('inventories', 'inventories.product');
 
-        $model->total = $model->getTotal();
+        $model->inventories->map(function ($inventory) use (&$total) {
+            $inventory->subtotal = $inventory->price * $inventory->pivot->quantity;
+
+            $total += $inventory->subtotal;
+
+            return $inventory;
+        });
+
+        $model->total = $total;
 
         return $model;
     }
@@ -51,13 +61,19 @@ class TransactionController extends Controller
 
         $payment = Payment::findOrFail($request->input('payment_id'));
 
+        $total = 0;
+
+        $model->inventories->map(function ($inventory) use (&$total) {
+            $total += $inventory->price * $inventory->pivot->quantity;
+        });
+
         if ($payment->transaction != null || $model->payment != null) {
             return response()->json([
                 'message' => 'Cannot redeclare payment'
             ], 401);
         }
 
-        if ($payment->amount < $model->getTotal()) {
+        if ($payment->amount < $total) {
             return response()->json([
                 'message' => 'Insufficient amount'
             ], 401);
