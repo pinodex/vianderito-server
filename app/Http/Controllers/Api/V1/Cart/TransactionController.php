@@ -44,14 +44,16 @@ class TransactionController extends Controller
      */
     public function purchase(Request $request, Transaction $model) {
         if ($model->status != 'pending') {
-            abort(401);
+            return response()->json([
+                'message' => 'Transaction is not pending'
+            ], 401);
         }
 
         $payment = Payment::findOrFail($request->input('payment_id'));
 
-        if ($payment->transaction != null) {
+        if ($payment->transaction != null || $model->payment != null) {
             return response()->json([
-                'message' => 'Cannot authorize payment'
+                'message' => 'Cannot redeclare payment'
             ], 401);
         }
 
