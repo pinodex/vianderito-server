@@ -56,12 +56,7 @@ class Transaction extends Model
         Product::whereIn('id', $ids)->get()
             ->each(function (Product $product) use (&$inventoryIds, $quantites) {
                 $quantity = $quantites[$product->id];
-
-                $inventory = $product->inventories->sortBy('batch_date')
-                    ->first(function (Inventory $inventory, $key) use ($quantity) {
-                        return now()->lessThan($inventory->expiration_date) &&
-                            $inventory->stocks >= $quantity;
-                    });
+                $inventory = $product->selectNextInventory($quantity);
 
                 if ($inventory) {
                     $inventoryIds[] = $inventory->id;

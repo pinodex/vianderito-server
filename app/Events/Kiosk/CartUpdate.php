@@ -35,12 +35,14 @@ class CartUpdate implements ShouldBroadcast
         })
         ->map(function (ProductEpc $epc) use ($quantites) {
             $quantity = $quantites->get($epc->product->id);
-            $price = $epc->product->frontInventory->price;
+            $inventory  = $epc->product->selectNextInventory($quantity);
+
+            if (!$inventory) return false;
 
             return [
                 'product_id' => $epc->product_id,
                 'quantity' => $quantity,
-                'subtotal' => $quantity * $price,
+                'subtotal' => $quantity * $inventory->price,
                 'product' => $epc->product
             ];
         });

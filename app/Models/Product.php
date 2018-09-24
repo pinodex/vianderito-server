@@ -70,6 +70,20 @@ class Product extends Model
         return $epc;
     }
 
+    /**
+     * Select next valid inventory
+     * 
+     * @return Inventory
+     */
+    public function selectNextInventory($quantity = 1)
+    {
+        return $this->inventories->sortBy('batch_date')
+            ->first(function (Inventory $inventory, $key) use ($quantity) {
+                return now()->lessThan($inventory->expiration_date) &&
+                    $inventory->stocks >= $quantity;
+                });
+    }
+
     protected function getImageDimensions()
     {
         return [1280, 720];
