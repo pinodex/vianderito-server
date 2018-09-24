@@ -92,6 +92,7 @@ Route::group(['prefix' => 'cart', 'namespace' => 'Cart'], function () {
 
     Route::group(['prefix' => 'transactions'], function () {
         Route::get('/{model}', 'TransactionController@get');
+        Route::delete('/{model}', 'TransactionController@delete');
     });
 
 });

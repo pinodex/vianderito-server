@@ -23,6 +23,10 @@ class TransactionController extends Controller
      * @return mixed
      */
     public function get(Request $request, Transaction $model) {
+        if ($model->status != 'pending') {
+            abort(401);
+        }
+
         $model->load('inventories', 'inventories.product');
 
         $total = 0;
@@ -34,5 +38,22 @@ class TransactionController extends Controller
         $model->total = $total;
 
         return $model;
+    }
+
+    /**
+     * Delete transaction
+     * 
+     * @param  Request     $request     Request object
+     * @param  Transaction $transaction Transaction model
+     * @return mixed
+     */
+    public function delete(Request $request, Transaction $model) {
+        if ($model->status != 'pending') {
+            abort(401);
+        }
+
+        $model->delete();
+
+        return response(null, 202);
     }
 }
