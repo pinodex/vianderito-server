@@ -167,6 +167,7 @@ return [
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
 
         App\Providers\AuthyApiServiceProvider::class,
+        App\Providers\BraintreeServiceProvider::class,
 
         TwigBridge\ServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,

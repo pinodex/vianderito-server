@@ -87,3 +87,19 @@ Route::group(['prefix' => 'store', 'namespace' => 'Store'], function () {
     });
 
 });
+
+Route::group(['prefix' => 'gateway', 'namespace' => 'Gateway'], function () {
+
+    Route::group(['prefix' => 'client'], function () {
+        Route::post('/token', 'ClientController@token');
+    });
+
+    Route::group(['prefix' => 'customer'], function () {
+        Route::get('/', 'CustomerController@index');
+        Route::post('/', 'CustomerController@create');
+        Route::get('/{model}', 'CustomerController@get');
+        Route::get('/{model}/details', 'CustomerController@getDetails');
+        Route::delete('/{model}', 'CustomerController@delete');
+    });
+
+});

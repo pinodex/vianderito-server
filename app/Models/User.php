@@ -159,4 +159,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->email_address;
     }
+
+    public function gatewayCustomers()
+    {
+        return $this->hasMany(GatewayCustomer::class);
+    }
 }

@@ -35,6 +35,13 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'braintree' => [
+        'id' => env('BRAINTREE_ID'),
+        'public_key' => env('BRAINTREE_PUBLIC_KEY'),
+        'private_key' => env('BRAINTREE_PRIVATE_KEY'),
+        'environment' => env('BRAINTREE_ENVIRONMENT')
+    ],
+
     'sendgrid' => [
         'api_key' => env('SENDGRID_API_KEY'),
     ],
