@@ -56,7 +56,9 @@
       </b-table-column>
 
       <b-table-column field="expiration_date" label="Expiration" sortable>
-        {{ props.row.expiration_date | moment('MMM DD, YYYY') }}
+        <span :class="{ 'has-text-weight-bold': props.row.is_expired }">
+          {{ props.row.expiration_date | moment('MMM DD, YYYY') }}
+        </span>
       </b-table-column>
 
       <b-table-column field="created_at" label="Date Added" sortable>
@@ -208,6 +210,14 @@
 
       getRowClass (row, i) {
         let _class = ''
+
+        if (row.is_near_expiration) {
+          _class = 'is-warning'
+        }
+
+        if (row.is_expired) {
+          _class = 'is-more-danger'
+        }
 
         if (row.stocks <= row.product.floor) {
           _class = 'is-danger'

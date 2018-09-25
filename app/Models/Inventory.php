@@ -35,7 +35,9 @@ class Inventory extends Model
     ];
 
     public $appends = [
-        'stocks'
+        'stocks',
+        'is_expired',
+        'is_near_expiration'
     ];
 
     /**
@@ -107,5 +109,25 @@ class Inventory extends Model
         $stocks -= $taken;
 
         return $stocks;
+    }
+
+    /**
+     * is_expired attribute
+     * 
+     * @return boolean
+     */
+    public function getIsExpiredAttribute()
+    {
+        return now()->gte($this->expiration_date);
+    }
+
+    /**
+     * is_near_expired attribute
+     * 
+     * @return boolean
+     */
+    public function getIsNearExpirationAttribute()
+    {
+        return now()->diffInDays($this->expiration_date) <= 5;
     }
 }
