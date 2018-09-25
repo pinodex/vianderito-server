@@ -87,14 +87,24 @@ class Inventory extends Model
      */
     public function getStocksAttribute()
     {
-        $totalLoss = 0;
+        $taken = 0;
         $stocks = $this->quantity;
 
-        $this->losses->each(function (InventoryLoss $loss) use (&$totalLoss) {
-            $totalLoss += $loss->units;
+        $this->losses->each(function (InventoryLoss $loss) use (&$taken) {
+            $taken += $loss->units;
         });
 
-        $stocks -= $totalLoss;
+        $this->transactions->each(function (Transaction $transaction) use (&$taken) {
+            $transaction->purchases->each(function (Purchase $purchase) use (&$taken) {
+                $purchase->products->each(function (PurchaseProduct $purchaseProduct) use (&$taken) {
+                    if ($this->product_id == $purchaseProduct->product_id) {
+                        $taken += $purchaseProduct->quantity;
+                    }
+                });
+            });
+        });
+
+        $stocks -= $taken;
 
         return $stocks;
     }
