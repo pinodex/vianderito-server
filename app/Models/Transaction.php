@@ -81,7 +81,9 @@ class Transaction extends Model
             $purchase->user()->associate($user);
             $purchase->transaction()->associate($this);
 
-            $this->inventories->each(function (Inventory $inventory) use ($purchase) {
+            $amount = 0;
+
+            $this->inventories->each(function (Inventory $inventory) use ($purchase, &$amount) {
                 $purchaseProduct = new PurchaseProduct();
 
                 $purchaseProduct->purchase()->associate($purchase);
@@ -93,15 +95,16 @@ class Transaction extends Model
                 $purchaseProduct->quantity = $inventory->pivot->quantity;
                 $purchaseProduct->subtotal = $inventory->price * $inventory->pivot->quantity;;
 
-                $purchase->amount += $inventory->subtotal;
+                $amount += $purchaseProduct->subtotal;
 
                 $purchaseProduct->save();
             });
 
+            $purchase->amount = $amount;
+            $purchase->save();
+
             $this->status = 'complete';
             $this->save();
-            
-            $purchase->save();
         });
 
         return $purchase;
