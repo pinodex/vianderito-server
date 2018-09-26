@@ -84,12 +84,12 @@ class Inventory extends Model
     }
 
     /**
-     * Get summary by batch
+     * Get graph data by field
      * 
      * @param  string $field Column name
      * @return Collection|array
      */
-    public static function getSummaryByField($field) {
+    public static function getGraphByField($field) {
         if (static::count() == 0) {
             return [];
         }

@@ -13,10 +13,16 @@ class InventoryController extends Controller
         parent::__construct();
 
         $this->acl([
-            'create_reports'  => ['summary'],
+            'create_reports'  => ['index', 'graph'],
         ]);
     }
 
+    /**
+     * Inventory report table
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
     public function index(Request $request)
     {
         $dateField = $request->input('date_field') ?? 'batch_date';
@@ -32,10 +38,16 @@ class InventoryController extends Controller
         return $inventories;
     }
 
-    public function summary(Request $request)
+    /**
+     * Graph data
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
+    public function graph(Request $request)
     {
         $field = $request->input('field') ?? 'batch_date';
 
-        return Inventory::getSummaryByField($field);
+        return Inventory::getGraphByField($field);
     }
 }

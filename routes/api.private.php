@@ -178,7 +178,13 @@ Route::group([
                 
                 Route::group(['as' => 'inventory.', 'prefix' => 'inventory'], function () {
                     Route::get('/', 'InventoryController@index');
-                    Route::get('/summary', 'InventoryController@summary');
+                    Route::get('/graph', 'InventoryController@graph');
+                });
+
+                Route::group(['as' => 'sales.', 'prefix' => 'sales'], function () {
+                    Route::get('/', 'SalesController@index');
+                    Route::get('/graph', 'SalesController@graph');
+                    Route::get('/graph/options', 'SalesController@graphOptions');
                 });
 
             });

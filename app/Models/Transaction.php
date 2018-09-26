@@ -116,6 +116,11 @@ class Transaction extends Model
             ->withPivot('quantity');
     }
 
+    public function purchase()
+    {
+        return $this->hasOne(Purchase::class);
+    }
+
     public function purchases()
     {
         return $this->hasMany(Purchase::class);

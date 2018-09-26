@@ -22,6 +22,12 @@
           },
 
           {
+            route: { name: 'reports.sales' },
+            text: 'Sales',
+            permissions: ['create_reports']
+          },
+
+          {
             route: { name: 'reports.purchase' },
             text: 'Purchases',
             permissions: ['create_reports']

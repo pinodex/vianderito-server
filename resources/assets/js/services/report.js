@@ -4,11 +4,23 @@ export default class {
     this.$http = app.$http
   }
 
-  getInventorySummary (params = {}) {
-    return this.$http.get('/admin/reports/inventory/summary', { params })
+  getInventoryGraph (params = {}) {
+    return this.$http.get('/admin/reports/inventory/graph', { params })
   }
 
   getInventory (params = {}) {
     return this.$http.get('/admin/reports/inventory', { params })
+  }
+
+  getSalesGraph (params = {}) {
+    return this.$http.get('/admin/reports/sales/graph', { params })
+  }
+
+  getSalesGraphOptions () {
+    return this.$http.get('/admin/reports/sales/graph/options')
+  }
+
+  getSales (params = {}) {
+    return this.$http.get('/admin/reports/sales', { params })
   }
 }

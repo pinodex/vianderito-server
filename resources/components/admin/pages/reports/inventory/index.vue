@@ -3,14 +3,12 @@
     <tabs></tabs>
 
     <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <h2 class="subtitle">Summary by Inventory</h2>
-        </div>
-
+      <div class="level-left"></div>
+      
+      <div class="level-right">
         <div class="level-item">
           <div class="select">
-            <select v-model="summaryCriteria">
+            <select v-model="graphCriteria">
               <option value="created_at">Date Added</option>
               <option value="batch_date">Batch Date</option>
             </select>
@@ -19,7 +17,7 @@
       </div>
     </div>
 
-    <line-chart :data="summaryData" class="has-contents-below"></line-chart>
+    <line-chart :data="graphData" class="has-contents-below"></line-chart>
 
     <h2 class="subtitle">Inventory Report</h2>
 
@@ -80,6 +78,10 @@
       :hoverable="true">
 
       <template slot-scope="props">
+        <b-table-column field="eid" label="ID" sortable>
+          {{ props.row.eid }}
+        </b-table-column>
+
         <b-table-column field="product.upc" label="UPC" sortable>
           {{ props.row.product.upc }}
         </b-table-column>
@@ -112,7 +114,7 @@
           {{ props.row.expiration_date }}
         </b-table-column>
 
-        <b-table-column field="created_at" label="Date Created" centered sortable>
+        <b-table-column field="created_at" label="Date Added" centered sortable>
           {{ props.row.created_at | moment('MMM DD, YYYY hh:mm A') }}
         </b-table-column>
       </template>
@@ -130,8 +132,8 @@
 
     data () {
       return {
-        summaryData: {},
-        summaryCriteria: 'batch_date',
+        graphData: {},
+        graphCriteria: 'batch_date',
 
         query: {},
         result: [],
@@ -145,13 +147,13 @@
 
       this.query.date_field = 'batch_date'
 
-      this.loadSummary(this.summaryCriteria)
+      this.loadGraph(this.graphCriteria)
       this.loadData()
     },
 
     watch: {
-      summaryCriteria (value) {
-        this.loadSummary(value)
+      graphCriteria (value) {
+        this.loadGraph(value)
       }
     },
 
@@ -160,15 +162,15 @@
         this.loadData()
       },
 
-      loadSummary(field) {
+      loadGraph (field) {
         const loadingComponent = this.$loading.open()
 
-        this.$report.getInventorySummary({ field })
-          .then(response => this.summaryData = response.data)
+        this.$report.getInventoryGraph({ field })
+          .then(response => this.graphData = response.data)
           .finally(() => loadingComponent.close())
       },
 
-      loadData() {
+      loadData () {
         this.isLoading = true
 
         this.$report.getInventory(this.query)
