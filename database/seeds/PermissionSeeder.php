@@ -85,6 +85,13 @@ class PermissionSeeder extends Seeder
                 'delete_inventory' => ['Delete Category', 'Allow deletion inventory'],
                 'edit_inventory' => ['Edit Category', 'Allow editing of inventory']
             ]
+        ],
+
+        [
+            'name' => 'report',
+            'items' => [
+                'create_reports' => ['Create Reports', 'Allow creation of reports']
+            ]
         ]
     ];
 

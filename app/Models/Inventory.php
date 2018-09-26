@@ -32,10 +32,11 @@ class Inventory extends Model
     protected $casts = [
         'cost' => 'float',
         'price' => 'float',
+        'created_at' => 'string',
+        'updated_at' => 'string'
     ];
 
     public $appends = [
-        'stocks',
         'is_expired',
         'is_near_expiration'
     ];
@@ -83,6 +84,22 @@ class Inventory extends Model
     }
 
     /**
+     * Get summary by batch
+     * 
+     * @param  string $field Column name
+     * @return Collection|array
+     */
+    public static function getSummaryByField($field) {
+        if (static::count() == 0) {
+            return [];
+        }
+
+        return static::all()->groupBy($field)->map(function ($group) {
+            return $group->count();
+        });
+    }
+
+    /**
      * Get computed stocks
      * 
      * @return int
@@ -109,6 +126,84 @@ class Inventory extends Model
         $stocks -= $taken;
 
         return $stocks;
+    }
+
+    /**
+     * total_loss attribute
+     * 
+     * @return int
+     */
+    public function getTotalLossAttribute()
+    {
+        $taken = 0;
+
+        $this->losses->each(function (InventoryLoss $loss) use (&$taken) {
+            $taken += $loss->units;
+        });
+
+        return $taken;
+    }
+
+    /**
+     * total_loss_price attribute
+     * 
+     * @return double|int
+     */
+    public function getTotalLossPriceAttribute()
+    {
+        return $this->total_loss * $this->price;
+    }
+
+    /**
+     * total_loss_cost attribute
+     * 
+     * @return double|int
+     */
+    public function getTotalLossCostAttribute()
+    {
+        return $this->total_loss * $this->cost;
+    }
+
+    /**
+     * total_sale attribute
+     * 
+     * @return int
+     */
+    public function getTotalSaleAttribute()
+    {
+        $taken = 0;
+
+        $this->transactions->each(function (Transaction $transaction) use (&$taken) {
+            $transaction->purchases->each(function (Purchase $purchase) use (&$taken) {
+                $purchase->products->each(function (PurchaseProduct $purchaseProduct) use (&$taken) {
+                    if ($this->product_id == $purchaseProduct->product_id) {
+                        $taken += $purchaseProduct->quantity;
+                    }
+                });
+            });
+        });
+
+        return $taken;
+    }
+
+    /**
+     * total_sale_price attribute
+     * 
+     * @return double|int
+     */
+    public function getTotalSalePriceAttribute()
+    {
+        return $this->total_sale * $this->price;
+    }
+
+    /**
+     * total_sale_cost attribute
+     * 
+     * @return double|int
+     */
+    public function getTotalSaleCostAttribute()
+    {
+        return $this->total_sale * $this->cost;
     }
 
     /**

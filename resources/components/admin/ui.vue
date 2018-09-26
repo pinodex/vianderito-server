@@ -173,6 +173,13 @@
             icon: 'fa fa-users',
             text: 'Users',
             permissions: ['browse_users']
+          },
+
+          {
+            route: { name: 'reports' },
+            icon: 'fa fa-chart-line',
+            text: 'Reports',
+            permissions: ['create_reports']
           }
         ]
       }

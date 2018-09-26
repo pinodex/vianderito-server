@@ -47,7 +47,7 @@ mix
 
   .extract([
     'vue', 'vue-router', 'vuex', 'vue-progressbar', 'vue2-filters', 'vue-moment',
-    'moment', 'axios', 'buefy', 'format-unicorn', 'cleave.js'
+    'moment', 'axios', 'buefy', 'format-unicorn', 'cleave.js', 'vue-chartkick', 'chart.js'
   ])
 
   .disableNotifications()

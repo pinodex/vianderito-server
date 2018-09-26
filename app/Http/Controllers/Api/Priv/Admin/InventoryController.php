@@ -47,6 +47,10 @@ class InventoryController extends Controller
 
         $result = $models->paginate(20);
 
+        foreach ($result->items() as $item) {
+            $item->append('stocks');
+        }
+
         return $result;
     }
 
@@ -80,7 +84,7 @@ class InventoryController extends Controller
      */
     public function view(Request $request, Model $model)
     {
-        $model->load('product');
+        $model->load('product')->append('stocks');
 
         return $model;
     }

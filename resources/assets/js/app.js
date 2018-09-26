@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import ProgressBar from 'vue-progressbar'
+import Chartkick from 'vue-chartkick'
 import Pusher from 'pusher-js'
 import Echo from 'laravel-echo'
 import Moment from 'vue-moment'
@@ -34,6 +35,8 @@ Vue.use(ProgressBar, {
   failedColor: 'red',
   height: '2px'
 })
+
+Vue.use(Chartkick)
 
 Vue.use(Moment)
 

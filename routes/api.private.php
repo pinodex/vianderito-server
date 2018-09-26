@@ -173,6 +173,15 @@ Route::group([
                 Route::post('/{model}/avatar', 'UserController@avatar');
                 Route::post('/{model}/reset_password', 'UserController@resetPassword');
             });
+
+            Route::group(['as' => 'reports.', 'prefix' => 'reports', 'namespace' => 'Reports'], function () {
+                
+                Route::group(['as' => 'inventory.', 'prefix' => 'inventory'], function () {
+                    Route::get('/', 'InventoryController@index');
+                    Route::get('/summary', 'InventoryController@summary');
+                });
+
+            });
         });
     }
 );

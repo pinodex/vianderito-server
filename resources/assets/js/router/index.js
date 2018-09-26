@@ -127,6 +127,24 @@ const router = new Router({
       name: 'users.view',
       component: () => import('@admin/pages/users/view')
     },
+
+    {
+      path: '/reports',
+      name: 'reports',
+      component: () => import('@admin/pages/reports/index')
+    },
+
+    {
+      path: '/reports/inventory',
+      name: 'reports.inventory',
+      component: () => import('@admin/pages/reports/inventory/index')
+    },
+
+    {
+      path: '/reports/purchase',
+      name: 'reports.purchase',
+      component: () => import('@admin/pages/reports/purchase/index')
+    }
   ]
 })
 
