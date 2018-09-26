@@ -94,4 +94,9 @@ class AccountLog extends Model
     {
         $this->attributes['params'] = json_encode($value);
     }
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
 }

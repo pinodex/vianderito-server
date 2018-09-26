@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveAccount as SaveModel;
 use App\Http\Requests\SaveAvatar;
 use App\Models\Account as Model;
+use App\Models\AccountLog;
 
 class AccountController extends Controller
 {
@@ -88,6 +89,19 @@ class AccountController extends Controller
     public function view(Request $request, Model $model)
     {
         return $model;
+    }
+
+    /**
+     * All logs
+     * 
+     * @param  Request $request Request object
+     * @return mixed
+     */
+    public function allLogs(Request $request)
+    {
+        return AccountLog::with('account')
+            ->orderBy('created_at', 'DESC')
+            ->paginate(5);
     }
 
     /**

@@ -111,6 +111,42 @@
         </div>
       </div>
     </div>
+
+    <div class="columns" v-if="$root.can('browse_accounts')">
+      <div class="column">
+        <div class="box">
+          <h2 class="subtitle">Latest Activity Log</h2>
+
+          <b-table paginated striped backend-pagination
+            :data="logs.data"
+            :total="logs.total"
+            :per-page="logs.per_page"
+            :loading="isLogsLoading"
+            :mobile-cards="false"
+
+            @page-change="onLogsPageChange">
+
+            <template slot-scope="props">
+              <b-table-column label="Account">
+                <person :model="props.row.account" v-if="props.row.account"></person>
+              </b-table-column>
+
+              <b-table-column label="Action">{{ props.row.description }}</b-table-column>
+
+              <b-table-column label="IP Address">{{ props.row.ip_address }}</b-table-column>
+
+              <b-table-column label="Browser">{{ props.row.browser }}</b-table-column>
+
+              <b-table-column label="Date &amp; Time">
+                <span :title="props.row.created_at | moment('MMM DD, YYYY hh:mm A')">
+                  {{ props.row.created_at | moment('from') }}
+                </span>
+              </b-table-column>
+            </template>
+          </b-table>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -155,17 +191,22 @@
 
 <script>
   import stat from '@admin/partials/stat'
+  import person from '@admin/partials/accounts/person'
 
   export default {
-    inject: ['$stats', '$report'],
+    inject: ['$stats', '$report', '$account'],
 
-    components: { stat },
+    components: { stat, person },
 
     data () {
       return {
         counts: {},
+        
         inventoryGraph: [],
-        salesGraph: []
+        salesGraph: [],
+
+        logs: [],
+        isLogsLoading: true
       }
     },
 
@@ -181,6 +222,20 @@
 
       this.$report.getSalesGraph({ view: 'yearly' })
         .then(response => this.salesGraph = response.data)
+
+      this.$account.getAllLogs()
+        .then(response => this.logs = response.data)
+        .finally(() => this.isLogsLoading = false)
+    },
+
+    methods: {
+      onLogsPageChange (page) {
+        this.isLogsLoading = true
+
+        this.$account.getAllLogs({ page })
+          .then(response => this.logs = response.data)
+          .finally(() => this.isLogsLoading = false)
+      }
     }
   }
 </script>

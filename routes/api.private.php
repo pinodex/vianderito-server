@@ -31,6 +31,9 @@ Route::group([
             Route::group(['as' => 'accounts.', 'prefix' => 'accounts'], function () {
                 Route::get('/', 'AccountController@index');
 
+                Route::get('/logs', 'AccountController@allLogs');
+                Route::post('/create', 'AccountController@create');
+
                 Route::get('/{model}', 'AccountController@view');
                 Route::patch('/{model}', 'AccountController@edit');
                 Route::delete('/{model}', 'AccountController@delete');
@@ -45,8 +48,6 @@ Route::group([
                 Route::post('/{model}/destroy', 'AccountController@destroy');
 
                 Route::get('/{model}/logs', 'AccountController@logs');
-
-                Route::post('/create', 'AccountController@create');
             });
 
             Route::group(['as' => 'departments.', 'prefix' => 'departments'], function () {

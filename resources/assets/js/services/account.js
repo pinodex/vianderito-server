@@ -1,4 +1,5 @@
 const ENDPOINT_GET = '/admin/accounts',
+      ENDPOINT_ALL_LOGS = '/admin/accounts/logs',
       ENDPOINT_FETCH = '/admin/accounts/{id}',
       ENDPOINT_AVATAR = '/admin/accounts/{id}/avatar',
       ENDPOINT_RESET = '/admin/accounts/{id}/reset_password',
@@ -62,6 +63,10 @@ export default class {
     let url = ENDPOINT_LOGS.formatUnicorn({ id })
 
     return this.$http.get(url, { params })
+  }
+
+  getAllLogs (params = {}) {
+    return this.$http.get(ENDPOINT_ALL_LOGS, { params })
   }
 
   setAvatar (id, file) {
