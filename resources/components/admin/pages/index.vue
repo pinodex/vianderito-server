@@ -77,6 +77,40 @@
         <stat title="Active Coupons" :value="counts.active_coupons" background="/assets/img/coupons.svg" />
       </div>
     </div>
+
+    <div class="columns" v-if="$root.can('create_reports')">
+      <div class="column">
+        <div class="box">
+          <div class="level is-mobile">
+            <div class="level-left">
+              <h2 class="subtitle">Inventory</h2>
+            </div>
+
+            <div class="level-right">
+              <router-link :to="{ name: 'reports.inventory' }">View All</router-link>
+            </div>
+          </div>
+
+          <area-chart :data="inventoryGraph"></area-chart>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="box">
+          <div class="level is-mobile">
+            <div class="level-left">
+              <h2 class="subtitle">Sales</h2>
+            </div>
+
+            <div class="level-right">
+              <router-link :to="{ name: 'reports.sales' }">View All</router-link>
+            </div>
+          </div>
+
+          <area-chart :data="salesGraph"></area-chart>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -123,13 +157,15 @@
   import stat from '@admin/partials/stat'
 
   export default {
-    inject: ['$stats'],
+    inject: ['$stats', '$report'],
 
     components: { stat },
 
     data () {
       return {
-        counts: {}
+        counts: {},
+        inventoryGraph: [],
+        salesGraph: []
       }
     },
 
@@ -139,6 +175,12 @@
       this.$stats.counts().then(response => {
         this.counts = response.data
       })
+
+      this.$report.getInventoryGraph()
+        .then(response => this.inventoryGraph = response.data)
+
+      this.$report.getSalesGraph({ view: 'yearly' })
+        .then(response => this.salesGraph = response.data)
     }
   }
 </script>
