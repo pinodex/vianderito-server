@@ -168,6 +168,10 @@ Route::group([
                 Route::patch('/{model}', 'UserController@edit');
                 Route::delete('/{model}', 'UserController@delete');
 
+                Route::get('/{model}/payment_methods', 'UserController@paymentMethods');
+                Route::get('/{model}/payments', 'UserController@payments');
+                Route::get('/{model}/purchases', 'UserController@purchases');
+
                 Route::post('/{model}/restore', 'UserController@restore');
                 Route::post('/{model}/destroy', 'UserController@destroy');
                 

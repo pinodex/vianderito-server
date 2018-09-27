@@ -26,6 +26,12 @@
 
     <div class="main-container ui-container">
       <div class="columns">
+        <div class="column">
+          <tabs :id="user.id"></tabs>
+
+          <component :is="detailComponent" :user="user"></component>
+        </div>
+        
         <div class="column is-3">
           <div class="box">
             <p class="is-size-6 is-marginless has-text-dark">
@@ -45,21 +51,46 @@
             </p>
           </div>
         </div>
-
-        <div class="column">
-        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+  import tabs from '@admin/partials/users/tabs'
+
   export default {
     inject: ['$user'],
 
+    components: { tabs },
+
     data () {
       return {
-        user: null
+        user: null,
+        activeTab: 0
+      }
+    },
+
+    computed: {
+      detailComponent () {
+        switch (this.$route.name) {
+          case 'users.view.purchases':
+            return () => import('@admin/partials/users/details/purchases')
+
+          case 'users.view.payments':
+            return () => import('@admin/partials/users/details/payments')
+
+          case 'users.view.payment_methods':
+            return () => import('@admin/partials/users/details/payment_methods')
+        }
+      }
+    },
+
+    created () {
+      if (this.$route.name == 'users.view') {
+        let params = this.$route.params
+
+        this.$router.push({ name: 'users.view.purchases', params })
       }
     },
 

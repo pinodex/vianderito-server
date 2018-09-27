@@ -19,6 +19,10 @@ class GatewayCustomer extends Model
         'expiration_year'
     ];
 
+    public $appends = [
+        'expiration'
+    ];
+
     /**
      * The "booting" method of the model.
      *
@@ -38,5 +42,10 @@ class GatewayCustomer extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getExpirationAttribute()
+    {
+        return sprintf('%s/%s', $this->expiration_month, $this->expiration_year);
     }
 }

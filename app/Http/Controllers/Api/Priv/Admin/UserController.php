@@ -61,6 +61,42 @@ class UserController extends Controller
     }
 
     /**
+     * Get user payment methods
+     * 
+     * @param  Request $request Request object
+     * @param  Model   $model   Model model
+     * @return mixed
+     */
+    public function paymentMethods(Request $request, Model $model)
+    {
+        return $model->gatewayCustomers()->paginate(20);
+    }
+
+    /**
+     * Get user payments
+     * 
+     * @param  Request $request Request object
+     * @param  Model   $model   Model model
+     * @return mixed
+     */
+    public function payments(Request $request, Model $model)
+    {
+        return $model->payments()->paginate(20);
+    }
+
+    /**
+     * Get user purchase
+     * 
+     * @param  Request $request Request object
+     * @param  Model   $model   Model model
+     * @return mixed
+     */
+    public function purchases(Request $request, Model $model)
+    {
+        return $model->purchases()->paginate(20);
+    }
+
+    /**
      * Model edit action
      * 
      * @param  Request $request Request object

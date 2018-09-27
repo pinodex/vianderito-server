@@ -3,6 +3,9 @@ const ENDPOINT_GET = '/admin/users',
       ENDPOINT_AVATAR = '/admin/users/{id}/avatar',
       ENDPOINT_RESTORE = '/admin/users/{id}/restore',
       ENDPOINT_DESTROY = '/admin/users/{id}/destroy',
+      ENDPOINT_PURCHASES = '/admin/users/{id}/purchases',
+      ENDPOINT_PAYMENTS = '/admin/users/{id}/payments',
+      ENDPOINT_PAYMENT_METHODS = '/admin/users/{id}/payment_methods',
       ENDPOINT_RESET = '/admin/users/{id}/reset_password',
       ENDPOINT_SEARCH = '/admin/users/search'
 
@@ -48,6 +51,24 @@ export default class {
     let url = ENDPOINT_DESTROY.formatUnicorn({ id })
 
     return this.$http.post(url)
+  }
+
+  getPurchases (id, params = {}) {
+    let url = ENDPOINT_PURCHASES.formatUnicorn({ id })
+
+    return this.$http.get(url, { params })
+  }
+
+  getPayments (id, params = {}) {
+    let url = ENDPOINT_PAYMENTS.formatUnicorn({ id })
+
+    return this.$http.get(url, { params })
+  }
+
+  getPaymentMethods (id, params = {}) {
+    let url = ENDPOINT_PAYMENT_METHODS.formatUnicorn({ id })
+
+    return this.$http.get(url, { params })
   }
 
   resetPassword (id) {
