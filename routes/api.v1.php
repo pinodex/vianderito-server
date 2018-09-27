@@ -57,6 +57,11 @@ Route::group(['prefix' => 'profile'], function () {
 
 });
 
+Route::group(['prefix' => 'orders'], function () {
+    Route::get('/', 'OrderController@index');
+    Route::get('/{model}', 'OrderController@view');
+});
+
 Route::group(['prefix' => 'verify', 'namespace' => 'Verify'], function () {
 
     Route::group(['prefix' => 'sms'], function () {

@@ -115,4 +115,9 @@ class Purchase extends Model
     {
         return $this->hasMany(PurchaseProduct::class);
     }
+
+    public function getProductsCountAttribute()
+    {
+        return $this->products()->count();
+    }
 }
