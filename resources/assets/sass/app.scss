@@ -60,6 +60,10 @@ a {
 .navbar {
   height: $navbar-height;
 
+  .navbar-brand .navbar-item img {
+    max-height: 100%;
+  }
+
   .navbar-burger {
     height: $navbar-height;
   }
@@ -70,7 +74,13 @@ a {
     height: $navbar-height-extended;
 
     .navbar-brand {
-      display: none;
+      margin-left: 1.6rem;
+
+      .navbar-item {
+        width: 300px;
+        height: 72px;
+        padding: 0;
+      }
     }
 
     .navbar-menu {
@@ -94,6 +104,8 @@ a {
 
   z-index: 40;
 
+  transition: width 0.2s ease;
+
   @media (max-width: 1087px) {
     display: none;
   }
@@ -101,6 +113,9 @@ a {
   .navbar-brand {
     background: #3f515a;
     height: $navbar-height-extended;
+    opacity: 1;
+
+    transition: opacity 0.2s ease;
   }
 
   .search {
@@ -150,6 +165,7 @@ a {
 
     .icon {
       margin-right: 10px;
+      transition: margin-right 0.2s ease;
     }
 
     &:hover {
@@ -161,6 +177,30 @@ a {
     &.is-active:not(:hover) {
       background-color: #263136;
       color: #fff;
+    }
+  }
+
+  &.is-compact {
+    width: 50px;
+
+    .navbar-brand {
+      opacity: 0;
+    }
+
+    .navbar-item .icon {
+      margin-right: 30px;
+    }
+
+    &:hover {
+      width: 300px;
+
+      .navbar-brand {
+        opacity: 1;
+      }
+
+      .navbar-item .icon {
+        margin-right: 10px;
+      }
     }
   }
 }
@@ -180,6 +220,12 @@ a {
   @media (min-width: 1088px) {
     margin-top: $navbar-height-extended;
     margin-left: 300px;
+
+    transition: margin-left 0.2s ease;
+
+    &.is-compact {
+      margin-left: 50px;
+    }
   }
 }
 

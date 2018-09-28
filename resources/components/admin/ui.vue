@@ -4,9 +4,9 @@
     
     <template v-if="!hasFatalError">
       <navbar :items="nav"></navbar>
-      <sidebar :items="nav"></sidebar>
+      <sidebar :items="nav" :class="{'is-compact': compactNav}"></sidebar>
 
-      <div class="router-view">
+      <div class="router-view" :class="{'is-compact': compactNav}">
         <div class="notification top-notification is-warning"
           v-if="$root.account.require_password_change && $route.name != 'change_password'">
           <div class="level">
@@ -188,6 +188,11 @@
     computed: {
       isUiFullWidth () {
         return ['accounts.view'].indexOf(this.$route.name) != -1
+      },
+
+      compactNav () {
+        return ['inventories', 'reports.inventory', 'reports.sales']
+          .indexOf(this.$route.name) != -1
       }
     },
 

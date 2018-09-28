@@ -2,7 +2,8 @@
   <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <div class="navbar-item">
-        <img src="/assets/img/vianderito-128.png">
+        <img src="/assets/img/logo-admin-black.png" class="is-hidden-touch">
+        <img src="/assets/img/vianderito-128.png" class="is-hidden-desktop">
       </div>
 
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" @click="toggleMenu()">
