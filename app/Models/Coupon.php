@@ -42,7 +42,9 @@ class Coupon extends Model
     ];
 
     public $appends = [
-        'is_valid'
+        'is_valid',
+        'uses',
+        'remainder'
     ];
 
     /**
@@ -240,6 +242,31 @@ class Coupon extends Model
     public function getCategoryIdsAttribute()
     {
         return $this->categories->pluck('id');
+    }
+
+    /**
+     * uses attribute
+     * 
+     * @return int
+     */
+    public function getUsesAttribute()
+    {
+        return $this->purchases()->count();
+    }
+
+    public function getRemainderAttribute()
+    {
+        return $this->quantity - $this->uses;
+    }
+
+    /**
+     * Purchase relation
+     * 
+     * @return HasMany
+     */
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
     }
 
     /**

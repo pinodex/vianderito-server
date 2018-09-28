@@ -23,6 +23,8 @@ class Product extends Model
         'category_id',
         'upc',
         'name',
+        'floor',
+        'ceiling',
         'description'
     ];
 

@@ -15,12 +15,24 @@
         {{ props.row.code }}
       </b-table-column>
       
-      <b-table-column field="validity_start" label="Validity Start" sortable>
+      <b-table-column field="validity_start" label="Validity Start" centered sortable>
         {{ props.row.validity_start | moment('MMM DD, YYYY hh:mm A') }}
       </b-table-column>
 
-      <b-table-column field="validity_end" label="Validity End" sortable>
+      <b-table-column field="validity_end" label="Validity End" centered sortable>
         {{ props.row.validity_end | moment('MMM DD, YYYY hh:mm A') }}
+      </b-table-column>
+
+      <b-table-column field="quantity" label="Max Use" numeric sortable>
+        {{ props.row.quantity }}
+      </b-table-column>
+
+      <b-table-column field="uses" label="Uses" numeric sortable>
+        {{ props.row.uses }}
+      </b-table-column>
+
+      <b-table-column field="remainder" label="Remaining" numeric sortable>
+        {{ props.row.remainder }}
       </b-table-column>
       
       <b-table-column class="is-fit">
