@@ -67,6 +67,11 @@ class Inventory extends Model
         return self::where('expiration_date', '>', date('Y-m-d'));
     }
 
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class);

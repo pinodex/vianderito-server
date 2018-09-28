@@ -12,7 +12,8 @@ class Purchase extends Model
 
     public $fillable = [
         'user_id',
-        'amount'
+        'amount',
+        'discounted_amount'
     ];
 
     public $with = [
@@ -109,6 +110,11 @@ class Purchase extends Model
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);
+    }
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
     }
 
     public function products()

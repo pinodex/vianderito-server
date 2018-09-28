@@ -19,6 +19,12 @@ class Transaction extends Model
         'status'
     ];
 
+    public $appends = [
+        'total',
+        'original_total',
+        'is_discounted'
+    ];
+
     /**
      * The "booting" method of the model.
      *
@@ -81,9 +87,11 @@ class Transaction extends Model
             $purchase->user()->associate($user);
             $purchase->transaction()->associate($this);
 
-            $amount = 0;
+            if ($this->coupon) {
+                $purchase->coupon()->associate($this->coupon);
+            }
 
-            $this->inventories->each(function (Inventory $inventory) use ($purchase, &$amount) {
+            $this->inventories->each(function (Inventory $inventory) use ($purchase) {
                 $purchaseProduct = new PurchaseProduct();
 
                 $purchaseProduct->purchase()->associate($purchase);
@@ -95,12 +103,11 @@ class Transaction extends Model
                 $purchaseProduct->quantity = $inventory->pivot->quantity;
                 $purchaseProduct->subtotal = $inventory->price * $inventory->pivot->quantity;;
 
-                $amount += $purchaseProduct->subtotal;
-
                 $purchaseProduct->save();
             });
 
-            $purchase->amount = $amount;
+            $purchase->amount = $this->original_total;
+            $purchase->discounted_amount = $this->total;
             $purchase->save();
 
             $this->status = 'complete';
@@ -108,6 +115,94 @@ class Transaction extends Model
         });
 
         return $purchase;
+    }
+
+    /**
+     * Get entities involved in this transaction entry
+     * 
+     * @return array
+     */
+    public function getInvolvedEntityIdsAttribute()
+    {
+        $ids = collect([
+            'inventories' => collect([]),
+            'products' => collect([]),
+            'categories' => collect([]),
+            'suppliers' => collect([])
+        ]);
+
+        $this->inventories->each(function (Inventory $inventory) use (&$ids) {
+            $ids['inventories'][] = $inventory->id;
+
+            if ($inventory->product) {
+                $ids['products'][] = $inventory->product->id;
+
+                if ($inventory->product->category) {
+                    $ids['categories'][] = $inventory->product->category->id;
+                }
+
+                if ($inventory->product->supplier) {
+                    $ids['suppliers'][] = $inventory->product->supplier->id;
+                }
+            }
+        });
+
+        return $ids;
+    }
+
+    /**
+     * total attribute
+     * 
+     * @return float|double
+     */
+    public function getTotalAttribute()
+    {
+        if (!$this->coupon) {
+            return $this->original_total;
+        }
+
+        $less = $this->coupon->discount_price;
+
+        if ($this->coupon->discount_type == 'percentage') {
+            $less = $this->original_total * ($this->coupon->discount_percentage / 100);
+        }
+
+        return $this->original_total - $less;
+    }
+
+    /**
+     * original_total attribute
+     * 
+     * @return float|double
+     */
+    public function getOriginalTotalAttribute()
+    {
+        $total = 0;
+
+        $this->inventories->map(function ($inventory) use (&$total) {
+            $inventory->subtotal = $inventory->price * $inventory->pivot->quantity;
+
+            $total += $inventory->subtotal;
+
+            return $inventory;
+        });
+
+        return $total;
+    }
+
+    /**
+     * is_discounted attribute
+     * 
+     * @return mixed
+     */
+    public function getIsDiscountedAttribute()
+    {
+        return $this->coupon != null;
+    }
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
     }
 
     public function inventories()

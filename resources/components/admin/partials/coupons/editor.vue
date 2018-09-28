@@ -154,7 +154,7 @@
           <supplierselector v-model="model.selections.suppliers"></supplierselector>
         </b-tab-item>
         
-        <b-tab-item label="Categories" icon="layer-department">
+        <b-tab-item label="Categories" icon="layer-group">
           <categoryselector v-model="model.selections.categories"></categoryselector>
         </b-tab-item>
         

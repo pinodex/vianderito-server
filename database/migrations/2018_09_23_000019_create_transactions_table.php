@@ -16,10 +16,14 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->uuid('coupon_id')->nullable();
+
             $table->string('status');
 
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('set null');
         });
     }
 
