@@ -261,6 +261,15 @@
                   type: 'is-success'
                 })
               })
+              .catch(error => {
+                let message = error.response.data.message || error.response.data.error
+
+                this.$dialog.alert({ message,
+                  title: 'Error',
+                  type: 'is-danger'
+                })
+                this.refresh()
+              })
           }
         })
       },
@@ -278,6 +287,15 @@
                   message: `Account ${model.name} has been enabled`,
                   type: 'is-success'
                 })
+              })
+              .catch(error => {
+                let message = error.response.data.message || error.response.data.error
+
+                this.$dialog.alert({ message,
+                  title: 'Error',
+                  type: 'is-danger'
+                })
+                this.refresh()
               })
           }
         })
