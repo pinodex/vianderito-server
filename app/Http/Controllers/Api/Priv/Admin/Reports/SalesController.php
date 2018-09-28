@@ -14,7 +14,7 @@ class SalesController extends Controller
         parent::__construct();
 
         $this->acl([
-            'create_reports'  => ['index', 'graph'],
+            'create_reports'  => ['index', 'graph', 'graphOptions'],
         ]);
     }
 

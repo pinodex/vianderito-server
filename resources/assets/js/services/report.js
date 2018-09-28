@@ -23,4 +23,8 @@ export default class {
   getSales (params = {}) {
     return this.$http.get('/admin/reports/sales', { params })
   }
+
+  getPurchases (params = {}) {
+    return this.$http.get('/admin/reports/purchases', { params })
+  }
 }

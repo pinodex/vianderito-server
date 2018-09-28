@@ -21,7 +21,9 @@ class Purchase extends Model
     ];
 
     protected $casts = [
-        'amount' => 'float'
+        'amount' => 'float',
+        'discounted_amount' => 'float',
+        'discount_rate' => 'float'
     ];
 
     /**
@@ -125,5 +127,10 @@ class Purchase extends Model
     public function getProductsCountAttribute()
     {
         return $this->products()->count();
+    }
+
+    public function getDiscountRateAttribute()
+    {
+        return $this->discounted_amount / $this->amount;
     }
 }

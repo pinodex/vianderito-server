@@ -191,7 +191,7 @@
       },
 
       compactNav () {
-        return ['inventories', 'reports.inventory', 'reports.sales']
+        return ['inventories', 'reports.inventory', 'reports.sales', 'reports.purchase']
           .indexOf(this.$route.name) != -1
       }
     },

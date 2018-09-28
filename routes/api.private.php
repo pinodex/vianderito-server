@@ -192,6 +192,11 @@ Route::group([
                     Route::get('/graph/options', 'SalesController@graphOptions');
                 });
 
+                Route::group(['as' => 'purchases.', 'prefix' => 'purchases'], function () {
+                    Route::get('/', 'PurchasesController@index');
+                    Route::get('/graph', 'PurchasesController@graph');
+                });
+
             });
         });
     }
