@@ -33,35 +33,35 @@
         </section>
       </b-table-column>
 
-      <b-table-column field="quantity" label="QTY" class="has-text-right" sortable>
+      <b-table-column field="quantity" label="QTY" numeric sortable>
         <span>{{ props.row.quantity }}</span>
       </b-table-column>
 
-      <b-table-column field="quantity" label="Stocks" sortable>
+      <b-table-column field="quantity" label="Stocks" numeric sortable>
         <span class="tag is-medium" :class="getRowStateClass(props.row)">
           {{ props.row.stocks }}
         </span>
       </b-table-column>
 
-      <b-table-column field="cost" label="Cost" class="has-text-right" sortable>
+      <b-table-column field="cost" label="Cost" numeric sortable>
         {{ props.row.cost | currency('₱') }}
       </b-table-column>
 
-      <b-table-column field="price" label="Price" class="has-text-right" sortable>
+      <b-table-column field="price" label="Price" numeric sortable>
         {{ props.row.price | currency('₱') }}
       </b-table-column>
 
-      <b-table-column field="batch_date" label="Batch Date" sortable>
+      <b-table-column field="batch_date" label="Batch Date" centered sortable>
         {{ props.row.batch_date | moment('MMM DD, YYYY') }}
       </b-table-column>
 
-      <b-table-column field="expiration_date" label="Expiration" sortable>
+      <b-table-column field="expiration_date" label="Expiration" centered sortable>
         <span :class="{ 'has-text-weight-bold': props.row.is_expired }">
           {{ props.row.expiration_date | moment('MMM DD, YYYY') }}
         </span>
       </b-table-column>
 
-      <b-table-column field="created_at" label="Date Added" sortable>
+      <b-table-column field="created_at" label="Date Added" centered sortable>
         {{ props.row.created_at | moment('MMM DD, YYYY hh:mm A') }}
       </b-table-column>
       

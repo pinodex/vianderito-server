@@ -27,7 +27,7 @@
         {{ props.row.is_verified ? 'Verified' : 'Unverified' }}
       </b-table-column>
       
-      <b-table-column field="created_at" label="Created at" sortable>
+      <b-table-column field="created_at" label="Created at" centered sortable>
         <template v-if="props.row.created_at">
           {{ props.row.created_at | moment('MMM DD, YYYY hh:mm A') }}
         </template>
@@ -37,7 +37,7 @@
         </template>
       </b-table-column>
       
-      <b-table-column field="last_login_at" label="Last login at" sortable>
+      <b-table-column field="last_login_at" label="Last login at" centered sortable>
         <template v-if="props.row.last_login_at">
           {{ props.row.last_login_at | moment('MMM DD, YYYY hh:mm A') }}
         </template>

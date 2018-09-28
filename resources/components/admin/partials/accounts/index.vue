@@ -19,7 +19,7 @@
         {{ props.row.department ? props.row.department.name : 'N/A' }}
       </b-table-column>
       
-      <b-table-column field="last_login_at" label="Last login at" sortable>
+      <b-table-column field="last_login_at" label="Last login at" centered sortable>
         <template v-if="props.row.last_login_at">
           <span :title="props.row.last_login_at | moment('MMM DD, YYYY hh:mm A')">
             {{ props.row.last_login_at | moment('from') }}
