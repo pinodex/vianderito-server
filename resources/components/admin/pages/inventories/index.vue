@@ -44,15 +44,15 @@
           </div>
         </div>
 
-        <inventories :query="query"></inventories>
-
         <div class="tags legends">
-          <span class="tag is-medium">Normal</span>
-          <span class="tag is-black is-medium">No Stock</span>
-          <span class="tag is-warning is-medium">Needs to Order</span>
-          <span class="tag is-danger is-medium">Critical</span>
-          <span class="tag is-info is-medium">Overstocked</span>
+          <span class="tag is-small">Normal</span>
+          <span class="tag is-black is-small">No Stock</span>
+          <span class="tag is-warning is-small">Needs to Order</span>
+          <span class="tag is-danger is-small">Critical</span>
+          <span class="tag is-info is-small">Overstocked</span>
         </div>
+
+        <inventories :query="query"></inventories>
       </div>
     </div>
 
