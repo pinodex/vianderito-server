@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-fixed-top has-shadow" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <div class="navbar-item">
         <img src="/assets/img/logo-admin-black.png" class="is-hidden-touch">
