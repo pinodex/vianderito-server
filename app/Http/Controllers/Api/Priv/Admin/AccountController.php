@@ -213,6 +213,10 @@ class AccountController extends Controller
      */
     public function disable(Request $request, Model $model)
     {
+        if ($model->id == $this->admin->user()->id) {
+            abort(422, 'You cannot disable your own account');
+        }
+
         $model->is_enabled = false;
         $model->save();
 
