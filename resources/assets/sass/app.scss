@@ -60,8 +60,12 @@ a {
 .navbar {
   height: $navbar-height;
 
-  .navbar-brand .navbar-item img {
-    max-height: 100%;
+  .navbar-brand .navbar-item {
+    padding: 0;
+
+    img {
+      max-height: 52px;
+    }
   }
 
   .navbar-burger {
@@ -80,6 +84,10 @@ a {
         width: 300px;
         height: 72px;
         padding: 0;
+
+        img {
+          max-height: 100%;
+        }
       }
     }
 
