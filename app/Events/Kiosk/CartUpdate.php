@@ -33,11 +33,15 @@ class CartUpdate implements ShouldBroadcast
         ->unique(function (ProductEpc $epc) {
             return $epc->product->id;
         })
-        ->map(function (ProductEpc $epc) use ($quantites) {
+        ->filter(function (ProductEpc $epc) use ($quantites) {
             $quantity = $quantites->get($epc->product->id);
             $inventory  = $epc->product->selectNextInventory($quantity);
 
-            if (!$inventory) return false;
+            return $inventory != null;
+        })
+        ->map(function (ProductEpc $epc) use ($quantites) {
+            $quantity = $quantites->get($epc->product->id);
+            $inventory  = $epc->product->selectNextInventory($quantity);
 
             return [
                 'product_id' => $epc->product_id,

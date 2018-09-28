@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\V1\Cart;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Events\Kiosk\NewTransaction;
+use App\Events\PurchaseComplete;
 use App\Models\Transaction;
 use App\Models\Payment;
 
@@ -86,6 +88,8 @@ class TransactionController extends Controller
         
         $purchase->load('products');
 
+        event(new PurchaseComplete($purchase));
+
         return $payment;
     }
 
@@ -93,15 +97,17 @@ class TransactionController extends Controller
      * Delete transaction
      * 
      * @param  Request     $request     Request object
-     * @param  Transaction $transaction Transaction model
+     * @param  string      $id Transaction id
      * @return mixed
      */
-    public function delete(Request $request, Transaction $model) {
-        if ($model->status != 'pending') {
-            abort(401);
+    public function delete(Request $request, $id) {
+        $transaction = Transaction::find($id);
+
+        if ($transaction && $transaction->status == 'pending') {
+            $transaction->delete();
         }
 
-        $model->delete();
+        event(new NewTransaction);
 
         return response(null, 202);
     }
