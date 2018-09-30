@@ -41,21 +41,28 @@ class PaymentController extends Controller
             'paymentMethodToken' => $customer->token
         ]);
 
-        if ($result->success) {
-            return Payment::create([
-                'user_id' => $user->id,
-                'gateway_id' => $result->transaction->id,
-                'amount' => $result->transaction->amount,
-                'status' => $result->transaction->status
-            ]);
+        if (!$result->success) {
+            $verification = $result->creditCardVerification;
+
+            if ($verification) {
+                return response()->json([
+                    'status' => $verification->status,
+                    'response_code' => $verification->processorResponseCode,
+                    'response_text' => $verification->processorResponseText,
+                    'message' => $verification->processorResponseText
+                ], 422);
+            }
+
+            return response()->json([
+                'message' => 'Unable to complete payment. Please try again with a different payment method'
+            ], 422);
         }
 
-        $verification = $result->creditCardVerification;
-
-        return response()->json([
-            'status' => $verification->status,
-            'response_code' => $verification->processorResponseCode,
-            'response_text' => $verification->processorResponseText
-        ], 422);
+        return Payment::create([
+            'user_id' => $user->id,
+            'gateway_id' => $result->transaction->id,
+            'amount' => $result->transaction->amount,
+            'status' => $result->transaction->status
+        ]);
     }
 }
