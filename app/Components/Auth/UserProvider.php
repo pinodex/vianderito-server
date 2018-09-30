@@ -38,6 +38,10 @@ class UserProvider implements BaseUserProvider
 
     public function retrieveByCredentials(array $credentials)
     {
+        if (!isset($credentials['id'])) {
+            return null;
+        }
+        
         $query = User::with($this->relations)
             ->where('username', $credentials['id'])
             ->orWhere('email_address', $credentials['id']);
