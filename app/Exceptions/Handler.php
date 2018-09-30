@@ -13,7 +13,8 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        \Tymon\JWTAuth\Exceptions\TokenExpiredException::class,
+        \Tymon\JWTAuth\Exceptions\JWTException::class
     ];
 
     /**
