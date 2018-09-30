@@ -46,32 +46,43 @@ class CustomerController extends Controller
             'lastName' => $data['last_name'],
             'paymentMethodNonce' => $data['nonce'],
             'creditCard' => [
-                    'billingAddress' => [
+                'billingAddress' => [
                     'streetAddress' => $data['address'],
                     'locality' => $data['city'],
                     'region' => $data['state'],
                     'countryName' => $data['country'],
                     'postalCode' => $data['postal_code']
+                ],
+
+                'options' => [
+                    'verifyCard' => true
                 ]
             ]
         ]);
 
-        if ($result->success) {
-            $customer = $this->api->user()->gatewayCustomers()->create([
-                'customer_id' => $result->customer->id,
-                'token' => $result->customer->paymentMethods[0]->token,
-                'type' => $data['type'],
-                'last_four' => $data['last_four'],
-                'expiration_month' => $data['expiration_month'],
-                'expiration_year' => $data['expiration_year']
-            ]);
+        if (!$result->success) {
+            if ($result->creditCardVerification) {
+                return response()->json([
+                    'message' => sprintf('An error occurred while saving customer data with error code %s (%s)',
+                        $result->creditCardVerification->processorResponseCode,
+                        $result->creditCardVerification->processorResponseText
+                    )
+                ], 422);
+            }
 
-            return $customer;
+            return response()->json([
+                'message' => 'An error occurred while saving customer data'
+            ], 422);   
         }
 
-        return response()->json([
-            'message' => 'An error occurred while saving customer data'
-        ], 422);
+        return $this->api->user()->gatewayCustomers()->create([
+            'customer_id' => $result->customer->id,
+            'token' => $result->customer->paymentMethods[0]->token,
+            'type' => $data['type'],
+            'last_four' => $data['last_four'],
+            'expiration_month' => $data['expiration_month'],
+            'expiration_year' => $data['expiration_year']
+        ]);
     }
 
     /**
