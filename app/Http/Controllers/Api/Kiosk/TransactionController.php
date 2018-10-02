@@ -30,7 +30,7 @@ class TransactionController extends Controller
     public function setProducts(Request $request, Transaction $model)
     {
         if ($model->status != Transaction::STATUS_PENDING) {
-            return response(null, 422);
+            return response(null, 204);
         }
 
         $ids = $request->input();

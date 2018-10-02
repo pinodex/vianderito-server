@@ -125,9 +125,11 @@ class Transaction extends Model
     /**
      * Lock transaction
      */
-    public function lockTransaction()
+    public function lockTransaction(User $user)
     {
         $this->status = self::STATUS_LOCKED;
+        
+        $this->user()->associate($user);
 
         $this->save();
     }
@@ -218,6 +220,11 @@ class Transaction extends Model
     public function coupon()
     {
         return $this->belongsTo(Coupon::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function inventories()

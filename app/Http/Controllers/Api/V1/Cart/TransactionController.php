@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Events\Kiosk\NewTransaction;
+use App\Events\Kiosk\CartUpdate;
 use App\Events\PurchaseComplete;
 use App\Models\Transaction;
 use App\Models\Payment;
@@ -60,7 +61,7 @@ class TransactionController extends Controller
             ], 422);
         }
 
-        $model->lockTransaction();
+        $model->lockTransaction($this->api->user());
 
         $model->load('inventories', 'inventories.product');
 
@@ -170,5 +171,38 @@ class TransactionController extends Controller
         event(new NewTransaction);
 
         return response(null, 202);
+    }
+
+    /**
+     * Delete transaction item
+     * 
+     * @param  Request     $request     Request object
+     * @param  string      $id Transaction id
+     * @return mixed
+     */
+    public function deleteItem(Request $request, $id)
+    {
+        $transaction = Transaction::find($id);
+        $inventoryId = $request->input('inventory_id');
+
+        if (!$transaction) {
+            return response()->json([
+                'message' => 'Cannot find inventory'
+            ], 422);
+        }
+
+        $transaction->inventories()->detach($inventoryId);
+        
+        $transaction->load('inventories', 'inventories.product');
+
+        event(new CartUpdate($transaction->inventories));
+
+        if ($transaction->inventories->count() == 0) {
+            event(new NewTransaction);
+        }
+
+        return response()->json([
+            'message' => 'Item removed'
+        ], 202);
     }
 }
