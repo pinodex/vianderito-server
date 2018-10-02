@@ -12,6 +12,12 @@ class Transaction extends Model
 {
     use SoftDeletes;
 
+    const STATUS_PENDING = 'pending';
+
+    const STATUS_LOCKED = 'locked';
+
+    const STATUS_COMPLETE = 'complete';
+
     public $incrementing = false;
 
     public $fillable = [
@@ -50,28 +56,27 @@ class Transaction extends Model
     {
         $data = collect($data);
 
-        $ids = [];
-        $quantites = [];
+        $ids = $data->pluck('product_id');
 
-        $data->each(function ($entry) use (&$ids, &$quantites) {
-            $ids[] = $entry['product_id'];
-
-            $quantites[$entry['product_id']] = $entry['quantity'];
+        $quantites = $data->keyBy('product_id')->map(function ($entry) {
+            return $entry['quantity'];
         });
 
-        $this->inventories()->sync([]);
+        $items = $this->inventories->keyBy('id')->map(function ($entry) {
+            return ['quantity' => $entry->pivot->quantity];
+        });
 
         Product::whereIn('id', $ids)->get()
-            ->each(function (Product $product) use ($quantites) {
+            ->each(function (Product $product) use ($quantites, &$items) {
                 $quantity = $quantites[$product->id];
                 $inventory = $product->selectNextInventory($quantity);
 
                 if ($inventory) {
-                    $this->inventories()->attach($inventory->id, [
-                        'quantity' => $quantity
-                    ]);
+                    $items[$inventory->id] = ['quantity' => $quantity];
                 }
             });
+
+        $this->inventories()->sync($items->all());
     }
 
     /**
@@ -110,11 +115,21 @@ class Transaction extends Model
             $purchase->discounted_amount = $this->total;
             $purchase->save();
 
-            $this->status = 'complete';
+            $this->status = self::STATUS_COMPLETE;
             $this->save();
         });
 
         return $purchase;
+    }
+
+    /**
+     * Lock transaction
+     */
+    public function lockTransaction()
+    {
+        $this->status = self::STATUS_LOCKED;
+
+        $this->save();
     }
 
     /**

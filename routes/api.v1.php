@@ -97,6 +97,7 @@ Route::group(['prefix' => 'cart', 'namespace' => 'Cart'], function () {
 
     Route::group(['prefix' => 'transactions'], function () {
         Route::get('/{model}', 'TransactionController@get');
+        Route::post('/{model}', 'TransactionController@take');
         Route::delete('/{id}', 'TransactionController@delete');
 
         Route::post('/{model}/coupon', 'TransactionController@coupon');

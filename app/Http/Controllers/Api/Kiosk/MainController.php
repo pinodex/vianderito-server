@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Kiosk;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Events\Kiosk\CartUpdate;
 use App\Events\TagReceive;
+use App\Models\ProductEpc;
 use App\Models\Product;
 
 class MainController extends Controller
@@ -35,7 +35,6 @@ class MainController extends Controller
         $epcs = $request->input('epcs');
         $models = Product::getProductsByEpcs($epcs);
 
-        event(new CartUpdate($models));
         event(new TagReceive($epcs));
 
         return response(null, 202);
@@ -56,5 +55,33 @@ class MainController extends Controller
         }
 
         return response(null, 202);
+    }
+
+    /**
+     * Get products by EPC
+     * @param  Request $request [description]
+     * @return array
+     */
+    public function products(Request $request)
+    {
+        $epcs = $request->input();
+        $products = collect([]);
+
+        ProductEpc::whereIn('code', $epcs)->get()
+            ->each(function (ProductEpc $epc) use (&$products) {
+                $id = $epc->product->id;
+                $quantity = 0;
+
+                if (isset($products[$id])) {
+                    $quantity = $products[$id]['quantity'];
+                }
+                
+                $products[$id] = [
+                    'product_id' => $id,
+                    'quantity' => $quantity + 1
+                ];
+            });
+
+        return $products->values();
     }
 }

@@ -28,9 +28,39 @@ class TransactionController extends Controller
      */
     public function get(Request $request, Transaction $model)
     {
-        if ($model->status != 'pending') {
-            abort(401);
+        if ($model->status == Transaction::STATUS_COMPLETE) {
+            return response()->json([
+                'message' => 'Transaction is already complete'
+            ], 422);
         }
+
+        $model->load('inventories', 'inventories.product');
+
+        return $model;
+    }
+
+    /**
+     * Take transaction
+     * 
+     * @param  Request     $request     Request object
+     * @param  Transaction $transaction Transaction model
+     * @return mixed
+     */
+    public function take(Request $request, Transaction $model)
+    {
+        if ($model->status == Transaction::STATUS_LOCKED) {
+            return response()->json([
+                'message' => 'Transaction is in use by another user'
+            ], 422);
+        }
+
+        if ($model->status == Transaction::STATUS_COMPLETE) {
+            return response()->json([
+                'message' => 'Transaction is already complete'
+            ], 422);
+        }
+
+        $model->lockTransaction();
 
         $model->load('inventories', 'inventories.product');
 
@@ -90,7 +120,7 @@ class TransactionController extends Controller
      */
     public function purchase(Request $request, Transaction $model)
     {
-        if ($model->status != 'pending') {
+        if ($model->status != Transaction::STATUS_PENDING) {
             return response()->json([
                 'message' => 'Transaction is not pending'
             ], 401);
@@ -133,7 +163,7 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::find($id);
 
-        if ($transaction && $transaction->status == 'pending') {
+        if ($transaction && $transaction->status == Transaction::STATUS_PENDING) {
             $transaction->delete();
         }
 

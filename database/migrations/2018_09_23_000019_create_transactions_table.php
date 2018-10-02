@@ -16,6 +16,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->uuid('user_id')->nullable();
             $table->uuid('coupon_id')->nullable();
 
             $table->string('status');
@@ -23,6 +24,7 @@ class CreateTransactionsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('set null');
         });
     }

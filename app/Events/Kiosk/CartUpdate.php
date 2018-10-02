@@ -21,37 +21,9 @@ class CartUpdate implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($epcs)
+    public function __construct($inventories)
     {
-        $quantites = collect([]);
-        
-        $data = $epcs->each(function (ProductEpc $epc) use ($quantites) {
-            $currentQuantity = $quantites->get($epc->product->id) ?? 0;
-
-            $quantites->put($epc->product->id, $currentQuantity + 1);
-        })
-        ->unique(function (ProductEpc $epc) {
-            return $epc->product->id;
-        })
-        ->filter(function (ProductEpc $epc) use ($quantites) {
-            $quantity = $quantites->get($epc->product->id);
-            $inventory  = $epc->product->selectNextInventory($quantity);
-
-            return $inventory != null;
-        })
-        ->map(function (ProductEpc $epc) use ($quantites) {
-            $quantity = $quantites->get($epc->product->id);
-            $inventory  = $epc->product->selectNextInventory($quantity);
-
-            return [
-                'product_id' => $epc->product_id,
-                'quantity' => $quantity,
-                'subtotal' => $quantity * $inventory->price,
-                'product' => $epc->product
-            ];
-        });
-
-        $this->data = $data->values()->all();
+        $this->data = $inventories->toArray();
     }
 
     /**

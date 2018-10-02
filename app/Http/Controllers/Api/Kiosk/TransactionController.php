@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api\Kiosk;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Transaction as Model;
+use App\Events\Kiosk\CartUpdate;
+use App\Models\Transaction;
 
 class TransactionController extends Controller
 {
@@ -15,8 +16,8 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        return Model::create([
-            'status' => 'pending'
+        return Transaction::create([
+            'status' => Transaction::STATUS_PENDING
         ]);
     }
 
@@ -24,13 +25,21 @@ class TransactionController extends Controller
      * Set transaction selected products
      * 
      * @param Request $request Request object
-     * @param Model $model Model instance
+     * @param Transaction $model Transaction instance
      */
-    public function setProducts(Request $request, Model $model)
+    public function setProducts(Request $request, Transaction $model)
     {
+        if ($model->status != Transaction::STATUS_PENDING) {
+            return response(null, 422);
+        }
+
         $ids = $request->input();
 
         $model->addInventoriesFromProductIds($ids);
+
+        $model->load('inventories.product');
+
+        event(new CartUpdate($model->inventories));
 
         return response(null, 202);
     }
