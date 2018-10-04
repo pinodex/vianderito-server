@@ -121,10 +121,16 @@ class TransactionController extends Controller
      */
     public function purchase(Request $request, Transaction $model)
     {
-        if ($model->status != Transaction::STATUS_PENDING) {
+        if ($model->status == Transaction::STATUS_PENDING) {
             return response()->json([
-                'message' => 'Transaction is not pending'
-            ], 401);
+                'message' => 'Transaction is still pending'
+            ], 422);
+        }
+
+        if ($model->status == Transaction::STATUS_COMPLETE) {
+            return response()->json([
+                'message' => 'Transaction is already complete'
+            ], 422);
         }
 
         $payment = Payment::findOrFail($request->input('payment_id'));
