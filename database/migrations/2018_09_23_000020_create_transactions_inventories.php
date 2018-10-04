@@ -18,6 +18,7 @@ class CreateTransactionsInventories extends Migration
             $table->uuid('inventory_id');
 
             $table->integer('quantity');
+            $table->text('epcs');
 
             $table->primary(['transaction_id', 'inventory_id']);
 

@@ -58,8 +58,11 @@ class Transaction extends Model
 
         $ids = $data->pluck('product_id');
 
-        $quantites = $data->keyBy('product_id')->map(function ($entry) {
-            return $entry['quantity'];
+        $pivots = $data->keyBy('product_id')->map(function ($entry) {
+            return [
+                'quantity' => $entry['quantity'],
+                'epcs' => implode(',', $entry['epcs'])
+            ];
         });
 
         $items = $this->inventories->keyBy('id')->map(function ($entry) {
@@ -67,12 +70,12 @@ class Transaction extends Model
         });
 
         Product::whereIn('id', $ids)->get()
-            ->each(function (Product $product) use ($quantites, &$items) {
-                $quantity = $quantites[$product->id];
-                $inventory = $product->selectNextInventory($quantity);
+            ->each(function (Product $product) use ($pivots, &$items) {
+                $pivot = $pivots[$product->id];
+                $inventory = $product->selectNextInventory($pivot['quantity']);
 
                 if ($inventory) {
-                    $items[$inventory->id] = ['quantity' => $quantity];
+                    $items[$inventory->id] = $pivot;
                 }
             });
 
@@ -106,9 +109,15 @@ class Transaction extends Model
                 $purchaseProduct->upc = $inventory->product->upc;
                 $purchaseProduct->price = $inventory->price;
                 $purchaseProduct->quantity = $inventory->pivot->quantity;
-                $purchaseProduct->subtotal = $inventory->price * $inventory->pivot->quantity;;
+                $purchaseProduct->subtotal = $inventory->price * $inventory->pivot->quantity;
 
                 $purchaseProduct->save();
+
+                collect(explode(',', $inventory->pivot->epcs))->each(function ($epc) {
+                    if (!empty($epc)) {
+                        ClearedEpc::create(['code' => $epc]);
+                    }
+                });
             });
 
             $purchase->amount = $this->original_total;
@@ -230,7 +239,7 @@ class Transaction extends Model
     public function inventories()
     {
         return $this->belongsToMany(Inventory::class, 'transactions_inventories')
-            ->withPivot('quantity');
+            ->withPivot('quantity', 'epcs');
     }
 
     public function purchase()

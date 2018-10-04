@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductEpc extends Model
 {
+    const STATUS_OPEN = 'open';
+
+    const STATUS_CLEARED = 'cleared';
+
+    const STATUS_HOLD = 'hold';
+
     public $incrementing = false;
 
     public $timestamps = false;

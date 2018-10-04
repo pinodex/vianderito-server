@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Kiosk;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Events\TagReceive;
+use App\Models\ClearedEpc;
 use App\Models\ProductEpc;
 use App\Models\Product;
 
@@ -71,17 +72,35 @@ class MainController extends Controller
             ->each(function (ProductEpc $epc) use (&$products) {
                 $id = $epc->product->id;
                 $quantity = 0;
+                $epcs = [];
 
                 if (isset($products[$id])) {
                     $quantity = $products[$id]['quantity'];
+                    $epcs = $products[$id]['epcs'];
                 }
+
+                $epcs[] = $epc->code;
                 
                 $products[$id] = [
                     'product_id' => $id,
-                    'quantity' => $quantity + 1
+                    'quantity' => $quantity + 1,
+                    'epcs' => $epcs
                 ];
             });
 
         return $products->values();
+    }
+
+    /**
+     * Check item clearance by EPC
+     * 
+     * @param  Request $request Request object
+     * @return array
+     */
+    public function clearance(Request $request)
+    {
+        $epcs = $request->input();
+
+        return ClearedEpc::check($epcs);
     }
 }
