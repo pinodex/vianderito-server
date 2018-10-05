@@ -93,7 +93,7 @@ class UserController extends Controller
      */
     public function purchases(Request $request, Model $model)
     {
-        return $model->purchases()->paginate(20);
+        return $model->purchases()->with('products')->paginate(20);
     }
 
     /**

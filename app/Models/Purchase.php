@@ -16,10 +16,6 @@ class Purchase extends Model
         'discounted_amount'
     ];
 
-    public $with = [
-        'products'
-    ];
-
     protected $casts = [
         'amount' => 'float',
         'discounted_amount' => 'float',
