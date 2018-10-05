@@ -55,13 +55,32 @@ class Transaction extends Model
     public function addInventoriesFromProductIds($data)
     {
         $data = collect($data);
-
         $ids = $data->pluck('product_id');
 
-        $pivots = $data->keyBy('product_id')->map(function ($entry) {
+        $existingInventories = $this->inventories->keyBy('product_id');
+
+        $pivots = $data->keyBy('product_id')->map(function ($entry) use ($existingInventories) {
+            $quantity = $entry['quantity'];
+            $epcs = $entry['epcs'];
+
+            if ($existingInventories->has($entry['product_id'])) {
+                $inventory = $existingInventories->get($entry['product_id']);
+
+                $existingQuantity = $inventory->pivot->quantity;
+                $existingEpcs = array_filter(explode(',', $inventory->pivot->epcs));
+
+                if ($existingQuantity > $quantity) {
+                    $quantity = $existingQuantity;
+                }
+
+                if (count($existingEpcs) > count($entry['epcs'])) {
+                    $epcs = $existingEpcs;
+                }
+            }
+
             return [
-                'quantity' => $entry['quantity'],
-                'epcs' => implode(',', $entry['epcs'])
+                'quantity' => $quantity,
+                'epcs' => implode(',', $epcs)
             ];
         });
 
