@@ -100,6 +100,12 @@
       </div>
     </div>
 
+    <div class="field">
+      <div class="control">
+        <b-checkbox v-model="hasExpirationDate">This inventory expires</b-checkbox>
+      </div>
+    </div>
+
     <div class="columns">
       <div class="column">
         <div class="field">
@@ -117,21 +123,23 @@
         </div>
       </div>
 
-      <div class="column">
-        <div class="field">
-          <label class="label">Expiration Date</label>
+      <transition name="fade">
+        <div class="column" v-if="hasExpirationDate">
+          <div class="field">
+            <label class="label">Expiration Date</label>
 
-          <b-datepicker inline
-            icon="calendar"
-            placeholder="Click to select date"
-            v-model="dates.expiration_date"
-            :date-formatter="formatDate"
-            :date-parser="parseDate"
-            :min-date="expirationDateMin" />
+            <b-datepicker inline
+              icon="calendar"
+              placeholder="Click to select date"
+              v-model="dates.expiration_date"
+              :date-formatter="formatDate"
+              :date-parser="parseDate"
+              :min-date="expirationDateMin" />
 
-          <p class="help is-danger" v-for="message in errors.expiration_date">{{ message }}</p>
+            <p class="help is-danger" v-for="message in errors.expiration_date">{{ message }}</p>
+          </div>
         </div>
-      </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -168,6 +176,8 @@
 
         maskedPrice: '',
         maskedCost: '',
+
+        hasExpirationDate: true,
 
         dates: {
           batch_date: null,
@@ -209,6 +219,10 @@
         this.dates.expiration_date = this.parseDate(this.model.expiration_date)
       }
 
+      if (!this.model.expiration_date) {
+        this.hasExpirationDate = false
+      }
+
       if (this.model.price) {
         this.maskedPrice = this.model.price
         this.model.price = String(this.model.price)
@@ -233,11 +247,26 @@
           for (let key in values) {
             if (!values.hasOwnProperty(key)) return
 
-            this.model[key] = this.formatDate(values[key])
+            let formattedDate = this.formatDate(values[key])
+            this.model[key] = null
+
+            if (moment(formattedDate).isValid()) {
+              this.model[key] = formattedDate
+            }
           }
         },
 
         deep: true
+      },
+
+      hasExpirationDate (value) {
+        if (!value) {
+          this.model.expiration_date = null
+
+          return
+        }
+
+        this.model.expiration_date = this.formatDate(this.dates.expiration_date)
       }
     },
 

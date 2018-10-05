@@ -38,7 +38,7 @@ class SaveInventory extends FormRequest
                 'before_or_equal:' . date('Y-m-d')
             ],
 
-            'expiration_date'   => 'required|date|after_or_equal:batch_date'
+            'expiration_date'   => 'sometimes|nullable|date|after_or_equal:batch_date'
         ];
 
         if ($model) {

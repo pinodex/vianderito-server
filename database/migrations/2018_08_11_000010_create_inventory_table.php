@@ -24,7 +24,7 @@ class CreateInventoryTable extends Migration
             $table->decimal('price', 8, 2);
 
             $table->date('batch_date');
-            $table->date('expiration_date');
+            $table->date('expiration_date')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

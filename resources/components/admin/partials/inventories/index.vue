@@ -56,9 +56,11 @@
       </b-table-column>
 
       <b-table-column field="expiration_date" label="Expiration" centered sortable>
-        <span :class="{ 'has-text-weight-bold': props.row.is_expired }">
+        <span :class="{ 'has-text-weight-bold': props.row.is_expired }" v-if="props.row.expiration_date">
           {{ props.row.expiration_date | moment('MMM DD, YYYY') }}
         </span>
+
+        <template v-else>N/A</template>
       </b-table-column>
 
       <b-table-column field="created_at" label="Date Added" centered sortable>

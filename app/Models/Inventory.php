@@ -218,6 +218,9 @@ class Inventory extends Model
      */
     public function getIsExpiredAttribute()
     {
+        if (!$this->expiration_date)
+            return false;
+
         return now()->gte($this->expiration_date);
     }
 
@@ -228,6 +231,9 @@ class Inventory extends Model
      */
     public function getIsNearExpirationAttribute()
     {
+        if (!$this->expiration_date)
+            return false;
+        
         return now()->diffInDays($this->expiration_date) <= 5;
     }
 }
