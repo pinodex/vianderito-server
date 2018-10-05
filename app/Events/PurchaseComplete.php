@@ -27,7 +27,12 @@ class PurchaseComplete implements ShouldBroadcast
      */
     public function __construct(Purchase $purchase)
     {
-        $this->purchase = $purchase;
+        $this->purchase = [
+            'user' => [
+                'name' => $purchase->user->name,
+                'picture' => $purchase->user->picture
+            ]
+        ];
     }
 
     /**
@@ -57,6 +62,6 @@ class PurchaseComplete implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        return $this->purchase->toArray();
+        return $this->purchase;
     }
 }

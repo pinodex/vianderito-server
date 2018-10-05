@@ -154,7 +154,7 @@ class TransactionController extends Controller
 
         $purchase = $model->moveToPurchases($this->api->user());
 
-        event(new PurchaseComplete());
+        event(new PurchaseComplete($purchase));
 
         return $payment;
     }
