@@ -29,7 +29,8 @@ class Product extends Model
     ];
 
     public $appends = [
-        'picture'
+        'picture',
+        'front_inventory'
     ];
 
     protected $casts = [
@@ -65,7 +66,7 @@ class Product extends Model
      */
     public static function getProductsByEpcs($codes)
     {
-        $epc = ProductEpc::with('product', 'product.frontInventory')
+        $epc = ProductEpc::with('product')
             ->whereIn('code', $codes)
             ->get();
 
@@ -159,12 +160,8 @@ class Product extends Model
         return $this->hasMany(ProductEpc::class);
     }
 
-    public function frontInventory()
+    public function getFrontInventoryAttribute()
     {
-        $frontInventory = $this->hasOne(Inventory::class)
-            ->orderBy('batch_date', 'ASC')
-            ->where('expiration_date', '>', date('Y-m-d'));
-
-        return $frontInventory;
+        return $this->selectNextInventory();
     }
 }

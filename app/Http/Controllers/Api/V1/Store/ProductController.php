@@ -26,7 +26,6 @@ class ProductController extends Controller
         }
 
         $products = Product::search($query);
-        $products->with('frontInventory');
 
         return $products->paginate($perPage);
     }
@@ -54,8 +53,6 @@ class ProductController extends Controller
      */
     public function view(Request $request, Product $model)
     {
-        $model->load('frontInventory');
-
         return $model;
     }
 
