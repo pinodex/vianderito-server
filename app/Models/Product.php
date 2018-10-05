@@ -81,6 +81,10 @@ class Product extends Model
     {
         return $this->inventories->sortBy('batch_date')
             ->first(function (Inventory $inventory, $key) use ($quantity) {
+                if ($inventory->expiration_date == null) {
+                    return true;
+                }
+                
                 return now()->lessThan($inventory->expiration_date) &&
                     $inventory->stocks >= $quantity;
                 });
