@@ -153,10 +153,8 @@ class TransactionController extends Controller
         $payment->save();
 
         $purchase = $model->moveToPurchases($this->api->user());
-        
-        $purchase->load('products');
 
-        event(new PurchaseComplete($purchase));
+        event(new PurchaseComplete());
 
         return $payment;
     }
