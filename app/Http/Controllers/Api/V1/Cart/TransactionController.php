@@ -49,7 +49,9 @@ class TransactionController extends Controller
      */
     public function take(Request $request, Transaction $model)
     {
-        if ($model->status == Transaction::STATUS_LOCKED) {
+        $user = $this->api->user();
+
+        if ($model->status == Transaction::STATUS_LOCKED && $model->user_id != $user->id) {
             return response()->json([
                 'message' => 'Transaction is in use by another user'
             ], 422);
@@ -61,7 +63,7 @@ class TransactionController extends Controller
             ], 422);
         }
 
-        $model->lockTransaction($this->api->user());
+        $model->lockTransaction($user);
 
         $model->load('inventories', 'inventories.product');
 
