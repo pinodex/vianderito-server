@@ -172,6 +172,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function purchases()
     {
-        return $this->hasMany(Purchase::class);
+        return $this->hasMany(Purchase::class)->orderBy('created_at', 'DESC');
     }
 }

@@ -34,6 +34,7 @@ class OrderController extends Controller
     public function view(Request $request, Purchase $model)
     {
         $model->load('products.product');
+        
         $model->append('products_count');
 
         return $model;
