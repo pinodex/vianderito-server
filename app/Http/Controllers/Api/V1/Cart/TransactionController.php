@@ -87,6 +87,10 @@ class TransactionController extends Controller
             return response()->json(['message' => 'Invalid or expired coupon code'], 422);
         }
 
+        if ($coupon->remainder <= 0) {
+            return response()->json(['message' => 'The coupon code has ran out'], 422);
+        }
+
         $eligible = $coupon->isTransactionEligible($model);
         
         if (!$eligible) {
