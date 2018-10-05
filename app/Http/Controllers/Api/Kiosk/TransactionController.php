@@ -39,22 +39,7 @@ class TransactionController extends Controller
 
         $model->load('inventories.product');
 
-        $data = $model->inventories->map(function ($entry) {
-            return [
-                'product' => [
-                    'name' => $entry->product->name,
-                    'picture' => $entry->product->picture
-                ],
-
-                'price' => $entry->price,
-
-                'pivot' => [
-                    'quantity' => $entry->pivot->quantity
-                ]
-            ];
-        });
-
-        event(new CartUpdate($data));
+        event(new CartUpdate($model->inventories));
 
         return response(null, 202);
     }

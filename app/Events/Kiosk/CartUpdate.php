@@ -23,7 +23,20 @@ class CartUpdate implements ShouldBroadcast
      */
     public function __construct($inventories)
     {
-        $this->data = $inventories->toArray();
+        $this->data = $inventories->map(function ($entry) {
+            return [
+                'product' => [
+                    'name' => $entry->product->name,
+                    'picture' => $entry->product->picture
+                ],
+
+                'price' => $entry->price,
+
+                'pivot' => [
+                    'quantity' => $entry->pivot->quantity
+                ]
+            ];
+        })->toArray();
     }
 
     /**
