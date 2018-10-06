@@ -66,7 +66,7 @@
         </b-table-column>
 
         <b-table-column field="coupon.discount_price" label="Coupon Discount Price" numeric sortable>
-          <template v-if="props.row.coupon">
+          <template v-if="props.row.coupon && props.row.column.discount_price">
             {{ props.row.coupon.discount_price | currency('₱') }}
           </template>
 
@@ -74,7 +74,7 @@
         </b-table-column>
 
         <b-table-column field="coupon.discount_percentage" label="Coupon Discount Percentage" numeric sortable>
-          <template v-if="props.row.coupon">
+          <template v-if="props.row.coupon && props.row.coupon.discount_percentage">
             {{ props.row.coupon.discount_percentage + '%' }}
           </template>
 
